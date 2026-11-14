@@ -22,9 +22,15 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
   const [cupomAtual, setCupomAtual] = useState<Venda | null>(null);
   const [salvando, setSalvando] = useState(false);
 
+  const saboresPizza = produtos.filter(
+    p => !p.categoria.toLowerCase().includes('bebida') && !p.categoria.toLowerCase().includes('monte')
+  );
+  const [sabor1Id, setSabor1Id] = useState<number>(() => saboresPizza[0]?.id || produtos[0]?.id || 0);
+  const [sabor2Id, setSabor2Id] = useState<number>(() => saboresPizza[1]?.id || saboresPizza[0]?.id || 0);
+
   const adicionar = (produto: Produto) => {
     setCarrinho(prev => {
-      const idx = prev.findIndex(i => i.produto.id === produto.id);
+      const idx = prev.findIndex(i => i.produto.id === produto.id && i.produto.nome === produto.nome);
       if (idx >= 0) {
         return prev.map((item, k) => (k === idx ? { ...item, qtd: item.qtd + 1 } : item));
       }
@@ -32,7 +38,16 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
     });
   };
 
-  const remover = (id: number) => setCarrinho(prev => prev.filter(i => i.produto.id !== id));
+  const adicionarMeioAMeio = () => {
+    const p1 = produtos.find(p => p.id === Number(sabor1Id)) || saboresPizza[0];
+    const p2 = produtos.find(p => p.id === Number(sabor2Id)) || saboresPizza[1] || p1;
+    if (!p1 || !p2) return;
+    const base = p1.preco >= p2.preco ? p1 : p2;
+    adicionar({ ...base, nome: `1/2 ${p1.nome} + 1/2 ${p2.nome}`, preco: Math.max(p1.preco, p2.preco) });
+  };
+
+  const remover = (id: number, nome: string) =>
+    setCarrinho(prev => prev.filter(i => !(i.produto.id === id && i.produto.nome === nome)));
   const total = carrinho.reduce((s, i) => s + i.produto.preco * i.qtd, 0);
 
   const finalizarVenda = async () => {
@@ -119,6 +134,20 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
               📱 Abrir Cardápio Tablet / Celular
             </a>
           </div>
+          {saboresPizza.length > 0 && (
+            <div className="mb-4 p-3 rounded-xl bg-rose-50/70 border border-[#8B0029]/25 grid grid-cols-1 sm:grid-cols-5 gap-2 items-center text-xs">
+              <div className="font-black text-[#8B0029] sm:col-span-5">🍕 Montar Pizza 1/2 a 1/2 (preço do maior sabor)</div>
+              <select value={sabor1Id} onChange={e => setSabor1Id(Number(e.target.value))} className="sm:col-span-2 bg-white border border-zinc-300 rounded-lg px-2.5 py-2 font-semibold">
+                {saboresPizza.map(p => <option key={p.id} value={p.id}>1/2 {p.nome} (R$ {p.preco.toFixed(2)})</option>)}
+              </select>
+              <select value={sabor2Id} onChange={e => setSabor2Id(Number(e.target.value))} className="sm:col-span-2 bg-white border border-zinc-300 rounded-lg px-2.5 py-2 font-semibold">
+                {saboresPizza.map(p => <option key={p.id} value={p.id}>1/2 {p.nome} (R$ {p.preco.toFixed(2)})</option>)}
+              </select>
+              <button type="button" onClick={adicionarMeioAMeio} className="bg-[#8B0029] hover:bg-[#A50034] text-white font-bold rounded-lg py-2 px-3 transition">
+                + Add 1/2 a 1/2
+              </button>
+            </div>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
             {produtos.map(p => (
               <button
@@ -163,11 +192,11 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
             <div className="space-y-1.5 max-h-40 overflow-y-auto border-t border-zinc-100 pt-2">
               {carrinho.length === 0 && <p className="text-xs text-zinc-400">Nenhum item selecionado.</p>}
               {carrinho.map(i => (
-                <div key={i.produto.id} className="flex items-center justify-between text-xs">
+                <div key={`${i.produto.id}_${i.produto.nome}`} className="flex items-center justify-between text-xs">
                   <span className="font-semibold text-zinc-800">{i.qtd}x {i.produto.nome}</span>
                   <div className="flex items-center gap-2">
                     <span className="font-bold">R$ {(i.qtd * i.produto.preco).toFixed(2)}</span>
-                    <button onClick={() => remover(i.produto.id)} className="text-rose-600"><Trash2 className="w-3.5 h-3.5" /></button>
+                    <button onClick={() => remover(i.produto.id, i.produto.nome)} className="text-rose-600"><Trash2 className="w-3.5 h-3.5" /></button>
                   </div>
                 </div>
               ))}
