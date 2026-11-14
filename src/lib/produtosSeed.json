@@ -1,0 +1,488 @@
+[
+  {
+    "id": 401,
+    "nome": "Pizza Grande 1 Sabor (35cm - 8 pedaços)",
+    "categoria": "Monte sua Pizza",
+    "preco": 59.99,
+    "estoque": 99,
+    "descricao": "35cm - 8 pedaços (borda de catupiry grátis nos sabores tradicionais)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467942549blob"
+  },
+  {
+    "id": 402,
+    "nome": "Pizza Grande 2 Sabores (35cm - 8 pedaços)",
+    "categoria": "Monte sua Pizza",
+    "preco": 59.99,
+    "estoque": 99,
+    "descricao": "35cm - 8 pedaços (escolha 2 sabores)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467957318blob"
+  },
+  {
+    "id": 403,
+    "nome": "Pizza Brotinho 1 Sabor (25cm - 4 pedaços)",
+    "categoria": "Monte sua Pizza",
+    "preco": 45.99,
+    "estoque": 99,
+    "descricao": "25cm - 4 pedaços",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467910934blob"
+  },
+  {
+    "id": 404,
+    "nome": "Pizza Brotinho 2 Sabores (25cm - 4 pedaços)",
+    "categoria": "Monte sua Pizza",
+    "preco": 45.99,
+    "estoque": 99,
+    "descricao": "25cm - 4 pedaços",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467928322blob"
+  },
+  {
+    "id": 405,
+    "nome": "Salgada: Pizza Pré-assada c/ Borda Recheada",
+    "categoria": "Pré-Assadas",
+    "preco": 15.99,
+    "estoque": 60,
+    "descricao": "Massa, molho de tomate, borda recheada de catupiry grátis, pré-assada",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767909562281blob"
+  },
+  {
+    "id": 406,
+    "nome": "Doce: Pizza Pré-assada c/ Borda Recheada",
+    "categoria": "Pré-Assadas",
+    "preco": 15.99,
+    "estoque": 60,
+    "descricao": "Massa, creme de leite, borda de chocolate ao leite, pré-assada",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767656569773blob"
+  },
+  {
+    "id": 407,
+    "nome": "62 - Brócolis com Catupiry",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, catupiry, brócolis, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736298157826blob"
+  },
+  {
+    "id": 408,
+    "nome": "63 - Lombo com Catupiry",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, catupiry, lombo, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552173942blob"
+  },
+  {
+    "id": 409,
+    "nome": "64 - Palmito com Catupiry",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, catupiry, palmito, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552338133blob"
+  },
+  {
+    "id": 410,
+    "nome": "65 - Presunto com Catupiry",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, catupiry, presunto, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552520060blob"
+  },
+  {
+    "id": 411,
+    "nome": "66 - Catupiry",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, catupiry, manjericão, azeitonas e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552546348blob"
+  },
+  {
+    "id": 412,
+    "nome": "67 - Milho com Catupiry",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, milho, catupiry, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554379960blob"
+  },
+  {
+    "id": 413,
+    "nome": "68 - Calabresa I",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 90,
+    "descricao": "Molho, calabresa, cebola, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
+  },
+  {
+    "id": 414,
+    "nome": "69 - Alho",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, muçarela, alho, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350987624blob"
+  },
+  {
+    "id": 415,
+    "nome": "70 - Bacon",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 85,
+    "descricao": "Molho, muçarela, bacon, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736453891201blob"
+  },
+  {
+    "id": 416,
+    "nome": "71 - Baiana",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, calabresa moída, muçarela, pimenta calabresa, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296782047blob"
+  },
+  {
+    "id": 417,
+    "nome": "72 - Brasileira I",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, presunto, bacon, muçarela, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736292951476blob"
+  },
+  {
+    "id": 418,
+    "nome": "73 - Calabresa II",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 90,
+    "descricao": "Molho, calabresa, muçarela, cebola, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296014116blob"
+  },
+  {
+    "id": 419,
+    "nome": "74 - Marguerita",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 85,
+    "descricao": "Molho, muçarela, tomate, parmesão, manjericão, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346051213blob"
+  },
+  {
+    "id": 420,
+    "nome": "75 - Milho",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, milho, muçarela, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554591506blob"
+  },
+  {
+    "id": 421,
+    "nome": "76 - Mussarela",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 95,
+    "descricao": "Molho, muçarela, tomate, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736293202071blob"
+  },
+  {
+    "id": 422,
+    "nome": "77 - Napolitana",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, muçarela, tomate, parmesão, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552747568blob"
+  },
+  {
+    "id": 423,
+    "nome": "78 - Toscana",
+    "categoria": "Borda Grátis R$ 59,99",
+    "preco": 59.99,
+    "estoque": 80,
+    "descricao": "Molho, muçarela, calabresa moída, azeitonas e orégano (borda de catupiry grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552804632blob"
+  },
+  {
+    "id": 424,
+    "nome": "81 - Hambúrguer",
+    "categoria": "Pizzas Especiais",
+    "preco": 66.99,
+    "estoque": 70,
+    "descricao": "Molho, hambúrguer, presunto, muçarela, tomate, molho especial da casa, bacon, azeitonas e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350667165blob"
+  },
+  {
+    "id": 425,
+    "nome": "57 - Brócolis com Cream Cheese",
+    "categoria": "Pizzas Especiais",
+    "preco": 69.99,
+    "estoque": 70,
+    "descricao": "Molho, muçarela, brócolis, bacon, cream cheese, azeitona e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/1736453285858blob"
+  },
+  {
+    "id": 426,
+    "nome": "58 - Lombo com Cream Cheese",
+    "categoria": "Pizzas Especiais",
+    "preco": 68.99,
+    "estoque": 70,
+    "descricao": "Molho, muçarela, lombo canadense, cream cheese, azeitona e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296842931blob"
+  },
+  {
+    "id": 427,
+    "nome": "59 - Milho com Cream Cheese",
+    "categoria": "Pizzas Especiais",
+    "preco": 67.99,
+    "estoque": 70,
+    "descricao": "Molho, muçarela, milho, bacon, cream cheese, azeitona e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554576691blob"
+  },
+  {
+    "id": 428,
+    "nome": "60 - Peito de Peru com Cream Cheese",
+    "categoria": "Pizzas Especiais",
+    "preco": 72.99,
+    "estoque": 65,
+    "descricao": "Molho, muçarela, peito de peru, cream cheese, azeitona e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554077298blob"
+  },
+  {
+    "id": 429,
+    "nome": "61 - Frango Philadelphia",
+    "categoria": "Pizzas Especiais",
+    "preco": 73.99,
+    "estoque": 75,
+    "descricao": "Molho, muçarela, frango desfiado, milho, bacon, cream cheese, azeitona e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755553722540blob"
+  },
+  {
+    "id": 430,
+    "nome": "78 - Costela",
+    "categoria": "Pizzas Especiais",
+    "preco": 81.99,
+    "estoque": 55,
+    "descricao": "Molho de tomate, muçarela, costela desfiada, cream cheese, tomates fatiados, azeitonas e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/1736295403296blob"
+  },
+  {
+    "id": 431,
+    "nome": "87 - Calabresa c/ Cream Cheese",
+    "categoria": "Pizzas Especiais",
+    "preco": 68.99,
+    "estoque": 75,
+    "descricao": "Molho, muçarela, calabresa, cream cheese, azeitonas e orégano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554307650blob"
+  },
+  {
+    "id": 432,
+    "nome": "51 - Brigadeiro",
+    "categoria": "Pizzas Doces",
+    "preco": 65.99,
+    "estoque": 70,
+    "descricao": "Chocolate ao leite e chocolate granulado (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736297181231blob"
+  },
+  {
+    "id": 433,
+    "nome": "52 - Prestígio",
+    "categoria": "Pizzas Doces",
+    "preco": 65.99,
+    "estoque": 70,
+    "descricao": "Chocolate ao leite e coco ralado (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346216583blob"
+  },
+  {
+    "id": 434,
+    "nome": "53 - Sonho de Valsa",
+    "categoria": "Pizzas Doces",
+    "preco": 66.99,
+    "estoque": 65,
+    "descricao": "Chocolate ao leite, chocolate branco e bombons Sonho de Valsa (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767655229480blob"
+  },
+  {
+    "id": 435,
+    "nome": "54 - Paçoca",
+    "categoria": "Pizzas Doces",
+    "preco": 65.99,
+    "estoque": 65,
+    "descricao": "Doce de leite e paçoca (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554444406blob"
+  },
+  {
+    "id": 436,
+    "nome": "55 - Confete",
+    "categoria": "Pizzas Doces",
+    "preco": 66.99,
+    "estoque": 65,
+    "descricao": "Chocolate ao leite e confete (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736295514973blob"
+  },
+  {
+    "id": 437,
+    "nome": "79 - Kit Kat",
+    "categoria": "Pizzas Doces",
+    "preco": 71.99,
+    "estoque": 60,
+    "descricao": "Pasta de KitKat e pedaços de KitKat (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291619749blob"
+  },
+  {
+    "id": 438,
+    "nome": "80 - Banana Nevada",
+    "categoria": "Pizzas Doces",
+    "preco": 65.99,
+    "estoque": 65,
+    "descricao": "Chocolate branco, banana e canela em pó (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736293726643blob"
+  },
+  {
+    "id": 439,
+    "nome": "84 - Morango",
+    "categoria": "Pizzas Doces",
+    "preco": 66.99,
+    "estoque": 65,
+    "descricao": "Chocolate ao leite, chocolate branco e morangos (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736297811201blob"
+  },
+  {
+    "id": 440,
+    "nome": "86 - Ouro Branco",
+    "categoria": "Pizzas Doces",
+    "preco": 67.99,
+    "estoque": 60,
+    "descricao": "Chocolate ao leite, chocolate branco e bombons Ouro Branco (borda de chocolate grátis)",
+    "imagem": "https://client-assets.anota.ai/produtos/1736454036262blob"
+  },
+  {
+    "id": 441,
+    "nome": "Trufa Tradicional",
+    "categoria": "Trufas",
+    "preco": 5.99,
+    "estoque": 90,
+    "descricao": "Trufa tradicional artesanal",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761596995949blob"
+  },
+  {
+    "id": 442,
+    "nome": "Trufa de Brigadeiro",
+    "categoria": "Trufas",
+    "preco": 5.99,
+    "estoque": 90,
+    "descricao": "Trufa recheada de brigadeiro",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761597016089blob"
+  },
+  {
+    "id": 443,
+    "nome": "Trufa de Beijinho",
+    "categoria": "Trufas",
+    "preco": 5.99,
+    "estoque": 90,
+    "descricao": "Trufa recheada de beijinho",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761597029378blob"
+  },
+  {
+    "id": 444,
+    "nome": "Trufa de Sonho de Valsa",
+    "categoria": "Trufas",
+    "preco": 5.99,
+    "estoque": 90,
+    "descricao": "Trufa sabor Sonho de Valsa",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761597044626blob"
+  },
+  {
+    "id": 445,
+    "nome": "Coca-Cola 2L",
+    "categoria": "Bebidas",
+    "preco": 15.99,
+    "estoque": 100,
+    "descricao": "Refrigerante Coca-Cola Original 2 Litros",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346886373blob"
+  },
+  {
+    "id": 446,
+    "nome": "Coca-Cola Zero 2L",
+    "categoria": "Bebidas",
+    "preco": 16.99,
+    "estoque": 80,
+    "descricao": "Refrigerante Coca-Cola Sem Açúcar 2 Litros",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350793505blob"
+  },
+  {
+    "id": 447,
+    "nome": "Fanta Laranja 2 Litros",
+    "categoria": "Bebidas",
+    "preco": 12.99,
+    "estoque": 70,
+    "descricao": "Refrigerante Fanta Laranja 2 Litros",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794347310940blob"
+  },
+  {
+    "id": 448,
+    "nome": "Suco Betel Laranja 1 Litro",
+    "categoria": "Bebidas",
+    "preco": 16.99,
+    "estoque": 50,
+    "descricao": "Suco de laranja natural 1L",
+    "imagem": "https://client-assets.anota.ai/produtos/1736299602413blob"
+  },
+  {
+    "id": 449,
+    "nome": "Coca-Cola Lata Original 350ml",
+    "categoria": "Bebidas",
+    "preco": 5.99,
+    "estoque": 120,
+    "descricao": "Refrigerante lata 350ml",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739484776672blob"
+  },
+  {
+    "id": 450,
+    "nome": "Coca-Cola Lata Zero 350ml",
+    "categoria": "Bebidas",
+    "preco": 5.99,
+    "estoque": 100,
+    "descricao": "Coca-Cola Zero lata 350ml",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1773868148935blob"
+  },
+  {
+    "id": 451,
+    "nome": "Heineken 350ml",
+    "categoria": "Bebidas",
+    "preco": 6.99,
+    "estoque": 90,
+    "descricao": "Cerveja Heineken lata 350ml",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485774587blob"
+  },
+  {
+    "id": 452,
+    "nome": "Império 350ml",
+    "categoria": "Bebidas",
+    "preco": 4.99,
+    "estoque": 90,
+    "descricao": "Cerveja Império lata 350ml",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485236203blob"
+  },
+  {
+    "id": 453,
+    "nome": "Água Sem Gás",
+    "categoria": "Bebidas",
+    "preco": 4.99,
+    "estoque": 120,
+    "descricao": "Água mineral natural sem gás",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485103464blob"
+  },
+  {
+    "id": 454,
+    "nome": "Água com Gás",
+    "categoria": "Bebidas",
+    "preco": 4.99,
+    "estoque": 100,
+    "descricao": "Água mineral natural com gás",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485843429blob"
+  }
+]

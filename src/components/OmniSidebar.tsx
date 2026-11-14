@@ -1,0 +1,96 @@
+'use client';
+
+import {
+  Home,
+  ShoppingCart,
+  Package,
+  DollarSign,
+  Users,
+  BarChart3,
+  Settings,
+  Headphones,
+  Rocket,
+  ChevronRight
+} from 'lucide-react';
+
+export type AbaOmni =
+  | 'inicio'
+  | 'vendas'
+  | 'estoque'
+  | 'financeiro'
+  | 'clientes'
+  | 'relatorios'
+  | 'configuracoes'
+  | 'suporte';
+
+const ITENS_MENU: { id: AbaOmni; label: string; icon: React.ComponentType<{ className?: string }>; seta?: boolean }[] = [
+  { id: 'inicio', label: 'Início', icon: Home },
+  { id: 'vendas', label: 'Vendas', icon: ShoppingCart, seta: true },
+  { id: 'estoque', label: 'Estoque', icon: Package, seta: true },
+  { id: 'financeiro', label: 'Financeiro', icon: DollarSign, seta: true },
+  { id: 'clientes', label: 'Clientes', icon: Users, seta: true },
+  { id: 'relatorios', label: 'Relatórios', icon: BarChart3, seta: true },
+  { id: 'configuracoes', label: 'Configurações', icon: Settings },
+  { id: 'suporte', label: 'Suporte', icon: Headphones }
+];
+
+export function OmniSidebar({
+  abaAtiva,
+  onSelecionar
+}: {
+  abaAtiva: AbaOmni;
+  onSelecionar: (aba: AbaOmni) => void;
+}) {
+  return (
+    <aside className="no-print w-64 shrink-0 bg-[#0B0B0B] text-white flex flex-col justify-between min-h-screen relative overflow-hidden border-r border-zinc-800">
+      <div className="pointer-events-none absolute -top-10 -right-10 w-44 h-44 rounded-full bg-[#8B0029]/30 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-12 -left-10 w-48 h-48 rounded-full bg-[#8B0029]/25 blur-3xl" />
+
+      <div>
+        <div className="px-5 pt-5 pb-4 border-b border-white/10">
+          <img
+            src="/brand/omni-os-logo.png"
+            alt="Omni-OS"
+            className="w-full max-h-16 object-contain mx-auto"
+          />
+        </div>
+
+        <nav className="px-3 py-4 space-y-1">
+          {ITENS_MENU.map(item => {
+            const Icon = item.icon;
+            const ativo = abaAtiva === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => onSelecionar(item.id)}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition ${
+                  ativo
+                    ? 'bg-gradient-to-r from-[#8B0029] to-[#5E001B] text-white font-semibold shadow-md'
+                    : 'text-zinc-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                <span className="flex items-center gap-3">
+                  <Icon className="w-4 h-4" />
+                  {item.label}
+                </span>
+                {item.seta && <ChevronRight className="w-3.5 h-3.5 opacity-60" />}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+
+      <div className="p-4 space-y-3 relative z-10">
+        <div className="rounded-xl bg-white/5 border border-white/10 p-3.5 text-center">
+          <div className="w-8 h-8 rounded-full bg-[#8B0029]/30 border border-[#8B0029] flex items-center justify-center mx-auto mb-2">
+            <Rocket className="w-4 h-4 text-rose-300" />
+          </div>
+          <p className="text-xs text-zinc-200 leading-snug">
+            Sua empresa sempre um passo <span className="text-rose-400 font-bold">à frente!</span>
+          </p>
+        </div>
+        <div className="text-center text-[11px] text-zinc-500 font-medium">Omni-OS v1.0.0</div>
+      </div>
+    </aside>
+  );
+}
