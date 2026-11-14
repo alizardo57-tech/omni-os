@@ -29,6 +29,8 @@ export default function OmniOsHomePage() {
 
   useEffect(() => {
     carregar();
+    const timer = setInterval(carregar, 6000);
+    return () => clearInterval(timer);
   }, [carregar]);
 
   const produtosFiltrados = (dados?.produtos || []).filter(p =>
@@ -83,7 +85,13 @@ export default function OmniOsHomePage() {
           ) : aba === 'inicio' ? (
             <OmniDashboard kpis={dados.kpis} vendas={dados.vendas} onNavegar={setAba} />
           ) : aba === 'vendas' ? (
-            <OmniVendasPdv produtos={produtosFiltrados} vendas={dados.vendas} onAtualizar={carregar} />
+            <OmniVendasPdv
+              produtos={produtosFiltrados}
+              vendas={dados.vendas}
+              clientes={dados.clientes}
+              tempoPreparoMin={dados.empresa.tempoPreparoMin || 35}
+              onAtualizar={carregar}
+            />
           ) : aba === 'estoque' ? (
             <OmniEstoque produtos={produtosFiltrados} onAtualizar={carregar} />
           ) : aba === 'clientes' ? (

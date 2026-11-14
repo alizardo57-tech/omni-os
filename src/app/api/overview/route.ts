@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { lerOmniDb } from '@/lib/store';
+import { z } from 'zod';
+import { lerOmniDb, salvarOmniDb } from '@/lib/store';
 
 export async function GET() {
   const db = lerOmniDb();
@@ -18,4 +19,17 @@ export async function GET() {
       clientesAtivos: db.clientes.length
     }
   });
+}
+
+const ConfigTempoSchema = z.object({
+  tempoPreparoMin: z.number().int().min(5).max(180)
+});
+
+export async function PATCH(req: Request) {
+  const parsed = ConfigTempoSchema.safeParse(await req.json());
+  if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
+  const db = lerOmniDb();
+  db.empresa.tempoPreparoMin = parsed.data.tempoPreparoMin;
+  salvarOmniDb(db);
+  return NextResponse.json({ ok: true, tempoPreparoMin: db.empresa.tempoPreparoMin });
 }

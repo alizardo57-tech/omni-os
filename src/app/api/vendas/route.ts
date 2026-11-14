@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { VendaCreateSchema } from '@/lib/schemas';
 import { lerOmniDb, salvarOmniDb } from '@/lib/store';
+import { imprimirComandaOmni } from '@/lib/impressao';
 
 export async function GET() {
   const db = lerOmniDb();
@@ -28,21 +29,26 @@ export async function POST(req: Request) {
   };
   db.vendas.unshift(venda);
   salvarOmniDb(db);
+  imprimirComandaOmni(venda);
   return NextResponse.json({ ok: true, venda }, { status: 201 });
 }
 
-const StatusSchema = z.object({
+const PatchSchema = z.object({
   id: z.string().min(1),
-  status: z.enum(['preparando', 'pronto', 'entregue'])
+  status: z.enum(['preparando', 'pronto', 'entregue']).optional(),
+  reimprimir: z.boolean().optional()
 });
 
 export async function PATCH(req: Request) {
-  const parsed = StatusSchema.safeParse(await req.json());
+  const parsed = PatchSchema.safeParse(await req.json());
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
   const db = lerOmniDb();
   const v = db.vendas.find(x => x.id === parsed.data.id);
   if (!v) return NextResponse.json({ ok: false }, { status: 404 });
-  v.status = parsed.data.status;
-  salvarOmniDb(db);
+  if (parsed.data.status) {
+    v.status = parsed.data.status;
+    salvarOmniDb(db);
+  }
+  if (parsed.data.reimprimir) imprimirComandaOmni(v, true);
   return NextResponse.json({ ok: true, venda: v });
 }

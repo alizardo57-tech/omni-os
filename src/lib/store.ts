@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { Cliente, Produto, Venda } from './schemas';
 import produtosSeed from './produtosSeed.json';
+import clientesBellaSeed from './clientesBellaSeed.json';
 
 export interface OmniDb {
   empresa: {
@@ -20,17 +21,13 @@ const DB_PATH = path.join(DATA_DIR, 'omni-os.json');
 
 const SEED_INICIAL: OmniDb = {
   empresa: {
-    nome: 'Omni-OS Demo Store',
-    operador: 'Alexandre Lizardo',
-    cargo: 'Administrador',
+    nome: 'Bella Pizza',
+    operador: 'Bella Pizza',
+    cargo: 'Caixa & Atendimento',
     tempoPreparoMin: 35
   },
   produtos: produtosSeed as Produto[],
-  clientes: [
-    { id: '11999991111', nome: 'Maria Silva', telefone: '11999991111', endereco: 'Rua das Flores, 120 - Centro', cashback: 12.5, totalPedidos: 8 },
-    { id: '11988882222', nome: 'João Santos', telefone: '11988882222', endereco: 'Av. Brasil, 450 - Jardim', cashback: 5.0, totalPedidos: 3 },
-    { id: '11977773333', nome: 'Ana Oliveira', telefone: '11977773333', endereco: 'Rua 7 de Setembro, 88', cashback: 24.0, totalPedidos: 14 }
-  ],
+  clientes: clientesBellaSeed as Cliente[],
   vendas: [
     {
       id: 'OS-10472',
@@ -66,10 +63,22 @@ export function lerOmniDb(): OmniDb {
     return JSON.parse(JSON.stringify(SEED_INICIAL)) as OmniDb;
   }
   const dados = JSON.parse(fs.readFileSync(DB_PATH, 'utf8')) as OmniDb;
+  let alterou = false;
   if (!dados.produtos || dados.produtos.length <= 6) {
     dados.produtos = produtosSeed as Produto[];
-    fs.writeFileSync(DB_PATH, JSON.stringify(dados, null, 2), 'utf8');
+    alterou = true;
   }
+  if (!dados.clientes || dados.clientes.length <= 3) {
+    dados.clientes = clientesBellaSeed as Cliente[];
+    alterou = true;
+  }
+  if (dados.empresa?.operador === 'Alexandre Lizardo') {
+    dados.empresa.nome = 'Bella Pizza';
+    dados.empresa.operador = 'Bella Pizza';
+    dados.empresa.cargo = 'Caixa & Atendimento';
+    alterou = true;
+  }
+  if (alterou) fs.writeFileSync(DB_PATH, JSON.stringify(dados, null, 2), 'utf8');
   return dados;
 }
 

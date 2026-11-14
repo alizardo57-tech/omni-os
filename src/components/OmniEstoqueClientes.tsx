@@ -113,13 +113,13 @@ export function OmniClientes({ clientes, onAtualizar }: { clientes: Cliente[]; o
         <button type="submit" className="rounded-lg bg-[#8B0029] hover:bg-[#A50034] text-white font-bold py-2">+ Cadastrar Cliente</button>
       </form>
 
-      <div className="overflow-x-auto rounded-xl border border-zinc-200">
+      <div className="overflow-x-auto max-h-[460px] overflow-y-auto rounded-xl border border-zinc-200">
         <table className="w-full text-left text-xs">
-          <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-600">
+          <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-600 sticky top-0">
             <tr><th className="py-2.5 px-3">Cliente</th><th className="py-2.5 px-3">Telefone</th><th className="py-2.5 px-3">Endereço</th><th className="py-2.5 px-3">Pedidos</th></tr>
           </thead>
           <tbody className="divide-y divide-zinc-100">
-            {filtrados.map(c => (
+            {filtrados.slice(0, 100).map(c => (
               <tr key={c.id} className="hover:bg-zinc-50">
                 <td className="py-2.5 px-3 font-bold text-zinc-900">{c.nome}</td>
                 <td className="py-2.5 px-3 font-mono text-zinc-700">{c.telefone}</td>
@@ -130,6 +130,9 @@ export function OmniClientes({ clientes, onAtualizar }: { clientes: Cliente[]; o
           </tbody>
         </table>
       </div>
+      {filtrados.length > 100 && (
+        <p className="text-[11px] text-zinc-500">Mostrando os 100 primeiros de {filtrados.length} clientes encontrados. Use a busca acima para filtrar.</p>
+      )}
     </div>
   );
 }
