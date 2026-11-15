@@ -62,7 +62,7 @@ export async function DELETE(req: Request) {
     if (v) v.ocultoCozinha = true;
   } else {
     for (const v of db.vendas) {
-      if (v.status === 'entregue') v.ocultoCozinha = true;
+      if (v.status === 'entregue' || v.status === 'pronto') v.ocultoCozinha = true;
     }
   }
   salvarOmniDb(db);

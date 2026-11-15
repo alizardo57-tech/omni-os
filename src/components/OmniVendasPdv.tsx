@@ -88,6 +88,12 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
       if (data.ok) {
         setUltimoPedidoOk(data.venda.id);
         setCarrinho([]);
+        setClienteNome('Consumidor Balcão');
+        setClienteTel('');
+        setEndereco('');
+        setModalidade('balcao');
+        setPagamento('PIX');
+        setTimeout(() => setUltimoPedidoOk(null), 4000);
         onAtualizar();
       }
     } finally {
@@ -276,7 +282,7 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
           </h3>
           <div className="flex flex-wrap items-center gap-2 text-xs">
             <button onClick={() => limparCozinha()} className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-[#8B0029] text-white font-bold transition">
-              🗑️ Limpar Entregues
+              🗑️ Limpar Prontos / Entregues
             </button>
             <div className="flex items-center gap-1.5 bg-zinc-100 px-3 py-1.5 rounded-xl font-bold">
               <span>Tempo Meta: {tempoPreparoMin} min</span>
@@ -311,9 +317,9 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
                   <button onClick={() => mudarStatus(v.id, 'entregue')} className={`flex-1 py-1 rounded-lg font-bold ${v.status === 'entregue' ? 'bg-[#0B0B0B] text-white' : 'bg-white border border-zinc-300'}`}>
                     Entregue
                   </button>
-                  {v.status === 'entregue' && (
-                    <button onClick={() => limparCozinha(v.id)} title="Remover da fila" className="px-2.5 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold">
-                      <Trash2 className="w-3.5 h-3.5" />
+                  {(v.status === 'entregue' || v.status === 'pronto') && (
+                    <button onClick={() => limparCozinha(v.id)} title="Finalizar e tirar da fila" className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold inline-flex items-center gap-1">
+                      <Trash2 className="w-3.5 h-3.5" /> Tirar
                     </button>
                   )}
                 </div>
