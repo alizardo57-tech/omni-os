@@ -441,15 +441,6 @@
     "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 56,
-    "nome": "56 - NUTELA",
-    "categoria": "Pizzas Salgadas",
-    "preco": 42,
-    "estoque": 50,
-    "descricao": "LOMBO CANADENSE, CATUPIRY.",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
-  },
-  {
     "id": 57,
     "nome": "57 - BROCOLIS C/ CREEN CHEESE",
     "categoria": "Pizzas Salgadas",
@@ -691,6 +682,15 @@
     "estoque": 50,
     "descricao": "BROCOLIS, CATUPIRY.",
     "imagem": "https://client-assets.anota.ai/produtos/1736295514973blob"
+  },
+  {
+    "id": 56,
+    "nome": "56 - NUTELA",
+    "categoria": "Pizzas Doces",
+    "preco": 42,
+    "estoque": 50,
+    "descricao": "LOMBO CANADENSE, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-doce.svg"
   },
   {
     "id": 122,
