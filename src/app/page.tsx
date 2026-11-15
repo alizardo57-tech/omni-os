@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { Bell, ChevronDown, Menu, Search, User } from 'lucide-react';
+import { Bell, ChevronDown, Maximize2, Menu, Minimize2, Search, User } from 'lucide-react';
 import { OmniSidebar, type AbaOmni } from '@/components/OmniSidebar';
 import { OmniDashboard } from '@/components/OmniDashboard';
 import { OmniVendasPdv } from '@/components/OmniVendasPdv';
@@ -21,6 +21,15 @@ export default function OmniOsHomePage() {
   const [modalidadePdv, setModalidadePdv] = useState<'balcao' | 'entrega' | 'retirada'>('balcao');
   const [buscaGlobal, setBuscaGlobal] = useState('');
   const [dados, setDados] = useState<OverviewPayload | null>(null);
+  const [telaCheia, setTelaCheia] = useState(false);
+
+  const alternarTelaCheia = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().then(() => setTelaCheia(true)).catch(() => {});
+    } else {
+      document.exitFullscreen?.().then(() => setTelaCheia(false)).catch(() => {});
+    }
+  };
 
   const carregar = useCallback(async () => {
     const res = await fetch('/api/overview');
@@ -39,10 +48,10 @@ export default function OmniOsHomePage() {
   );
 
   return (
-    <div className="min-h-screen flex bg-[#F4F5F7]">
+    <div className="h-screen overflow-hidden flex bg-[#F4F5F7]">
       <OmniSidebar abaAtiva={aba} onSelecionar={setAba} />
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <header className="no-print h-16 bg-white border-b border-zinc-200 px-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-4 flex-1 max-w-xl">
             <button onClick={() => setAba('inicio')} className="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-700">
@@ -59,7 +68,15 @@ export default function OmniOsHomePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={alternarTelaCheia}
+              title="Tela Cheia"
+              className="p-2 rounded-xl hover:bg-zinc-100 text-zinc-700"
+            >
+              {telaCheia ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+            </button>
+
             <button className="relative p-2 rounded-xl hover:bg-zinc-100 text-zinc-700">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#8B0029] text-white text-[10px] font-bold flex items-center justify-center">
@@ -80,7 +97,7 @@ export default function OmniOsHomePage() {
           </div>
         </header>
 
-        <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 overflow-y-auto p-5 max-w-[1600px] w-full mx-auto">
           {!dados ? (
             <div className="text-sm text-zinc-500 font-medium">Carregando Omni-OS...</div>
           ) : aba === 'inicio' ? (
