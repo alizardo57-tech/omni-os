@@ -3,6 +3,7 @@ chcp 65001 >nul
 title Omni-OS • Atualizar Sistema
 cd /d "%~dp0"
 
+set "PATH=%PATH%;C:\Program Files\nodejs"
 echo [INFO] Verificando atualizacoes do Omni-OS no GitHub...
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$ErrorActionPreference='Stop';" ^
@@ -16,10 +17,21 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "  robocopy $src '%~dp0.' /E /XD .git node_modules data .next /XF .env *.log | Out-Null;" ^
   "  Remove-Item $zip -Force -ErrorAction SilentlyContinue;" ^
   "  Remove-Item $ext -Recurse -Force -ErrorAction SilentlyContinue;" ^
-  "  Write-Host '[OK] Omni-OS atualizado com sucesso!';" ^
+  "  Write-Host '[OK] Codigo atualizado! Recompilando...';" ^
+  "  exit 0;" ^
   "} catch {" ^
-  "  Write-Host '[AVISO] Sem internet ou repositorio ainda nao publicado. Mantendo versao local.';" ^
+  "  Write-Host '[AVISO] Sem internet. Mantendo versao local.';" ^
+  "  exit 1;" ^
   "}"
+
+if not errorlevel 1 (
+  where npm >nul 2>&1
+  if not errorlevel 1 (
+    call npm install >nul 2>&1
+    call npm run build >nul 2>&1
+    echo [OK] Omni-OS atualizado e compilado!
+  )
+)
 
 if exist "CRIAR-ATALHO-DESKTOP.bat" (
   call "CRIAR-ATALHO-DESKTOP.bat" --auto
