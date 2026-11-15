@@ -21,6 +21,13 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
   const [endereco, setEndereco] = useState('');
   const [cupomAtual, setCupomAtual] = useState<Venda | null>(null);
   const [salvando, setSalvando] = useState(false);
+  const [buscaPdv, setBuscaPdv] = useState('');
+  const [catPdv, setCatPdv] = useState('Todas');
+
+  const categoriasPdv = ['Todas', ...Array.from(new Set(produtos.map(p => p.categoria)))];
+  const produtosPdv = produtos.filter(
+    p => (catPdv === 'Todas' || p.categoria === catPdv) && `${p.nome} ${p.categoria}`.toLowerCase().includes(buscaPdv.toLowerCase())
+  );
 
   const saboresPizza = produtos.filter(
     p => !p.categoria.toLowerCase().includes('bebida') && !p.categoria.toLowerCase().includes('monte')
@@ -148,8 +155,30 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
               </button>
             </div>
           )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
-            {produtos.map(p => (
+          <div className="mb-3 space-y-2">
+            <input
+              value={buscaPdv}
+              onChange={e => setBuscaPdv(e.target.value)}
+              placeholder={`Buscar nos ${produtos.length} itens (ex: Calabresa, 66, Coca, Doce)...`}
+              className="w-full bg-zinc-50 border border-zinc-300 focus:border-[#8B0029] rounded-xl px-3 py-2 text-xs outline-none"
+            />
+            <div className="flex flex-wrap gap-1.5">
+              {categoriasPdv.map(c => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCatPdv(c)}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition ${
+                    catPdv === c ? 'bg-[#8B0029] text-white' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[520px] overflow-y-auto pr-1">
+            {produtosPdv.map(p => (
               <button
                 key={p.id}
                 onClick={() => adicionar(p)}
