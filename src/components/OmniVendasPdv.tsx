@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Plus, Trash2, Printer, CheckCircle2, Clock } from 'lucide-react';
 import type { Cliente, Produto, Venda } from '@/lib/schemas';
+import { OmniFechamentoCaixa } from './OmniFechamentoCaixa';
 
 interface Props {
   produtos: Produto[];
@@ -121,6 +122,11 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
     onAtualizar();
   };
 
+  const limparCozinha = async (id?: string) => {
+    await fetch(id ? `/api/vendas?id=${encodeURIComponent(id)}` : '/api/vendas', { method: 'DELETE' });
+    onAtualizar();
+  };
+
   const aoDigitarTel = (valor: string) => {
     setClienteTel(valor);
     const limpo = valor.replace(/\D/g, '');
@@ -142,9 +148,12 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
         <div className="lg:col-span-2 bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <h2 className="text-base font-extrabold text-zinc-900">PDV • Catálogo Rápido</h2>
-            <a href="/cardapio" target="_blank" className="text-xs font-bold px-3 py-1.5 rounded-lg bg-[#0B0B0B] hover:bg-[#8B0029] text-white transition">
-              📱 Abrir Cardápio Tablet / Celular
-            </a>
+            <div className="flex flex-wrap items-center gap-2">
+              <OmniFechamentoCaixa vendas={vendas} onAtualizar={onAtualizar} />
+              <a href="/cardapio" target="_blank" className="text-xs font-bold px-3 py-1.5 rounded-lg bg-[#0B0B0B] hover:bg-[#8B0029] text-white transition">
+                📱 Cardápio Tablet / Celular
+              </a>
+            </div>
           </div>
           {saboresPizza.length > 0 && (
             <div className="mb-4 p-3 rounded-xl bg-rose-50/70 border border-[#8B0029]/25 grid grid-cols-1 sm:grid-cols-5 gap-2 items-center text-xs">
@@ -265,14 +274,19 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
           <h3 className="text-base font-extrabold text-zinc-900 flex items-center gap-2">
             <Clock className="w-4 h-4 text-[#8B0029]" /> Fila de Pedidos & Cozinha
           </h3>
-          <div className="flex items-center gap-1.5 text-xs bg-zinc-100 px-3 py-1.5 rounded-xl font-bold">
-            <span>Tempo Meta: {tempoPreparoMin} min</span>
-            <button onClick={() => ajustarTempo(-5)} className="px-2 py-0.5 rounded bg-white border border-zinc-300 hover:bg-zinc-200">-5</button>
-            <button onClick={() => ajustarTempo(5)} className="px-2 py-0.5 rounded bg-white border border-zinc-300 hover:bg-zinc-200">+5</button>
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <button onClick={() => limparCozinha()} className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-[#8B0029] text-white font-bold transition">
+              🗑️ Limpar Entregues
+            </button>
+            <div className="flex items-center gap-1.5 bg-zinc-100 px-3 py-1.5 rounded-xl font-bold">
+              <span>Tempo Meta: {tempoPreparoMin} min</span>
+              <button onClick={() => ajustarTempo(-5)} className="px-2 py-0.5 rounded bg-white border border-zinc-300 hover:bg-zinc-200">-5</button>
+              <button onClick={() => ajustarTempo(5)} className="px-2 py-0.5 rounded bg-white border border-zinc-300 hover:bg-zinc-200">+5</button>
+            </div>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {vendas.map(v => {
+          {vendas.filter(v => !v.ocultoCozinha).map(v => {
             const minDecorridos = Math.max(0, Math.floor((Date.now() - new Date(v.criadoEm).getTime()) / 60000));
             const atrasado = v.status === 'preparando' && minDecorridos > tempoPreparoMin;
             return (
@@ -297,6 +311,11 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
                   <button onClick={() => mudarStatus(v.id, 'entregue')} className={`flex-1 py-1 rounded-lg font-bold ${v.status === 'entregue' ? 'bg-[#0B0B0B] text-white' : 'bg-white border border-zinc-300'}`}>
                     Entregue
                   </button>
+                  {v.status === 'entregue' && (
+                    <button onClick={() => limparCozinha(v.id)} title="Remover da fila" className="px-2.5 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold">
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
               </div>
             );

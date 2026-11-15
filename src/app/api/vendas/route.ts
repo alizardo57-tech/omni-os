@@ -52,3 +52,19 @@ export async function PATCH(req: Request) {
   if (parsed.data.reimprimir) imprimirComandaOmni(v, true);
   return NextResponse.json({ ok: true, venda: v });
 }
+
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id');
+  const db = lerOmniDb();
+  if (id) {
+    const v = db.vendas.find(x => x.id === id);
+    if (v) v.ocultoCozinha = true;
+  } else {
+    for (const v of db.vendas) {
+      if (v.status === 'entregue') v.ocultoCozinha = true;
+    }
+  }
+  salvarOmniDb(db);
+  return NextResponse.json({ ok: true });
+}

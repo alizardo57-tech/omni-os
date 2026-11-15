@@ -59,3 +59,26 @@ export function imprimirComandaOmni(venda: Venda, forcar = false): boolean {
   }, 900);
   return true;
 }
+
+export function imprimirFechamentoOmni(
+  porPagamento: Record<string, number>,
+  totalGeral: number,
+  qtdPedidos: number
+): boolean {
+  if (process.platform !== 'win32') return false;
+  const linhas = [
+    '================================',
+    '          BELLA PIZZA           ',
+    '      FECHAMENTO DE CAIXA       ',
+    '================================',
+    `DATA:    ${new Date().toLocaleString('pt-BR')}`,
+    `PEDIDOS: ${qtdPedidos}`,
+    '--------------------------------'
+  ];
+  for (const [forma, valor] of Object.entries(porPagamento)) {
+    linhas.push(`${forma}: R$ ${valor.toFixed(2)}`);
+  }
+  linhas.push('--------------------------------', `TOTAL CAIXA: R$ ${totalGeral.toFixed(2)}`, '================================', '', '');
+  enviarTrabalhoWindows(linhas, 'fechamento');
+  return true;
+}

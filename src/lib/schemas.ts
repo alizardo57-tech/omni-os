@@ -72,4 +72,5 @@ export type Venda = {
   itens: z.infer<typeof ItemVendaSchema>[];
   total: number;
   status: 'preparando' | 'pronto' | 'entregue';
+  ocultoCozinha?: boolean;
 };
