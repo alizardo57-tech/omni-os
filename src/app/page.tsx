@@ -18,6 +18,7 @@ interface OverviewPayload {
 
 export default function OmniOsHomePage() {
   const [aba, setAba] = useState<AbaOmni>('inicio');
+  const [modalidadePdv, setModalidadePdv] = useState<'balcao' | 'entrega' | 'retirada'>('balcao');
   const [buscaGlobal, setBuscaGlobal] = useState('');
   const [dados, setDados] = useState<OverviewPayload | null>(null);
 
@@ -90,10 +91,19 @@ export default function OmniOsHomePage() {
               vendas={dados.vendas}
               clientes={dados.clientes}
               tempoPreparoMin={dados.empresa.tempoPreparoMin || 35}
+              modalidadeInicial={modalidadePdv}
               onAtualizar={carregar}
             />
           ) : aba === 'estoque' ? (
-            <OmniEstoque produtos={produtosFiltrados} onAtualizar={carregar} />
+            <OmniEstoque
+              produtos={produtosFiltrados}
+              onAtualizar={carregar}
+              onPedidoEntrega={() => {
+                setModalidadePdv('entrega');
+                setAba('vendas');
+              }}
+              onCadastrarCliente={() => setAba('clientes')}
+            />
           ) : aba === 'clientes' ? (
             <OmniClientes clientes={dados.clientes} onAtualizar={carregar} />
           ) : (

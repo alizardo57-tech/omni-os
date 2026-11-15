@@ -15,7 +15,7 @@ export async function GET() {
     kpis: {
       vendasMes: receitaVendas,
       produtosEstoque: totalEstoque,
-      receitaTotal: receitaVendas + 178462.7,
+      receitaTotal: receitaVendas,
       clientesAtivos: db.clientes.length
     }
   });

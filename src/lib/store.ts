@@ -28,32 +28,7 @@ const SEED_INICIAL: OmniDb = {
   },
   produtos: produtosSeed as Produto[],
   clientes: clientesBellaSeed as Cliente[],
-  vendas: [
-    {
-      id: 'OS-10472',
-      criadoEm: new Date(Date.now() - 5 * 60000).toISOString(),
-      clienteNome: 'Maria Silva',
-      clienteTelefone: '11999991111',
-      modalidade: 'entrega',
-      pagamento: 'PIX',
-      endereco: 'Rua das Flores, 120 - Centro',
-      itens: [{ produtoId: 1, nome: 'Pizza Calabresa Grande', qtd: 2, precoUnit: 49.9 }],
-      total: 99.8,
-      status: 'preparando'
-    },
-    {
-      id: 'OS-10471',
-      criadoEm: new Date(Date.now() - 32 * 60000).toISOString(),
-      clienteNome: 'João Santos',
-      clienteTelefone: '11988882222',
-      modalidade: 'balcao',
-      pagamento: 'Cartão Crédito',
-      endereco: '',
-      itens: [{ produtoId: 2, nome: 'Pizza Moda da Casa', qtd: 1, precoUnit: 58.0 }],
-      total: 58.0,
-      status: 'pronto'
-    }
-  ]
+  vendas: []
 };
 
 export function lerOmniDb(): OmniDb {

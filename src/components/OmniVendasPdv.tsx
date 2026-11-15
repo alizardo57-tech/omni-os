@@ -9,17 +9,18 @@ interface Props {
   vendas: Venda[];
   clientes: Cliente[];
   tempoPreparoMin: number;
+  modalidadeInicial?: 'balcao' | 'entrega' | 'retirada';
   onAtualizar: () => void;
 }
 
-export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onAtualizar }: Props) {
+export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, modalidadeInicial = 'balcao', onAtualizar }: Props) {
   const [carrinho, setCarrinho] = useState<{ produto: Produto; qtd: number }[]>([]);
   const [clienteNome, setClienteNome] = useState('Consumidor Balcão');
   const [clienteTel, setClienteTel] = useState('');
-  const [modalidade, setModalidade] = useState<'balcao' | 'entrega' | 'retirada'>('balcao');
+  const [modalidade, setModalidade] = useState<'balcao' | 'entrega' | 'retirada'>(modalidadeInicial);
   const [pagamento, setPagamento] = useState('PIX');
   const [endereco, setEndereco] = useState('');
-  const [cupomAtual, setCupomAtual] = useState<Venda | null>(null);
+  const [ultimoPedidoOk, setUltimoPedidoOk] = useState<string | null>(null);
   const [salvando, setSalvando] = useState(false);
   const [buscaPdv, setBuscaPdv] = useState('');
   const [catPdv, setCatPdv] = useState('Todas');
@@ -80,7 +81,7 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
       });
       const data = await res.json();
       if (data.ok) {
-        setCupomAtual(data.venda);
+        setUltimoPedidoOk(data.venda.id);
         setCarrinho([]);
         onAtualizar();
       }
@@ -248,29 +249,10 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, onA
         </div>
       </div>
 
-      {cupomAtual && (
-        <div className="bg-white rounded-2xl border-2 border-zinc-900 p-5 max-w-sm font-mono font-black text-black space-y-2">
-          <div className="flex justify-between items-center border-b-2 border-black pb-2">
-            <span>OMNI-OS COMANDA #{cupomAtual.id}</span>
-            <button onClick={() => window.print()} className="no-print text-xs px-2.5 py-1 rounded bg-[#0B0B0B] text-white inline-flex items-center gap-1">
-              <Printer className="w-3.5 h-3.5" /> Imprimir
-            </button>
-          </div>
-          <div className="text-xs">Cliente: {cupomAtual.clienteNome}</div>
-          <div className="text-xs">Modalidade: {cupomAtual.modalidade.toUpperCase()} | {cupomAtual.pagamento}</div>
-          {cupomAtual.endereco && <div className="text-xs">End: {cupomAtual.endereco}</div>}
-          <div className="border-y-2 border-dashed border-black py-2 space-y-1 text-xs">
-            {cupomAtual.itens.map((it, idx) => (
-              <div key={idx} className="flex justify-between">
-                <span>{it.qtd}x {it.nome}</span>
-                <span>R$ {(it.qtd * it.precoUnit).toFixed(2)}</span>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between text-sm">
-            <span>TOTAL GERAL:</span>
-            <span>R$ {cupomAtual.total.toFixed(2)}</span>
-          </div>
+      {ultimoPedidoOk && (
+        <div className="bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-2xl px-4 py-3 flex items-center justify-between text-xs font-bold">
+          <span>✅ Pedido <strong>#{ultimoPedidoOk}</strong> lançado e enviado automaticamente para impressão (2 vias em negrito)!</span>
+          <button onClick={() => setUltimoPedidoOk(null)} className="underline ml-3">Fechar</button>
         </div>
       )}
 

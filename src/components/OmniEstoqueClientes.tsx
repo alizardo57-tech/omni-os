@@ -3,7 +3,17 @@
 import { useState } from 'react';
 import type { Cliente, Produto } from '@/lib/schemas';
 
-export function OmniEstoque({ produtos, onAtualizar }: { produtos: Produto[]; onAtualizar: () => void }) {
+export function OmniEstoque({
+  produtos,
+  onAtualizar,
+  onPedidoEntrega,
+  onCadastrarCliente
+}: {
+  produtos: Produto[];
+  onAtualizar: () => void;
+  onPedidoEntrega?: () => void;
+  onCadastrarCliente?: () => void;
+}) {
   const [nome, setNome] = useState('');
   const [categoria, setCategoria] = useState('Geral');
   const [preco, setPreco] = useState('');
@@ -34,9 +44,21 @@ export function OmniEstoque({ produtos, onAtualizar }: { produtos: Produto[]; on
 
   return (
     <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-lg font-extrabold text-zinc-900">ERP • Controle e Edição de Estoque</h2>
-        <span className="text-xs font-bold px-3 py-1 rounded-full bg-zinc-100 text-zinc-700">{produtos.length} itens</span>
+        <div className="flex flex-wrap items-center gap-2">
+          {onPedidoEntrega && (
+            <button type="button" onClick={onPedidoEntrega} className="px-3 py-1.5 rounded-xl bg-[#8B0029] hover:bg-[#A50034] text-white text-xs font-bold transition">
+              🛵 Novo Pedido Entrega
+            </button>
+          )}
+          {onCadastrarCliente && (
+            <button type="button" onClick={onCadastrarCliente} className="px-3 py-1.5 rounded-xl bg-[#0B0B0B] hover:bg-zinc-800 text-white text-xs font-bold transition">
+              👤 Cadastrar Cliente
+            </button>
+          )}
+          <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-zinc-100 text-zinc-700">{produtos.length} itens</span>
+        </div>
       </div>
 
       <form onSubmit={cadastrar} className="grid grid-cols-1 sm:grid-cols-5 gap-2 p-3 rounded-xl bg-zinc-50 border border-zinc-200 text-xs">
