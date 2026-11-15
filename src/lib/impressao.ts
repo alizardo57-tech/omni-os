@@ -5,7 +5,27 @@ import path from 'path';
 import type { Venda } from './schemas';
 import { logger } from './logger';
 
-function formatarVia(venda: Venda, tituloVia: string): string[] {
+function quebrarLinha(texto: string, max = 32): string[] {
+  const limpo = texto.trim();
+  if (limpo.length <= max) return [limpo];
+  const palavras = limpo.split(/\s+/);
+  const saida: string[] = [];
+  let atual = '';
+  for (const p of palavras) {
+    if (!atual) {
+      atual = p.slice(0, max);
+    } else if (`${atual} ${p}`.length <= max) {
+      atual = `${atual} ${p}`;
+    } else {
+      saida.push(atual);
+      atual = p.slice(0, max);
+    }
+  }
+  if (atual) saida.push(atual);
+  return saida;
+}
+
+export function formatarVia(venda: Venda, tituloVia: string): string[] {
   const linhas: string[] = [
     '================================',
     '          BELLA PIZZA           ',
@@ -13,15 +33,19 @@ function formatarVia(venda: Venda, tituloVia: string): string[] {
     '================================',
     `PEDIDO: #${venda.id}`,
     `DATA:   ${new Date(venda.criadoEm).toLocaleString('pt-BR')}`,
-    `CLIENTE: ${venda.clienteNome}`,
+    ...quebrarLinha(`CLIENTE: ${venda.clienteNome}`),
     `FONE:    ${venda.clienteTelefone || 'Nao informado'}`,
     `TIPO:    ${venda.modalidade.toUpperCase()}`,
     `PAGTO:   ${venda.pagamento}`
   ];
-  if (venda.endereco) linhas.push(`END: ${venda.endereco}`);
+  if (venda.endereco) linhas.push(...quebrarLinha(`END: ${venda.endereco}`));
   linhas.push('--------------------------------', 'ITENS:');
   for (const it of venda.itens) {
-    linhas.push(`${it.qtd}x ${it.nome}`);
+    const partes = it.nome.split(/\s+\+\s+/);
+    linhas.push(...quebrarLinha(`${it.qtd}x ${partes[0]}`));
+    for (let i = 1; i < partes.length; i++) {
+      linhas.push(...quebrarLinha(`  + ${partes[i]}`));
+    }
     linhas.push(`   R$ ${(it.qtd * it.precoUnit).toFixed(2)}`);
   }
   linhas.push('--------------------------------', `TOTAL: R$ ${venda.total.toFixed(2)}`, '================================', '', '');
@@ -40,7 +64,8 @@ function enviarTrabalhoWindows(linhas: string[], sufixo: string): void {
     $font = New-Object System.Drawing.Font('Consolas', 10, [System.Drawing.FontStyle]::Bold)
     $pd.add_PrintPage({
       param($sender, $e)
-      $e.Graphics.DrawString($txt, $font, [System.Drawing.Brushes]::Black, 2, 2)
+      $rect = New-Object System.Drawing.RectangleF(2, 2, 276, 4000)
+      $e.Graphics.DrawString($txt, $font, [System.Drawing.Brushes]::Black, $rect)
     })
     $pd.Print()
     Remove-Item -Path '${tmpTxt.replace(/'/g, "''")}' -Force -ErrorAction SilentlyContinue

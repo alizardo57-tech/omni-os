@@ -40,14 +40,25 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
     });
   const [sabor1Id, setSabor1Id] = useState<number>(() => saboresPizza[0]?.id || produtos[0]?.id || 0);
   const [sabor2Id, setSabor2Id] = useState<number>(() => saboresPizza[1]?.id || saboresPizza[0]?.id || 0);
+  const [bordaId, setBordaId] = useState<number>(0);
+  const bordas = produtos.filter(p => p.categoria === 'Bordas Recheadas');
+
+  const aplicarBorda = (pizza: Produto): Produto => {
+    const isPizza = pizza.categoria === 'Pizzas Salgadas' || pizza.categoria === 'Pizzas Doces';
+    if (!isPizza || bordaId === 0) return pizza;
+    if (bordaId < 0) return { ...pizza, nome: `${pizza.nome} + ${bordaId === -1 ? 'SEM BORDA' : 'BORDA FALSA'}` };
+    const b = bordas.find(x => x.id === bordaId);
+    return b ? { ...pizza, nome: `${pizza.nome} + ${b.nome}`, preco: Number((pizza.preco + b.preco).toFixed(2)) } : pizza;
+  };
 
   const adicionar = (produto: Produto) => {
+    const itemFinal = aplicarBorda(produto);
+    if (itemFinal !== produto) setBordaId(0);
     setCarrinho(prev => {
-      const idx = prev.findIndex(i => i.produto.id === produto.id && i.produto.nome === produto.nome);
-      if (idx >= 0) {
-        return prev.map((item, k) => (k === idx ? { ...item, qtd: item.qtd + 1 } : item));
-      }
-      return [...prev, { produto, qtd: 1 }];
+      const idx = prev.findIndex(i => i.produto.id === itemFinal.id && i.produto.nome === itemFinal.nome);
+      return idx >= 0
+        ? prev.map((item, k) => (k === idx ? { ...item, qtd: item.qtd + 1 } : item))
+        : [...prev, { produto: itemFinal, qtd: 1 }];
     });
   };
 
@@ -162,13 +173,19 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
             </div>
           </div>
           {saboresPizza.length > 0 && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-50/70 border border-[#8B0029]/25 grid grid-cols-1 sm:grid-cols-5 gap-2 items-center text-xs">
-              <div className="font-black text-[#8B0029] sm:col-span-5">🍕 Montar Pizza 1/2 a 1/2 (preço do maior sabor)</div>
+            <div className="mb-4 p-3 rounded-xl bg-rose-50/70 border border-[#8B0029]/25 grid grid-cols-1 sm:grid-cols-6 gap-2 items-center text-xs">
+              <div className="font-black text-[#8B0029] sm:col-span-6">🍕 Montar Pizza 1/2 a 1/2 e Borda (borda vale também p/ pizza inteira)</div>
               <select value={sabor1Id} onChange={e => setSabor1Id(Number(e.target.value))} className="sm:col-span-2 bg-white border border-zinc-300 rounded-lg px-2.5 py-2 font-semibold">
                 {saboresPizza.map(p => <option key={p.id} value={p.id}>1/2 {p.nome} (R$ {p.preco.toFixed(2)})</option>)}
               </select>
               <select value={sabor2Id} onChange={e => setSabor2Id(Number(e.target.value))} className="sm:col-span-2 bg-white border border-zinc-300 rounded-lg px-2.5 py-2 font-semibold">
                 {saboresPizza.map(p => <option key={p.id} value={p.id}>1/2 {p.nome} (R$ {p.preco.toFixed(2)})</option>)}
+              </select>
+              <select value={bordaId} onChange={e => setBordaId(Number(e.target.value))} className="sm:col-span-1 bg-white border border-zinc-300 rounded-lg px-2 py-2 font-semibold">
+                <option value={0}>Borda Grátis</option>
+                <option value={-1}>Sem Borda</option>
+                <option value={-2}>Borda Falsa</option>
+                {bordas.map(b => <option key={b.id} value={b.id}>{b.nome.replace(/^Borda\s+(de\s+)?/i, '')} (+R$ {b.preco.toFixed(2)})</option>)}
               </select>
               <button type="button" onClick={adicionarMeioAMeio} className="bg-[#8B0029] hover:bg-[#A50034] text-white font-bold rounded-lg py-2 px-3 transition">
                 + Add 1/2 a 1/2
