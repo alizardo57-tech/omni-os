@@ -11,6 +11,7 @@ export interface OmniDb {
     cargo: string;
     tempoPreparoMin: number;
   };
+  produtosVersao?: number;
   produtos: Produto[];
   clientes: Cliente[];
   vendas: Venda[];
@@ -26,6 +27,7 @@ const SEED_INICIAL: OmniDb = {
     cargo: 'Caixa & Atendimento',
     tempoPreparoMin: 35
   },
+  produtosVersao: 2,
   produtos: produtosSeed as Produto[],
   clientes: clientesBellaSeed as Cliente[],
   vendas: []
@@ -39,8 +41,9 @@ export function lerOmniDb(): OmniDb {
   }
   const dados = JSON.parse(fs.readFileSync(DB_PATH, 'utf8')) as OmniDb;
   let alterou = false;
-  if (!dados.produtos || dados.produtos.length < 90 || dados.produtos.find(p => p.id === 56)?.categoria === 'Pizzas Salgadas') {
+  if (!dados.produtos || (dados.produtosVersao || 1) < 2) {
     dados.produtos = produtosSeed as Produto[];
+    dados.produtosVersao = 2;
     alterou = true;
   }
   if (!dados.clientes || dados.clientes.length <= 3) {
