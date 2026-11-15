@@ -78,10 +78,7 @@ function enviarTrabalhoWindows(linhas: string[], sufixo: string): void {
 export function imprimirComandaOmni(venda: Venda, forcar = false): boolean {
   if (!forcar && process.env.AUTO_PRINT !== 'true') return false;
   if (process.platform !== 'win32') return false;
-  enviarTrabalhoWindows(formatarVia(venda, 'VIA 1 - COZINHA'), 'cozinha');
-  setTimeout(() => {
-    enviarTrabalhoWindows(formatarVia(venda, 'VIA 2 - MOTOBOY / CLIENTE'), 'motoboy');
-  }, 900);
+  enviarTrabalhoWindows(formatarVia(venda, 'COMANDA DE PEDIDO'), 'comanda');
   return true;
 }
 
