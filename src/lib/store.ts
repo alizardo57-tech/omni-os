@@ -39,7 +39,7 @@ export function lerOmniDb(): OmniDb {
   }
   const dados = JSON.parse(fs.readFileSync(DB_PATH, 'utf8')) as OmniDb;
   let alterou = false;
-  if (!dados.produtos || dados.produtos.length <= 6) {
+  if (!dados.produtos || dados.produtos.length < 90) {
     dados.produtos = produtosSeed as Produto[];
     alterou = true;
   }

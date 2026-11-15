@@ -30,9 +30,13 @@ export function OmniVendasPdv({ produtos, vendas, clientes, tempoPreparoMin, mod
     p => (catPdv === 'Todas' || p.categoria === catPdv) && `${p.nome} ${p.categoria}`.toLowerCase().includes(buscaPdv.toLowerCase())
   );
 
-  const saboresPizza = produtos.filter(
-    p => !p.categoria.toLowerCase().includes('bebida') && !p.categoria.toLowerCase().includes('monte')
-  );
+  const saboresPizza = produtos
+    .filter(p => p.categoria === 'Pizzas Salgadas' || p.categoria === 'Pizzas Doces')
+    .sort((a, b) => {
+      const oa = a.categoria === 'Pizzas Salgadas' ? 1 : 2;
+      const ob = b.categoria === 'Pizzas Salgadas' ? 1 : 2;
+      return oa - ob || a.id - b.id;
+    });
   const [sabor1Id, setSabor1Id] = useState<number>(() => saboresPizza[0]?.id || produtos[0]?.id || 0);
   const [sabor2Id, setSabor2Id] = useState<number>(() => saboresPizza[1]?.id || saboresPizza[0]?.id || 0);
 

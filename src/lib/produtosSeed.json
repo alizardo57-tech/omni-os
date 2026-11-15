@@ -1,488 +1,830 @@
 [
   {
-    "id": 401,
-    "nome": "Pizza Grande 1 Sabor (35cm - 8 pedaços)",
-    "categoria": "Monte sua Pizza",
-    "preco": 59.99,
-    "estoque": 99,
-    "descricao": "35cm - 8 pedaços (borda de catupiry grátis nos sabores tradicionais)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467942549blob"
+    "id": 1,
+    "nome": "1 - MODA DA CASA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 38,
+    "estoque": 50,
+    "descricao": "LOMBO CANADENE, BROCOLIS, TOMATE, PALMITO, CEBOLA, PARMESAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 402,
-    "nome": "Pizza Grande 2 Sabores (35cm - 8 pedaços)",
-    "categoria": "Monte sua Pizza",
-    "preco": 59.99,
-    "estoque": 99,
-    "descricao": "35cm - 8 pedaços (escolha 2 sabores)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467957318blob"
+    "id": 2,
+    "nome": "2 - PIZZAIOLO",
+    "categoria": "Pizzas Salgadas",
+    "preco": 40,
+    "estoque": 50,
+    "descricao": "ECAROLA, BACOM, ERVILHA, ALICHE, PALMITO, CEBOLA, PARMESAO, MUSSARELA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 403,
-    "nome": "Pizza Brotinho 1 Sabor (25cm - 4 pedaços)",
-    "categoria": "Monte sua Pizza",
-    "preco": 45.99,
-    "estoque": 99,
-    "descricao": "25cm - 4 pedaços",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467910934blob"
+    "id": 3,
+    "nome": "3 - BACALHAU",
+    "categoria": "Pizzas Salgadas",
+    "preco": 43,
+    "estoque": 50,
+    "descricao": "MUSSARELA, BACALHAU DESFIADO E TEMPERADO, OVO, CEBOLA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 404,
-    "nome": "Pizza Brotinho 2 Sabores (25cm - 4 pedaços)",
-    "categoria": "Monte sua Pizza",
-    "preco": 45.99,
-    "estoque": 99,
-    "descricao": "25cm - 4 pedaços",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1769467928322blob"
+    "id": 4,
+    "nome": "4 - CARNE SECA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 43,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CARNE SECA, TOMATE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 405,
-    "nome": "Salgada: Pizza Pré-assada c/ Borda Recheada",
-    "categoria": "Pré-Assadas",
-    "preco": 15.99,
-    "estoque": 60,
-    "descricao": "Massa, molho de tomate, borda recheada de catupiry grátis, pré-assada",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767909562281blob"
+    "id": 5,
+    "nome": "5 - CAMARAO",
+    "categoria": "Pizzas Salgadas",
+    "preco": 45,
+    "estoque": 50,
+    "descricao": "MUSARELA, CAMARAO, CEBOLA, BACOM, TOMATE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 406,
-    "nome": "Doce: Pizza Pré-assada c/ Borda Recheada",
-    "categoria": "Pré-Assadas",
-    "preco": 15.99,
-    "estoque": 60,
-    "descricao": "Massa, creme de leite, borda de chocolate ao leite, pré-assada",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767656569773blob"
+    "id": 6,
+    "nome": "6 - ESTRELA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 48,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CATUPIRY, PRESUNTO, ERVILHA, PALMITO, CHANPIGNON, CAMARAO, TOMATE, CEBOLA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 407,
-    "nome": "62 - Brócolis com Catupiry",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, catupiry, brócolis, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298157826blob"
+    "id": 7,
+    "nome": "7 - ALICHE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "ALICHE, MUSSARELA, TOMATE, CEBOLA, PARMEAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 408,
-    "nome": "63 - Lombo com Catupiry",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, catupiry, lombo, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552173942blob"
+    "id": 8,
+    "nome": "8 - AMERICANA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 39,
+    "estoque": 50,
+    "descricao": "PRESUNTO, ERVILHA, MILHO, PALMITO, BACOM, OVOS, MUSSARELA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 409,
-    "nome": "64 - Palmito com Catupiry",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, catupiry, palmito, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552338133blob"
+    "id": 9,
+    "nome": "9 - ATUM-1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 33,
+    "estoque": 50,
+    "descricao": "MUSSARELA, ATUM, CEBOLA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 410,
-    "nome": "65 - Presunto com Catupiry",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, catupiry, presunto, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552520060blob"
+    "id": 10,
+    "nome": "10 - ATUM-2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 34,
+    "estoque": 50,
+    "descricao": "MUSARELA, ATUM, CEBOLA, TOMATE, PARMESAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 411,
-    "nome": "66 - Catupiry",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, catupiry, manjericão, azeitonas e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552546348blob"
+    "id": 11,
+    "nome": "11 - BAIACATU",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CALABRESA PICADA, OVOS, CATUPIRY, CEBOLA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 412,
-    "nome": "67 - Milho com Catupiry",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, milho, catupiry, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554379960blob"
+    "id": 12,
+    "nome": "12 - BELLA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "MUSSARELA,BACOM, PIMENTAO, ALHO FRITO, TOMATE, PARMESAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 413,
-    "nome": "68 - Calabresa I",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 90,
-    "descricao": "Molho, calabresa, cebola, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
-  },
-  {
-    "id": 414,
-    "nome": "69 - Alho",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, muçarela, alho, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350987624blob"
-  },
-  {
-    "id": 415,
-    "nome": "70 - Bacon",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 85,
-    "descricao": "Molho, muçarela, bacon, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736453891201blob"
-  },
-  {
-    "id": 416,
-    "nome": "71 - Baiana",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, calabresa moída, muçarela, pimenta calabresa, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296782047blob"
-  },
-  {
-    "id": 417,
-    "nome": "72 - Brasileira I",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, presunto, bacon, muçarela, azeitonas e orégano (borda de catupiry grátis)",
+    "id": 13,
+    "nome": "13 - BRASILEIRA- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "MUSSARELA, PRESUNTO, CHAMPIGNON, OVOS, CEBOLA.",
     "imagem": "https://client-assets.anota.ai/produtos/1736292951476blob"
   },
   {
-    "id": 418,
-    "nome": "73 - Calabresa II",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 90,
-    "descricao": "Molho, calabresa, muçarela, cebola, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296014116blob"
+    "id": 14,
+    "nome": "14 - BROCOLIS- 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 32,
+    "estoque": 50,
+    "descricao": "BROCOLIS, MUSSARELA, BACOM.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 419,
-    "nome": "74 - Marguerita",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 85,
-    "descricao": "Molho, muçarela, tomate, parmesão, manjericão, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346051213blob"
+    "id": 15,
+    "nome": "15 - BROCOLIS- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "BROCOLIS, ALHO FRITO, MUSSARELA, PARMESAO, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 420,
-    "nome": "75 - Milho",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, milho, muçarela, azeitonas e orégano (borda de catupiry grátis)",
+    "id": 16,
+    "nome": "16 - CALABRESA C/ CAT.",
+    "categoria": "Pizzas Salgadas",
+    "preco": 33,
+    "estoque": 50,
+    "descricao": "CALABREA, CATUPIRY.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
+  },
+  {
+    "id": 17,
+    "nome": "17 - CHAMPIGNON",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CHAMPIGNON, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 18,
+    "nome": "18 - 5 QUEIJOS",
+    "categoria": "Pizzas Salgadas",
+    "preco": 38,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CATUPIRY, PARMESAO, GORGONZOLA, PROVOLONE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 19,
+    "nome": "19 - ESCAROLA - 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 34,
+    "estoque": 50,
+    "descricao": "ESCAROLA REFOGADA, MUSSARELA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 20,
+    "nome": "20 - ESCAROLA- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "ESCAROLA REFOGADA, BACOM, CATUPIRY, MUSSARELA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 21,
+    "nome": "21 - EUROPEIA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "MUSSARELA, BACOM, ERVILHA, PALMITO,",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 22,
+    "nome": "22 - FRANCESA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CHAMPIGNOM, ERVILHA, PALMITO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 23,
+    "nome": "23 - FRANGO- 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 34,
+    "estoque": 50,
+    "descricao": "FRANGO, MUSSARELA, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 24,
+    "nome": "24 - FRANGO- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "FRANGO, MILHO,CEBOLA,  MUSSARELA, BACOM, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 25,
+    "nome": "25 - FRANGO- 3",
+    "categoria": "Pizzas Salgadas",
+    "preco": 38,
+    "estoque": 50,
+    "descricao": "FRANGO, MILHO, PALMITO, BACOM, MUSSARELA, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 26,
+    "nome": "26 - LOMBO CANADENSE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 33,
+    "estoque": 50,
+    "descricao": "LOMBO, MUSSARELA, CEBOLA",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 27,
+    "nome": "27 - MILHO- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 34,
+    "estoque": 50,
+    "descricao": "MILHO, MUSSARELA, BACOM, CATUPIRY.",
     "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554591506blob"
   },
   {
-    "id": 421,
-    "nome": "76 - Mussarela",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 95,
-    "descricao": "Molho, muçarela, tomate, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736293202071blob"
+    "id": 28,
+    "nome": "28 - PALMITO- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 32,
+    "estoque": 50,
+    "descricao": "PALMITO, MUSSARELA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 422,
-    "nome": "77 - Napolitana",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, muçarela, tomate, parmesão, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552747568blob"
+    "id": 29,
+    "nome": "29 - PALMITO- 3",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "PRESUNTO, PALMITO, CEBOLA, MUSSARELA, TOMATE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 423,
-    "nome": "78 - Toscana",
-    "categoria": "Borda Grátis R$ 59,99",
-    "preco": 59.99,
-    "estoque": 80,
-    "descricao": "Molho, muçarela, calabresa moída, azeitonas e orégano (borda de catupiry grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552804632blob"
+    "id": 30,
+    "nome": "30 - PEPERONI-1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "MUSSARELA, PEPERONI.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 424,
-    "nome": "81 - Hambúrguer",
-    "categoria": "Pizzas Especiais",
-    "preco": 66.99,
-    "estoque": 70,
-    "descricao": "Molho, hambúrguer, presunto, muçarela, tomate, molho especial da casa, bacon, azeitonas e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350667165blob"
+    "id": 31,
+    "nome": "31 - PEPERONI- 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 40,
+    "estoque": 50,
+    "descricao": "LOMBO, PEPERONI, MUSSARELA, BACOM, PARMESAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 425,
-    "nome": "57 - Brócolis com Cream Cheese",
-    "categoria": "Pizzas Especiais",
-    "preco": 69.99,
-    "estoque": 70,
-    "descricao": "Molho, muçarela, brócolis, bacon, cream cheese, azeitona e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/1736453285858blob"
+    "id": 32,
+    "nome": "32 - PORTUGUESA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "PRESUNTO, ERVILHA, PALMITO, OVOS, CEBOLA, MUSSARELA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 426,
-    "nome": "58 - Lombo com Cream Cheese",
-    "categoria": "Pizzas Especiais",
-    "preco": 68.99,
-    "estoque": 70,
-    "descricao": "Molho, muçarela, lombo canadense, cream cheese, azeitona e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296842931blob"
+    "id": 33,
+    "nome": "33 - PRESUNTO E QUEIJO",
+    "categoria": "Pizzas Salgadas",
+    "preco": 32,
+    "estoque": 50,
+    "descricao": "PRESUNTO, MUSSARELA, TOMATE.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552520060blob"
   },
   {
-    "id": 427,
-    "nome": "59 - Milho com Cream Cheese",
-    "categoria": "Pizzas Especiais",
-    "preco": 67.99,
-    "estoque": 70,
-    "descricao": "Molho, muçarela, milho, bacon, cream cheese, azeitona e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554576691blob"
+    "id": 34,
+    "nome": "34 - PROVOLONE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 34,
+    "estoque": 50,
+    "descricao": "MUSSARELA, PROVOLONE, TOMATE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 428,
-    "nome": "60 - Peito de Peru com Cream Cheese",
-    "categoria": "Pizzas Especiais",
-    "preco": 72.99,
-    "estoque": 65,
-    "descricao": "Molho, muçarela, peito de peru, cream cheese, azeitona e orégano",
+    "id": 35,
+    "nome": "35 - 4 QUEIJOS",
+    "categoria": "Pizzas Salgadas",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "MUSSARELA, PROVOLONE, PARMESAO, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 36,
+    "nome": "36 - ROMANESCA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "PRESUNTO, MUSSARELA, ERVILHA, CHAMPIGNON, ALHO FRITO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 37,
+    "nome": "37 - RUCULA- 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "MUSSARELA, RUCULA, TOMATE SECO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 38,
+    "nome": "38 - RUCULA- 2 SAQUINHO DE RUCULA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 40,
+    "estoque": 50,
+    "descricao": "MUSSARELA, PEPERONI, RUCULA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 39,
+    "nome": "39 - VEGETARIANA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 34,
+    "estoque": 50,
+    "descricao": "MUSSARELA, ERVILHA, MILHO, CEBOLA, TOMATE, PIMENTAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 40,
+    "nome": "40 - MEXICANA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 38,
+    "estoque": 50,
+    "descricao": "MUSSRELA, CALABRESA FATIADA, PARMESAO, BACOM, PIMENTAO, TOMATE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 41,
+    "nome": "41 - HOT DOG",
+    "categoria": "Pizzas Salgadas",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "MOSTARDA, CAT CHUP, SALSICHA, BATATA PALHA, BACOM, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 42,
+    "nome": "42 - ABOBRINHA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 33,
+    "estoque": 50,
+    "descricao": "MUSSARELA, ABOBRINHA FATIADA, BACOM, PARMESAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 43,
+    "nome": "43 - STROGONOFF",
+    "categoria": "Pizzas Salgadas",
+    "preco": 38,
+    "estoque": 50,
+    "descricao": "FRANGO, CHAMPIGNON, CREME DE LEITE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 44,
+    "nome": "44 - BERINJELA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 38,
+    "estoque": 50,
+    "descricao": "MUSSARELA, BERINJELA, CEBOLA, PIMENTAO.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 45,
+    "nome": "45 - PEITO DE PERU 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "MOLHO, MUSSARELA, PEITO DE PERU, CATUPIRY, AZEITONAS E OREGANO.",
     "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554077298blob"
   },
   {
-    "id": 429,
-    "nome": "61 - Frango Philadelphia",
-    "categoria": "Pizzas Especiais",
-    "preco": 73.99,
-    "estoque": 75,
-    "descricao": "Molho, muçarela, frango desfiado, milho, bacon, cream cheese, azeitona e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755553722540blob"
+    "id": 46,
+    "nome": "46 - PEITO DE PERU 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 39,
+    "estoque": 50,
+    "descricao": "MUSSARELA, PEITO DE PERU, CHEEDER, PIMENTAO, PARMESAO, AZEITONAS E OREGANO.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554077298blob"
   },
   {
-    "id": 430,
-    "nome": "78 - Costela",
-    "categoria": "Pizzas Especiais",
-    "preco": 81.99,
-    "estoque": 55,
-    "descricao": "Molho de tomate, muçarela, costela desfiada, cream cheese, tomates fatiados, azeitonas e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295403296blob"
+    "id": 48,
+    "nome": "48 - ROSE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "MUSSARELA, FRANGO,CHAMPIGNON, MOLHO ROSE.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
   },
   {
-    "id": 431,
-    "nome": "87 - Calabresa c/ Cream Cheese",
-    "categoria": "Pizzas Especiais",
-    "preco": 68.99,
-    "estoque": 75,
-    "descricao": "Molho, muçarela, calabresa, cream cheese, azeitonas e orégano",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554307650blob"
+    "id": 49,
+    "nome": "49 - CALABRESA ESPECIAL",
+    "categoria": "Pizzas Salgadas",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "CALABRESA, MUSSARELA, CEBOLA, MILHO, BACOM, TOMATE.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
   },
   {
-    "id": 432,
-    "nome": "51 - Brigadeiro",
+    "id": 50,
+    "nome": "50 - DORITOS",
+    "categoria": "Pizzas Salgadas",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "MOLHO, MOLHO DE PIMENTA, DORITOS, MUSSARELA E CHEDDER",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 56,
+    "nome": "56 - NUTELA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 42,
+    "estoque": 50,
+    "descricao": "LOMBO CANADENSE, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 57,
+    "nome": "57 - BROCOLIS C/ CREEN CHEESE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "PALMITO, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 58,
+    "nome": "58 - LOMBO C/ CREEN CHEESE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 37,
+    "estoque": 50,
+    "descricao": "PRESUNTO, CATUPIRY.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 59,
+    "nome": "59 - MILHO C/ CREEN CHEESE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "CATUPIRY, MANJERICAO.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554591506blob"
+  },
+  {
+    "id": 60,
+    "nome": "60 - PEITO DE PERU C/ CREEN CHEESE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 40,
+    "estoque": 50,
+    "descricao": "MILHO, CATUPIRY.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554077298blob"
+  },
+  {
+    "id": 61,
+    "nome": "61 - FRANGO C/ CREEN CHEESE",
+    "categoria": "Pizzas Salgadas",
+    "preco": 42,
+    "estoque": 50,
+    "descricao": "CALABRESA, CEBOLA.",
+    "imagem": "/img/produtos/pizza-calabresa.svg"
+  },
+  {
+    "id": 62,
+    "nome": "62 - BROCOLIS C/ CATUPIRY",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "ALHO, MUSSARELA.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552546348blob"
+  },
+  {
+    "id": 63,
+    "nome": "63 - LOMBO C/ CATUPIRY",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MUSSARELA, BACOM.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552546348blob"
+  },
+  {
+    "id": 64,
+    "nome": "64 - PALMITO C/ CATUPIRY",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CALABRESA PICADA, PIMENTA CALABRESA..",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552338133blob"
+  },
+  {
+    "id": 65,
+    "nome": "65 - PRESUNTO C/ CATUPIRY",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "PRESUNTO, BACOM, MUSSARELA..",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552520060blob"
+  },
+  {
+    "id": 66,
+    "nome": "66 - CATUPIRY",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "CALABRESA, CEBOLA, MUSSARELA.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736298157826blob"
+  },
+  {
+    "id": 67,
+    "nome": "67 - MILHO C/ CATUPIRY",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MUSSARELA, TOMATE, PARMESAO, MANJERICAO.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552546348blob"
+  },
+  {
+    "id": 68,
+    "nome": "68 - CALABRESA 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MUSSARELA, MILHO VERDE.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
+  },
+  {
+    "id": 69,
+    "nome": "69 - ALHO",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MUSSARELA, TOMATE.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350987624blob"
+  },
+  {
+    "id": 70,
+    "nome": "70 - BACON",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MMUSSARELA, PARMESAO, TOMATE.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736453891201blob"
+  },
+  {
+    "id": 71,
+    "nome": "71 - BAIANA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "MUSSARELA, CALABRESA PICADA.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296782047blob"
+  },
+  {
+    "id": 72,
+    "nome": "72 - BRASILEIRA 1",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0",
+    "imagem": "https://client-assets.anota.ai/produtos/1736292951476blob"
+  },
+  {
+    "id": 73,
+    "nome": "73 - CALABRESA 2",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
+  },
+  {
+    "id": 74,
+    "nome": "74 - MARGUERITA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346051213blob"
+  },
+  {
+    "id": 75,
+    "nome": "75 - MILHO",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0\\n",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554379960blob"
+  },
+  {
+    "id": 76,
+    "nome": "76 - MUSSARELA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0",
+    "imagem": "https://client-assets.anota.ai/produtos/1736293202071blob"
+  },
+  {
+    "id": 77,
+    "nome": "77 - NAPOLITANA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552747568blob"
+  },
+  {
+    "id": 78,
+    "nome": "78 - TOSCANA",
+    "categoria": "Pizzas Salgadas",
+    "preco": 30,
+    "estoque": 50,
+    "descricao": "0",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552804632blob"
+  },
+  {
+    "id": 51,
+    "nome": "51 - BRIGADEIRO",
     "categoria": "Pizzas Doces",
-    "preco": 65.99,
-    "estoque": 70,
-    "descricao": "Chocolate ao leite e chocolate granulado (borda de chocolate grátis)",
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "CHOCOLATE AO LEITE, CHOCOLATE GRANULADO.",
     "imagem": "https://client-assets.anota.ai/produtos/1736297181231blob"
   },
   {
-    "id": 433,
-    "nome": "52 - Prestígio",
+    "id": 52,
+    "nome": "52 - PRESTIGIO",
     "categoria": "Pizzas Doces",
-    "preco": 65.99,
-    "estoque": 70,
-    "descricao": "Chocolate ao leite e coco ralado (borda de chocolate grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346216583blob"
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "CHOCOLATE AO LEITE E COCO RALADO.",
+    "imagem": "/img/produtos/pizza-doce.svg"
   },
   {
-    "id": 434,
-    "nome": "53 - Sonho de Valsa",
+    "id": 53,
+    "nome": "53 - SONHO DE VALSA",
     "categoria": "Pizzas Doces",
-    "preco": 66.99,
-    "estoque": 65,
-    "descricao": "Chocolate ao leite, chocolate branco e bombons Sonho de Valsa (borda de chocolate grátis)",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "CHOCOLATE AO LEITE, CHOCOLATE BRANCO E BOMBONS SONHO DE VALSA.",
     "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767655229480blob"
   },
   {
-    "id": 435,
-    "nome": "54 - Paçoca",
+    "id": 54,
+    "nome": "54 - PACOCA",
     "categoria": "Pizzas Doces",
-    "preco": 65.99,
-    "estoque": 65,
-    "descricao": "Doce de leite e paçoca (borda de chocolate grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554444406blob"
+    "preco": 35,
+    "estoque": 50,
+    "descricao": "DOCE DE LEITE E PACOCA.\\n",
+    "imagem": "/img/produtos/pizza-doce.svg"
   },
   {
-    "id": 436,
-    "nome": "55 - Confete",
+    "id": 55,
+    "nome": "55 - CONFETE",
     "categoria": "Pizzas Doces",
-    "preco": 66.99,
-    "estoque": 65,
-    "descricao": "Chocolate ao leite e confete (borda de chocolate grátis)",
+    "preco": 36,
+    "estoque": 50,
+    "descricao": "BROCOLIS, CATUPIRY.",
     "imagem": "https://client-assets.anota.ai/produtos/1736295514973blob"
   },
   {
-    "id": 437,
-    "nome": "79 - Kit Kat",
+    "id": 122,
+    "nome": "122 - KIT KAT",
     "categoria": "Pizzas Doces",
-    "preco": 71.99,
-    "estoque": 60,
-    "descricao": "Pasta de KitKat e pedaços de KitKat (borda de chocolate grátis)",
+    "preco": 42,
+    "estoque": 50,
+    "descricao": "K",
     "imagem": "https://client-assets.anota.ai/produtos/1736291619749blob"
   },
   {
-    "id": 438,
-    "nome": "80 - Banana Nevada",
-    "categoria": "Pizzas Doces",
-    "preco": 65.99,
-    "estoque": 65,
-    "descricao": "Chocolate branco, banana e canela em pó (borda de chocolate grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736293726643blob"
-  },
-  {
-    "id": 439,
-    "nome": "84 - Morango",
-    "categoria": "Pizzas Doces",
-    "preco": 66.99,
-    "estoque": 65,
-    "descricao": "Chocolate ao leite, chocolate branco e morangos (borda de chocolate grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297811201blob"
-  },
-  {
-    "id": 440,
-    "nome": "86 - Ouro Branco",
-    "categoria": "Pizzas Doces",
-    "preco": 67.99,
-    "estoque": 60,
-    "descricao": "Chocolate ao leite, chocolate branco e bombons Ouro Branco (borda de chocolate grátis)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736454036262blob"
-  },
-  {
-    "id": 441,
-    "nome": "Trufa Tradicional",
-    "categoria": "Trufas",
-    "preco": 5.99,
-    "estoque": 90,
-    "descricao": "Trufa tradicional artesanal",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761596995949blob"
-  },
-  {
-    "id": 442,
-    "nome": "Trufa de Brigadeiro",
-    "categoria": "Trufas",
-    "preco": 5.99,
-    "estoque": 90,
-    "descricao": "Trufa recheada de brigadeiro",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761597016089blob"
-  },
-  {
-    "id": 443,
-    "nome": "Trufa de Beijinho",
-    "categoria": "Trufas",
-    "preco": 5.99,
-    "estoque": 90,
-    "descricao": "Trufa recheada de beijinho",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761597029378blob"
-  },
-  {
-    "id": 444,
-    "nome": "Trufa de Sonho de Valsa",
-    "categoria": "Trufas",
-    "preco": 5.99,
-    "estoque": 90,
-    "descricao": "Trufa sabor Sonho de Valsa",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1761597044626blob"
-  },
-  {
-    "id": 445,
-    "nome": "Coca-Cola 2L",
+    "id": 79,
+    "nome": "79 - COCA COLA 2L",
     "categoria": "Bebidas",
-    "preco": 15.99,
-    "estoque": 100,
-    "descricao": "Refrigerante Coca-Cola Original 2 Litros",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346886373blob"
-  },
-  {
-    "id": 446,
-    "nome": "Coca-Cola Zero 2L",
-    "categoria": "Bebidas",
-    "preco": 16.99,
-    "estoque": 80,
-    "descricao": "Refrigerante Coca-Cola Sem Açúcar 2 Litros",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350793505blob"
-  },
-  {
-    "id": 447,
-    "nome": "Fanta Laranja 2 Litros",
-    "categoria": "Bebidas",
-    "preco": 12.99,
-    "estoque": 70,
-    "descricao": "Refrigerante Fanta Laranja 2 Litros",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794347310940blob"
-  },
-  {
-    "id": 448,
-    "nome": "Suco Betel Laranja 1 Litro",
-    "categoria": "Bebidas",
-    "preco": 16.99,
+    "preco": 10,
     "estoque": 50,
-    "descricao": "Suco de laranja natural 1L",
-    "imagem": "https://client-assets.anota.ai/produtos/1736299602413blob"
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
   },
   {
-    "id": 449,
-    "nome": "Coca-Cola Lata Original 350ml",
+    "id": 80,
+    "nome": "80 - FANTA 2L",
     "categoria": "Bebidas",
-    "preco": 5.99,
-    "estoque": 120,
-    "descricao": "Refrigerante lata 350ml",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739484776672blob"
+    "preco": 8,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
   },
   {
-    "id": 450,
-    "nome": "Coca-Cola Lata Zero 350ml",
+    "id": 81,
+    "nome": "81 - KUAT 2L",
     "categoria": "Bebidas",
-    "preco": 5.99,
-    "estoque": 100,
-    "descricao": "Coca-Cola Zero lata 350ml",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1773868148935blob"
+    "preco": 8,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
   },
   {
-    "id": 451,
-    "nome": "Heineken 350ml",
+    "id": 82,
+    "nome": "82 - BRAHMA LATA",
     "categoria": "Bebidas",
-    "preco": 6.99,
-    "estoque": 90,
-    "descricao": "Cerveja Heineken lata 350ml",
+    "preco": 5,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
+  },
+  {
+    "id": 83,
+    "nome": "83 - SUCO 1 LITRO",
+    "categoria": "Bebidas",
+    "preco": 8,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
+  },
+  {
+    "id": 85,
+    "nome": "85 - AGUA",
+    "categoria": "Bebidas",
+    "preco": 2.5,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
+  },
+  {
+    "id": 87,
+    "nome": "87 - COCA LATA",
+    "categoria": "Bebidas",
+    "preco": 5,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
+  },
+  {
+    "id": 120,
+    "nome": "120 - IMPERIO",
+    "categoria": "Bebidas",
+    "preco": 5,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
+  },
+  {
+    "id": 121,
+    "nome": "121 - COCA ZERO",
+    "categoria": "Bebidas",
+    "preco": 10,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/refri-2l.svg"
+  },
+  {
+    "id": 123,
+    "nome": "123 - HEINEKEN",
+    "categoria": "Bebidas",
+    "preco": 6,
+    "estoque": 50,
+    "descricao": "",
     "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485774587blob"
   },
   {
-    "id": 452,
-    "nome": "Império 350ml",
-    "categoria": "Bebidas",
-    "preco": 4.99,
-    "estoque": 90,
-    "descricao": "Cerveja Império lata 350ml",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485236203blob"
+    "id": 84,
+    "nome": "84 - TRUFAS",
+    "categoria": "Adicionais",
+    "preco": 4,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/borda.svg"
   },
   {
-    "id": 453,
-    "nome": "Água Sem Gás",
-    "categoria": "Bebidas",
-    "preco": 4.99,
-    "estoque": 120,
-    "descricao": "Água mineral natural sem gás",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485103464blob"
+    "id": 86,
+    "nome": "86 - BORDA DE CHEEDER",
+    "categoria": "Adicionais",
+    "preco": 4,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/borda.svg"
   },
   {
-    "id": 454,
-    "nome": "Água com Gás",
-    "categoria": "Bebidas",
-    "preco": 4.99,
-    "estoque": 100,
-    "descricao": "Água mineral natural com gás",
-    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1739485843429blob"
+    "id": 88,
+    "nome": "88 - MASSA",
+    "categoria": "Adicionais",
+    "preco": 6,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/borda.svg"
+  },
+  {
+    "id": 89,
+    "nome": "89 - CAIXA",
+    "categoria": "Adicionais",
+    "preco": 1,
+    "estoque": 50,
+    "descricao": "",
+    "imagem": "/img/produtos/borda.svg"
   }
 ]
