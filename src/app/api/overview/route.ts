@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { lerOmniDb, salvarOmniDb } from '@/lib/store';
 import { ordenarProdutosAlfabeticamente } from '@/lib/ordenacao';
+import { gerarBackupExterno } from '@/lib/backup';
 
 export async function GET() {
   const db = lerOmniDb();
@@ -32,13 +33,20 @@ const ConfigOverviewSchema = z.object({
   cargo: z.string().min(1).optional(),
   whatsappDono: z.string().optional(),
   camilaWebhookUrl: z.string().optional(),
-  bairrosLoja: z.record(z.string(), z.enum(['Loja 1', 'Loja 2'])).optional()
+  bairrosLoja: z.record(z.string(), z.enum(['Loja 1', 'Loja 2'])).optional(),
+  zerarValoresTeste: z.boolean().optional()
 });
 
 export async function PATCH(req: Request) {
   const parsed = ConfigOverviewSchema.safeParse(await req.json());
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
   const db = lerOmniDb();
+  if (parsed.data.zerarValoresTeste) {
+    gerarBackupExterno('antes-zerar-teste');
+    db.vendas = [];
+    db.comandasFantasmas = [];
+    db.movimentacoesFinanceiras = [];
+  }
   if (parsed.data.tempoPreparoMin !== undefined) {
     db.empresa.tempoPreparoMin = parsed.data.tempoPreparoMin;
   }

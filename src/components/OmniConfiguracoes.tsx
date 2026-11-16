@@ -30,6 +30,8 @@ export function OmniConfiguracoes({
   const [backups, setBackups] = useState<{ nome: string; tamanhoBytes: number; criadoEm: string }[]>([]);
   const [gerandoBackup, setGerandoBackup] = useState(false);
   const [msgBackup, setMsgBackup] = useState('');
+  const [zerandoTeste, setZerandoTeste] = useState(false);
+  const [msgZerar, setMsgZerar] = useState('');
   const [usuarios, setUsuarios] = useState<UsuarioPublico[]>([]);
   const [novoNome, setNovoNome] = useState('');
   const [novoLogin, setNovoLogin] = useState('');
@@ -91,6 +93,27 @@ export function OmniConfiguracoes({
   const removerUsuario = async (id: string) => {
     await fetch(`/api/auth?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
     carregarUsuarios();
+  };
+
+  const zerarValoresDeTeste = async () => {
+    if (!window.confirm('Zerar todas as vendas, financeiro e auditoria de teste? Produtos, clientes e usuários serão mantidos.')) {
+      return;
+    }
+    setZerandoTeste(true);
+    setMsgZerar('');
+    try {
+      const res = await fetch('/api/overview', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ zerarValoresTeste: true })
+      });
+      if ((await res.json()).ok) {
+        setMsgZerar('✅ Valores zerados com sucesso! (Backup salvo antes em Documents\\OmniOS-Backups).');
+        onAtualizar();
+      }
+    } finally {
+      setZerandoTeste(false);
+    }
   };
 
   const gerarBackupAgora = async () => {
@@ -213,6 +236,20 @@ export function OmniConfiguracoes({
             {gerandoBackup ? 'Gerando...' : 'Gerar Backup Agora'}
           </button>
         </div>
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-zinc-100">
+          <span className="text-[11px] text-zinc-600">
+            Quer limpar vendas e financeiro de teste sem apagar produtos, clientes ou usuários?
+          </span>
+          <button
+            type="button"
+            disabled={zerandoTeste}
+            onClick={zerarValoresDeTeste}
+            className="px-3.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 font-bold transition"
+          >
+            {zerandoTeste ? 'Zerando...' : 'Zerar Valores de Teste'}
+          </button>
+        </div>
+        {msgZerar && <p className="font-bold text-emerald-700">{msgZerar}</p>}
         {msgBackup && <p className="font-bold text-emerald-700">{msgBackup}</p>}
         <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3 text-[11px] text-zinc-700">
           <strong>Alerta automático na VPS / Agentes (se não fechar o caixa):</strong> configure seu agendador/n8n para chamar{' '}
