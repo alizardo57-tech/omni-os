@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual do Administrador (Dono) • Omni-OS</title>
+  <style>
+    :root { --bg:#0b0b0d; --card:#151519; --primary:#8b0029; --accent:#fb7185; --text:#f4f4f5; --muted:#a1a1aa; --border:#27272a; }
+    * { box-sizing:border-box; margin:0; padding:0; font-family:'Segoe UI',system-ui,sans-serif; }
+    body { background:var(--bg); color:var(--text); line-height:1.6; padding:28px 18px 60px; }
+    .wrap { max-width:1020px; margin:0 auto; }
+    header { background:linear-gradient(135deg,#1d060e 0%,#0b0b0d 70%); border:1px solid var(--primary); border-radius:22px; padding:30px; margin-bottom:24px; }
+    .pill { display:inline-block; background:rgba(139,0,41,.35); border:1px solid var(--accent); color:#fda4af; font-size:11px; font-weight:800; padding:4px 12px; border-radius:999px; text-transform:uppercase; margin-bottom:10px; }
+    h1 { font-size:28px; font-weight:900; }
+    header p { color:var(--muted); font-size:14px; margin-top:6px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-bottom:20px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:20px; }
+    h2 { font-size:16px; font-weight:800; color:#fff; margin-bottom:10px; }
+    ul { padding-left:18px; font-size:13.5px; color:#d4d4d8; }
+    li { margin-bottom:6px; }
+    strong { color:#fff; }
+    code { background:#27272a; padding:2px 6px; border-radius:6px; font-size:12px; color:#fda4af; font-weight:700; }
+    .alert { background:rgba(225,29,72,.1); border:1px solid rgba(225,29,72,.4); border-radius:16px; padding:18px; margin-top:16px; }
+    .alert h3 { color:#fda4af; font-size:15px; font-weight:800; margin-bottom:6px; }
+    .alert p, .alert li { font-size:13px; color:#e4e4e7; }
+    footer { text-align:center; margin-top:32px; font-size:12px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="pill">Manual Exclusivo • Dono / Administrador</span>
+      <h1>Painel Gerencial, Auditoria & Controle Total</h1>
+      <p>Guia completo para o proprietário gerenciar usuários, financeiro, relatórios, auditoria de comandas excluídas, 2 lojas, backups e envio automático pela Camila.</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>🔐 1. Acesso Admin & Criar Usuários</h2>
+        <ul>
+          <li>Entre com o usuário <strong><code>admin</code></strong> e senha <strong><code>1234</code></strong> (recomendado criar seu usuário pessoal e alterar/remover acessos extras).</li>
+          <li><strong>Somente o Admin</strong> enxerga as abas <strong>Financeiro</strong>, <strong>Relatórios</strong> e <strong>Configurações</strong>.</li>
+          <li>Na aba <strong>Configurações → Área do Admin • Gerenciar & Criar Usuários</strong>, você cria logins separados para <strong>Funcionário</strong> (acesso restrito ao caixa/PDV) ou novos <strong>Admins</strong>, escolhendo a Loja Padrão (Loja 1 ou Loja 2).</li>
+          <li>Você também pode remover usuários cadastrados (o <code>admin</code> principal é protegido).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>💰 2. Financeiro & Fluxo de Caixa</h2>
+        <ul>
+          <li>Na aba <strong>Financeiro</strong>, acompanhe em tempo real: <strong>Vendas do Turno</strong>, <strong>Entradas Avulsas</strong> (reforço de troco), <strong>Despesas / Sangrias</strong> (motoboy, gás, insumos, embalagens) e o <strong>Saldo Líquido</strong>.</li>
+          <li>Veja o faturamento separado por <strong>Forma de Pagamento</strong> e por <strong>Unidade (Loja 1 / Loja 2)</strong>.</li>
+          <li>Todas as movimentações ficam registradas no fechamento enviado pela Camila.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>⚙️ 3. Configurações, Camila & Estabelecimento</h2>
+        <ul>
+          <li>Em <strong>Configurações</strong>, altere o <strong>Nome do Estabelecimento</strong> (sai automaticamente no cabeçalho da comanda térmica 80mm e nos relatórios).</li>
+          <li>Configure o <strong>WhatsApp do Dono</strong> (com DDD, ex: <code>19999999999</code>) e a <strong>URL Webhook da Camila</strong> (n8n / API WhatsApp na VPS).</li>
+          <li>Ajuste o <strong>Tempo Meta da Cozinha</strong> (em minutos) para alertas de atraso na fila de pedidos.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>📍 4. 2 Lojas & Bairros de Limeira</h2>
+        <ul>
+          <li>No PDV, clique em <strong>Bairros Limeira (2 Lojas)</strong> para definir quais bairros pertencem à <strong>Loja 1</strong> e quais pertencem à <strong>Loja 2</strong>, ou cadastrar novos bairros.</li>
+          <li>Ao selecionar o bairro ou digitar o endereço do cliente, o pedido já vai direcionado para a loja certa, sai impresso na comanda e pode ser filtrado na cozinha e no fechamento.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>💾 5. Backup Externo Automático</h2>
+        <ul>
+          <li>Sempre que o caixa é fechado, o sistema grava automaticamente uma cópia completa do banco fora da pasta do programa, em: <code>Documents\OmniOS-Backups</code>.</li>
+          <li>Em <strong>Configurações</strong>, você também pode clicar em <strong>Gerar Backup Agora</strong> e conferir os últimos arquivos salvos.</li>
+          <li>Os dados locais ficam em <code>data/omni-os.json</code> e nunca são apagados nas atualizações de código.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>🤖 6. Alerta se Não Fechar o Caixa (VPS)</h2>
+        <ul>
+          <li>Quando o sistema estiver rodando na VPS com os agentes/n8n, agende uma chamada diária para: <code>POST /api/vendas/fechamento/alerta</code>.</li>
+          <li>Se o turno tiver pedidos em aberto sem fechamento, o sistema gera um <strong>backup automático</strong> e a <strong>Camila avisa seu WhatsApp</strong> imediatamente com a quantidade e o valor em aberto.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert">
+      <h3>🕵️ 7. Auditoria Silenciosa • Comandas Fantasmas (Exclusivo do Dono)</h3>
+      <ul>
+        <li>Quando um funcionário usa o botão de lixeira (com 2 confirmações) para apagar/cancelar um pedido no PDV, o pedido some da tela dele — <strong>mas NÃO é apagado do controle do dono</strong>.</li>
+        <li><strong>Onde consultar:</strong> Na aba <strong>Relatórios → Comandas Fantasmas • Auditoria de Exclusões</strong>, você vê todos os pedidos apagados, com data/hora, quem excluiu, status antes da exclusão (ex: se já estava <em>PRONTO</em> ou <em>ENTREGUE</em>), itens e valor.</li>
+        <li><strong>No Relatório Diário do WhatsApp:</strong> Ao fazer o fechamento de caixa, a mensagem enviada pela Camila para o seu WhatsApp inclui automaticamente a seção <code>AUDITORIA INTERNA (EXCLUIDOS)</code>, sem o funcionário saber.</li>
+      </ul>
+    </div>
+
+    <footer>Omni-OS • Manual Exclusivo do Administrador (Dono)</footer>
+  </div>
+</body>
+</html>

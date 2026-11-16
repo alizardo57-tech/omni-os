@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual do Usuário (Caixa & Atendimento) • Omni-OS</title>
+  <style>
+    :root { --bg:#f4f5f7; --card:#ffffff; --primary:#8b0029; --dark:#0b0b0b; --text:#18181b; --muted:#52525b; --border:#e4e4e7; }
+    * { box-sizing:border-box; margin:0; padding:0; font-family:'Segoe UI',system-ui,sans-serif; }
+    body { background:var(--bg); color:var(--text); line-height:1.6; padding:28px 18px 60px; }
+    .wrap { max-width:980px; margin:0 auto; space-y:20px; }
+    header { background:var(--dark); color:#fff; border-radius:22px; padding:30px; border-bottom:4px solid var(--primary); margin-bottom:24px; }
+    .pill { display:inline-block; background:var(--primary); color:#fff; font-size:11px; font-weight:800; padding:4px 12px; border-radius:999px; text-transform:uppercase; margin-bottom:10px; }
+    h1 { font-size:28px; font-weight:900; }
+    header p { color:#d4d4d8; font-size:14px; margin-top:6px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:16px; margin-bottom:20px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,.04); }
+    .step { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:8px; background:var(--primary); color:#fff; font-weight:900; font-size:13px; margin-right:8px; }
+    h2 { font-size:16px; font-weight:800; margin-bottom:10px; display:flex; align-items:center; }
+    ul { padding-left:18px; font-size:13.5px; color:var(--muted); }
+    li { margin-bottom:6px; }
+    strong { color:var(--text); }
+    .tip { background:#fff1f2; border:1px solid #fecdd3; color:#881337; border-radius:14px; padding:14px 16px; font-size:13px; margin-top:16px; }
+    code { background:#f4f4f5; padding:2px 6px; border-radius:6px; font-size:12px; color:#8b0029; font-weight:700; }
+    footer { text-align:center; margin-top:32px; font-size:12px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="pill">Manual do Funcionário • Caixa & Atendimento</span>
+      <h1>Como Usar o Omni-OS no Dia a Dia</h1>
+      <p>Guia passo a passo para lançar pizzas, observações, adicionais, troco, delivery (Loja 1 e 2), cozinha e fechamento de turno.</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2><span class="step">1</span> Entrar no Sistema</h2>
+        <ul>
+          <li>Abra o atalho <strong>Omni-OS</strong> na Área de Trabalho (ou acesse <code>http://localhost:3005</code>).</li>
+          <li>Informe o seu <strong>Usuário</strong> (padrão: <code>caixa</code>) e <strong>Senha</strong> (padrão: <code>1234</code>).</li>
+          <li>Para trocar de operador, clique no seu nome no canto superior direito e escolha <strong>Sair / Trocar Usuário</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="step">2</span> Buscar ou Cadastrar Cliente</h2>
+        <ul>
+          <li>No PDV (aba <strong>Vendas</strong>), digite o <strong>WhatsApp</strong> ou o <strong>Nome do cliente</strong> para buscar automaticamente.</li>
+          <li>Se for cliente novo, clique em <strong>Novo</strong>, preencha Nome, WhatsApp e Endereço completo, e clique em <strong>+ Salvar Cliente / Endereço</strong>.</li>
+          <li>Escolha o <strong>Bairro de Limeira</strong>: o sistema direciona sozinho para <strong>Loja 1</strong> ou <strong>Loja 2</strong> (você pode ajustar manualmente se precisar).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="step">3</span> Montar Pizza (Grande ou Broto)</h2>
+        <ul>
+          <li>No quadro rosa no topo do PDV, escolha <strong>Grande</strong> ou <strong>Broto</strong>.</li>
+          <li><strong>Inteira:</strong> selecione o Sabor 1 e deixe o Sabor 2 em <em>Pizza Inteira</em>.</li>
+          <li><strong>1/2 a 1/2:</strong> escolha os dois sabores (ambos mostram <code>1/2</code>). O sistema cobra automaticamente o maior valor.</li>
+          <li><strong>Observação nas 2 metades:</strong> quando escolher 1/2 a 1/2, aparecem <strong>2 campos de observação</strong> (um para cada metade, ex: <em>metade 1 sem cebola, metade 2 com cebola</em>).</li>
+          <li>Escolha a <strong>Borda</strong> e, se tiver extra, preencha <strong>Adicional avulso</strong> + valor em R$. Depois clique em <strong>+ Add Pizza</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="step">4</span> Carrinho, Quantidade e Avulso</h2>
+        <ul>
+          <li>Você também pode clicar direto em qualquer item no catálogo abaixo (já ordenado em <strong>ordem alfabética</strong>, incluindo a categoria <strong>Broto</strong>).</li>
+          <li>No carrinho à direita, use os botões <strong>-</strong> e <strong>+</strong> para mudar a quantidade.</li>
+          <li>Cada pizza no carrinho tem seu próprio campo <strong>Obs. da pizza</strong> e o botão <strong>+ Avulso</strong> para acrescentar ingredientes extras com valor.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="step">5</span> Taxa, Desconto, Troco e Prévia</h2>
+        <ul>
+          <li>Preencha os 3 quadradinhos no resumo: <strong>Taxa Entrega (R$)</strong>, <strong>Desconto (R$)</strong> e <strong>Valor Pago (R$)</strong>.</li>
+          <li>O campo <strong>TROCO (antes de fechar)</strong> calcula o troco na hora para você já informar o cliente.</li>
+          <li>Clique em <strong>Conferir Comanda & Finalizar</strong>: abre uma <strong>prévia da comanda na tela</strong> para você conferir tudo antes de gastar papel.</li>
+          <li>Se estiver tudo certo, clique em <strong>Confirmar & Imprimir</strong>. Se precisar corrigir algo, clique em <strong>Voltar e Corrigir</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="step">6</span> Fila da Cozinha & Loja Online</h2>
+        <ul>
+          <li>Na parte de baixo do PDV, acompanhe os pedidos por <strong>Todas Lojas</strong>, <strong>Loja 1</strong> ou <strong>Loja 2</strong>.</li>
+          <li>Marque <strong>Pronto</strong> ou <strong>Entregue</strong> conforme o andamento.</li>
+          <li>Para limpar a tela mantendo o pedido no caixa, clique em <strong>👻 Arquivar</strong> (ou <strong>👻 Arquivar Prontos / Entregues</strong>).</li>
+          <li>Se precisar cancelar um pedido errado, o botão de lixeira pede <strong>2 confirmações</strong> por segurança.</li>
+          <li>Na aba <strong>Loja Online</strong>, você copia o link do cardápio digital (<code>/cardapio</code>) para tablets e pedidos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="step">7</span> Fechamento de Caixa (Fim do Turno)</h2>
+      <ul>
+        <li>No topo do PDV, clique no botão <strong>Fechar Caixa</strong>.</li>
+        <li>Confira o resumo de pedidos e os valores por forma de pagamento (PIX, Dinheiro, Crédito, Débito) — você pode filtrar por <strong>Todas Lojas</strong>, <strong>Loja 1</strong> ou <strong>Loja 2</strong>.</li>
+        <li>Clique em <strong>Imprimir Resumo</strong> para imprimir o cupom de fechamento, ou em <strong>Enviar Fechamento p/ Dono (Camila / WhatsApp)</strong> / <strong>Encerrar & Enviar</strong> para fechar o turno e enviar o relatório para o dono.</li>
+      </ul>
+      <div class="tip">
+        <strong>Dica:</strong> Caso o computador seja reiniciado ou precise minimizar o sistema, use os botões normais no canto superior direito da janela (Minimizar <code>_</code>, Restaurar <code>□</code> e Fechar <code>X</code>).
+      </div>
+    </div>
+
+    <footer>Omni-OS • Manual do Usuário (Caixa & Atendimento)</footer>
+  </div>
+</body>
+</html>
