@@ -114,7 +114,18 @@ export async function POST(req: Request) {
   return res;
 }
 
-export async function DELETE() {
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id');
+  if (id) {
+    if (id === 'usr-admin') {
+      return NextResponse.json({ ok: false, erro: 'Não é possível remover o usuário admin principal.' }, { status: 400 });
+    }
+    const db = lerOmniDb();
+    db.usuarios = (db.usuarios || []).filter(u => u.id !== id);
+    salvarOmniDb(db);
+    return NextResponse.json({ ok: true });
+  }
   const res = NextResponse.json({ ok: true });
   res.cookies.set(COOKIE_NAME, '', { httpOnly: true, path: '/', maxAge: 0 });
   return res;

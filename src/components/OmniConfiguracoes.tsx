@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CheckCircle2, HardDriveDownload, Save, Settings } from 'lucide-react';
+import { CheckCircle2, HardDriveDownload, Save, Settings, Trash2, UserPlus, Users } from 'lucide-react';
+import type { UsuarioPublico } from '@/lib/schemas';
 
 export function OmniConfiguracoes({
   empresa,
@@ -29,8 +30,24 @@ export function OmniConfiguracoes({
   const [backups, setBackups] = useState<{ nome: string; tamanhoBytes: number; criadoEm: string }[]>([]);
   const [gerandoBackup, setGerandoBackup] = useState(false);
   const [msgBackup, setMsgBackup] = useState('');
+  const [usuarios, setUsuarios] = useState<UsuarioPublico[]>([]);
+  const [novoNome, setNovoNome] = useState('');
+  const [novoLogin, setNovoLogin] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
+  const [novoPerfil, setNovoPerfil] = useState<'admin' | 'funcionario'>('funcionario');
+  const [novaLoja, setNovaLoja] = useState<'Loja 1' | 'Loja 2'>('Loja 1');
+  const [msgUsuario, setMsgUsuario] = useState('');
+
+  const carregarUsuarios = () => {
+    fetch('/api/auth')
+      .then(r => r.json())
+      .then(d => {
+        if (d.ok) setUsuarios(d.usuarios || []);
+      });
+  };
 
   useEffect(() => {
+    carregarUsuarios();
     fetch('/api/backup')
       .then(r => r.json())
       .then(d => {
@@ -40,6 +57,41 @@ export function OmniConfiguracoes({
         }
       });
   }, []);
+
+  const criarUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMsgUsuario('');
+    const cargoUsr = novoPerfil === 'admin' ? 'Dono / Administrador' : 'Caixa & Atendimento';
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        acao: 'registrar',
+        nome: novoNome,
+        login: novoLogin,
+        senha: novaSenha,
+        cargo: cargoUsr,
+        perfil: novoPerfil,
+        lojaPadrao: novaLoja,
+        entrarAutomatico: false
+      })
+    });
+    const d = await res.json();
+    if (d.ok) {
+      setNovoNome('');
+      setNovoLogin('');
+      setNovaSenha('');
+      setMsgUsuario(`Usuário "${d.usuario.login}" criado com sucesso!`);
+      carregarUsuarios();
+    } else {
+      setMsgUsuario(d.erro || 'Erro ao criar usuário.');
+    }
+  };
+
+  const removerUsuario = async (id: string) => {
+    await fetch(`/api/auth?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+    carregarUsuarios();
+  };
 
   const gerarBackupAgora = async () => {
     setGerandoBackup(true);
@@ -176,6 +228,89 @@ export function OmniConfiguracoes({
             ))}
           </div>
         )}
+      </div>
+
+      <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-4 text-xs">
+        <div>
+          <h3 className="text-sm font-black text-zinc-900 flex items-center gap-1.5">
+            <Users className="w-4 h-4 text-[#8B0029]" /> Área do Admin • Gerenciar & Criar Usuários
+          </h3>
+          <p className="text-zinc-500">Crie acessos separados para Dono (Admin) e Funcionários (Caixa/Atendimento)</p>
+        </div>
+
+        <form onSubmit={criarUsuario} className="grid grid-cols-1 sm:grid-cols-6 gap-2 items-center">
+          <input
+            required
+            value={novoNome}
+            onChange={e => setNovoNome(e.target.value)}
+            placeholder="Nome completo"
+            className="sm:col-span-2 border border-zinc-300 rounded-xl px-3 py-2 outline-none focus:border-[#8B0029]"
+          />
+          <input
+            required
+            value={novoLogin}
+            onChange={e => setNovoLogin(e.target.value)}
+            placeholder="Login (ex: joao)"
+            className="sm:col-span-1 border border-zinc-300 rounded-xl px-3 py-2 outline-none focus:border-[#8B0029]"
+          />
+          <input
+            required
+            type="password"
+            value={novaSenha}
+            onChange={e => setNovaSenha(e.target.value)}
+            placeholder="Senha"
+            className="sm:col-span-1 border border-zinc-300 rounded-xl px-3 py-2 outline-none focus:border-[#8B0029]"
+          />
+          <select
+            value={novoPerfil}
+            onChange={e => setNovoPerfil(e.target.value as 'admin' | 'funcionario')}
+            className="sm:col-span-1 border border-zinc-300 rounded-xl px-2 py-2 font-semibold"
+          >
+            <option value="funcionario">Funcionário</option>
+            <option value="admin">Admin</option>
+          </select>
+          <select
+            value={novaLoja}
+            onChange={e => setNovaLoja(e.target.value as 'Loja 1' | 'Loja 2')}
+            className="sm:col-span-1 border border-zinc-300 rounded-xl px-2 py-2 font-semibold"
+          >
+            <option value="Loja 1">Loja 1</option>
+            <option value="Loja 2">Loja 2</option>
+          </select>
+          <button
+            type="submit"
+            className="sm:col-span-6 py-2.5 px-4 rounded-xl bg-[#8B0029] hover:bg-[#A50034] text-white font-bold inline-flex items-center justify-center gap-1.5 transition"
+          >
+            <UserPlus className="w-4 h-4" /> Criar Usuário
+          </button>
+        </form>
+
+        {msgUsuario && <p className="font-bold text-emerald-700">{msgUsuario}</p>}
+
+        <div className="divide-y divide-zinc-100 border border-zinc-200 rounded-xl">
+          {usuarios.map(u => (
+            <div key={u.id} className="flex items-center justify-between px-3 py-2">
+              <div>
+                <div className="font-bold text-zinc-900">
+                  {u.nome} <span className="text-zinc-500 font-normal">(@{u.login})</span>
+                </div>
+                <div className="text-[11px] text-zinc-500">
+                  {u.perfil === 'admin' ? '👑 Dono / Admin' : '🧾 Funcionário'} • {u.lojaPadrao}
+                </div>
+              </div>
+              {u.id !== 'usr-admin' && (
+                <button
+                  type="button"
+                  onClick={() => removerUsuario(u.id)}
+                  className="text-rose-600 hover:text-rose-800 p-1"
+                  title="Remover usuário"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
