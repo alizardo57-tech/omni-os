@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Bell, ChevronDown, LogOut, Maximize2, Menu, Minimize2, Search, User, UserPlus } from 'lucide-react';
-import { OmniSidebar, type AbaOmni } from '@/components/OmniSidebar';
+import { OmniBottomNav, OmniSidebar, type AbaOmni } from '@/components/OmniSidebar';
 import { OmniDashboard } from '@/components/OmniDashboard';
 import { OmniVendasPdv } from '@/components/OmniVendasPdv';
 import { OmniClientes, OmniEstoque } from '@/components/OmniEstoqueClientes';
@@ -47,6 +47,7 @@ export default function OmniOsHomePage() {
   const [usuario, setUsuario] = useState<UsuarioPublico | null>(null);
   const [verificandoAuth, setVerificandoAuth] = useState(true);
   const [menuUsuarioAberto, setMenuUsuarioAberto] = useState(false);
+  const [menuMobileAberto, setMenuMobileAberto] = useState(false);
   const [modalNovoUsuario, setModalNovoUsuario] = useState(false);
 
   const verificarSessao = useCallback(async () => {
@@ -108,13 +109,31 @@ export default function OmniOsHomePage() {
   );
 
   return (
-    <div className="h-screen overflow-hidden flex bg-[#F4F5F7]">
-      <OmniSidebar abaAtiva={aba} perfil={usuario.perfil} onSelecionar={setAba} />
+    <div className="min-h-screen md:h-screen md:overflow-hidden flex bg-[#F4F5F7]">
+      <OmniSidebar
+        abaAtiva={aba}
+        perfil={usuario.perfil}
+        abertaMobile={menuMobileAberto}
+        onFecharMobile={() => setMenuMobileAberto(false)}
+        onSelecionar={setAba}
+      />
 
-      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
-        <header className="no-print h-16 bg-white border-b border-zinc-200 px-6 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4 flex-1 max-w-xl">
-            <button onClick={() => setAba('inicio')} className="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-700">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen md:h-screen md:overflow-hidden">
+        <header className="no-print h-14 sm:h-16 bg-white border-b border-zinc-200 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0 max-w-xl">
+            <button
+              type="button"
+              onClick={() => setMenuMobileAberto(true)}
+              aria-label="Abrir menu"
+              className="md:hidden p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-700 shrink-0"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setAba('inicio')}
+              className="hidden md:block p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-700 shrink-0"
+            >
               <Menu className="w-5 h-5" />
             </button>
             <div className="relative flex-1">
@@ -190,7 +209,7 @@ export default function OmniOsHomePage() {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-5 max-w-[1600px] w-full mx-auto">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-5 pb-24 md:pb-5 max-w-[1600px] w-full mx-auto">
           {!dados ? (
             <div className="text-sm text-zinc-500 font-medium">Carregando Omni-OS...</div>
           ) : aba === 'inicio' ? (
@@ -249,6 +268,11 @@ export default function OmniOsHomePage() {
           )}
         </main>
       </div>
+      <OmniBottomNav
+        abaAtiva={aba}
+        onSelecionar={setAba}
+        onAbrirMenu={() => setMenuMobileAberto(true)}
+      />
       <OmniCriarUsuarioModal
         aberto={modalNovoUsuario}
         onFechar={() => setModalNovoUsuario(false)}
