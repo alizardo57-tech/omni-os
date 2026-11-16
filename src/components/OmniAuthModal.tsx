@@ -48,34 +48,7 @@ export function OmniLoginScreen({ onAutenticado }: { onAutenticado: (u: UsuarioP
             <Lock className="w-6 h-6" />
           </div>
           <h1 className="text-xl font-black text-zinc-900">Omni-OS • Acesso ao Sistema</h1>
-          <p className="text-xs text-zinc-500">Entre como Dono (Admin) ou Funcionário (Caixa)</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-1.5 bg-zinc-100 p-1 rounded-xl text-xs font-bold">
-          <button
-            type="button"
-            onClick={() => {
-              setModo('login');
-              setErro('');
-            }}
-            className={`py-2 rounded-lg transition inline-flex items-center justify-center gap-1.5 ${
-              modo === 'login' ? 'bg-white text-zinc-900 shadow-xs' : 'text-zinc-500'
-            }`}
-          >
-            <LogIn className="w-3.5 h-3.5" /> Entrar
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setModo('registrar');
-              setErro('');
-            }}
-            className={`py-2 rounded-lg transition inline-flex items-center justify-center gap-1.5 ${
-              modo === 'registrar' ? 'bg-white text-zinc-900 shadow-xs' : 'text-zinc-500'
-            }`}
-          >
-            <UserPlus className="w-3.5 h-3.5" /> Criar Usuário
-          </button>
+          <p className="text-xs text-zinc-500">Entre com seu usuário e senha</p>
         </div>
 
         <form onSubmit={enviar} className="space-y-3 text-xs">
@@ -148,20 +121,9 @@ export function OmniLoginScreen({ onAutenticado }: { onAutenticado: (u: UsuarioP
             disabled={enviando}
             className="w-full py-3 rounded-xl bg-[#8B0029] hover:bg-[#A50034] disabled:opacity-50 text-white font-black text-sm transition"
           >
-            {enviando ? 'Entrando...' : modo === 'login' ? 'Entrar no Sistema' : 'Criar Conta & Entrar'}
+            {enviando ? 'Entrando...' : 'Entrar no Sistema'}
           </button>
         </form>
-
-        {modo === 'login' && (
-          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-2.5 text-[11px] text-center text-zinc-600 space-y-0.5">
-            <div>
-              <strong>Dono (Admin):</strong> usuário <code>admin</code> • senha <code>1234</code>
-            </div>
-            <div>
-              <strong>Funcionário (Caixa):</strong> usuário <code>caixa</code> • senha <code>1234</code>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

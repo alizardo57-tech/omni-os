@@ -127,6 +127,13 @@ export function lerOmniDb(): OmniDb {
   if (!dados.usuarios || dados.usuarios.length === 0) {
     dados.usuarios = criarUsuariosPadrao();
     alterou = true;
+  } else if (dados.usuarios.length === 1 && !dados.usuarios.some(u => u.login === 'caixa')) {
+    const padrao = criarUsuariosPadrao();
+    const caixaPadrao = padrao.find(u => u.login === 'caixa');
+    if (caixaPadrao) {
+      dados.usuarios.push(caixaPadrao);
+      alterou = true;
+    }
   }
   if (dados.empresa.whatsappDono === undefined) {
     dados.empresa.whatsappDono = process.env.WHATSAPP_DONO || '';
