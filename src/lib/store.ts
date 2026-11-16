@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { Cliente, ComandaFantasma, MovimentacaoFinanceira, Produto, Usuario, Venda } from './schemas';
 import { hashSenha } from './auth';
+import { gerarBackupExterno } from './backup';
 import { BAIRROS_LIMEIRA_PADRAO, type LojaId } from './bairrosLimeira';
 import produtosSeed from './produtosSeed.json';
 import clientesBellaSeed from './clientesBellaSeed.json';
@@ -23,6 +24,15 @@ export interface OmniDb {
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
   usuarios?: Usuario[];
   bairrosLoja?: Record<string, LojaId>;
+  ultimoDiaOperacao?: string;
+}
+
+function dataLocalYYYYMMDD(d: Date): string {
+  return [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, '0'),
+    String(d.getDate()).padStart(2, '0')
+  ].join('-');
 }
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -143,6 +153,28 @@ export function lerOmniDb(): OmniDb {
     dados.empresa.camilaWebhookUrl = process.env.CAMILA_WEBHOOK_URL || '';
     alterou = true;
   }
+
+  const hoje = dataLocalYYYYMMDD(new Date());
+  const temVendasAntigas = (dados.vendas || []).some(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) < hoje);
+  const temMovsAntigas = (dados.movimentacoesFinanceiras || []).some(m => dataLocalYYYYMMDD(new Date(m.criadoEm)) < hoje);
+  const temFantasmasAntigas = (dados.comandasFantasmas || []).some(f => dataLocalYYYYMMDD(new Date(f.criadoEm)) < hoje);
+
+  if (temVendasAntigas || temMovsAntigas || temFantasmasAntigas) {
+    gerarBackupExterno('virada-dia');
+    dados.vendas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) >= hoje);
+    dados.movimentacoesFinanceiras = (dados.movimentacoesFinanceiras || []).filter(
+      m => dataLocalYYYYMMDD(new Date(m.criadoEm)) >= hoje
+    );
+    dados.comandasFantasmas = (dados.comandasFantasmas || []).filter(
+      f => dataLocalYYYYMMDD(new Date(f.criadoEm)) >= hoje
+    );
+    dados.ultimoDiaOperacao = hoje;
+    alterou = true;
+  } else if (dados.ultimoDiaOperacao !== hoje) {
+    dados.ultimoDiaOperacao = hoje;
+    alterou = true;
+  }
+
   if (alterou) fs.writeFileSync(DB_PATH, JSON.stringify(dados, null, 2), 'utf8');
   return dados;
 }
