@@ -2,15 +2,18 @@
 
 import { BarChart3, Download, EyeOff, MapPin, ShoppingBag, TrendingUp } from 'lucide-react';
 import type { ComandaFantasma, Produto, Venda } from '@/lib/schemas';
+import type { ResumoDiaAnterior } from '@/lib/store';
 
 export function OmniRelatorios({
   vendas,
   produtos,
-  comandasFantasmas = []
+  comandasFantasmas = [],
+  resumoDiaAnterior = null
 }: {
   vendas: Venda[];
   produtos: Produto[];
   comandasFantasmas?: ComandaFantasma[];
+  resumoDiaAnterior?: ResumoDiaAnterior | null;
 }) {
   const totalVendas = vendas.reduce((s, v) => s + Number(v.total || 0), 0);
   const ticketMedio = vendas.length > 0 ? totalVendas / vendas.length : 0;
@@ -97,6 +100,26 @@ export function OmniRelatorios({
           <div className="text-2xl font-black text-zinc-900 mt-1">{produtos.length} itens</div>
         </div>
       </div>
+
+      {resumoDiaAnterior && (
+        <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-2 text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-sm font-black text-zinc-900">
+              📅 Relatório do Dia Anterior ({resumoDiaAnterior.data})
+            </h3>
+            <span className="font-black text-[#8B0029] text-sm">
+              {resumoDiaAnterior.qtdPedidos} pedidos • R$ {resumoDiaAnterior.totalVendas.toFixed(2)}
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-3 text-zinc-600 font-bold">
+            {Object.entries(resumoDiaAnterior.porPagamento).map(([f, val]) => (
+              <span key={f} className="bg-zinc-50 border border-zinc-200 rounded-lg px-2.5 py-1">
+                {f}: R$ {val.toFixed(2)}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-3">

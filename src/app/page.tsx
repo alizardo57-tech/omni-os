@@ -13,6 +13,7 @@ import { OmniConfiguracoes } from '@/components/OmniConfiguracoes';
 import { OmniSuporte } from '@/components/OmniSuporte';
 import { OmniCriarUsuarioModal, OmniLoginScreen } from '@/components/OmniAuthModal';
 import type { LojaId } from '@/lib/bairrosLimeira';
+import type { ResumoDiaAnterior } from '@/lib/store';
 import type { Cliente, ComandaFantasma, MovimentacaoFinanceira, Produto, UsuarioPublico, Venda } from '@/lib/schemas';
 
 interface OverviewPayload {
@@ -28,6 +29,7 @@ interface OverviewPayload {
   clientes: Cliente[];
   vendas: Venda[];
   comandasFantasmas?: ComandaFantasma[];
+  resumoDiaAnterior?: ResumoDiaAnterior | null;
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
   bairrosLoja?: Record<string, LojaId>;
   kpis: { vendasMes: number; produtosEstoque: number; receitaTotal: number; clientesAtivos: number };
@@ -230,6 +232,7 @@ export default function OmniOsHomePage() {
               vendas={dados.vendas}
               produtos={dados.produtos}
               comandasFantasmas={dados.comandasFantasmas || []}
+              resumoDiaAnterior={dados.resumoDiaAnterior || null}
             />
           ) : aba === 'lojaonline' ? (
             <OmniLojaOnline nomeEmpresa={dados.empresa.nome} totalProdutos={dados.produtos.length} />

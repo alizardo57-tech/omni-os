@@ -7,6 +7,13 @@ import { BAIRROS_LIMEIRA_PADRAO, type LojaId } from './bairrosLimeira';
 import produtosSeed from './produtosSeed.json';
 import clientesBellaSeed from './clientesBellaSeed.json';
 
+export interface ResumoDiaAnterior {
+  data: string;
+  qtdPedidos: number;
+  totalVendas: number;
+  porPagamento: Record<string, number>;
+}
+
 export interface OmniDb {
   empresa: {
     nome: string;
@@ -25,6 +32,7 @@ export interface OmniDb {
   usuarios?: Usuario[];
   bairrosLoja?: Record<string, LojaId>;
   ultimoDiaOperacao?: string;
+  resumoDiaAnterior?: ResumoDiaAnterior | null;
 }
 
 function dataLocalYYYYMMDD(d: Date): string {
@@ -161,6 +169,22 @@ export function lerOmniDb(): OmniDb {
 
   if (temVendasAntigas || temMovsAntigas || temFantasmasAntigas) {
     gerarBackupExterno('virada-dia');
+    const vendasAntigas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) < hoje);
+    if (vendasAntigas.length > 0) {
+      const porPagamento: Record<string, number> = {};
+      let totalVendas = 0;
+      for (const v of vendasAntigas) {
+        const f = v.pagamento || 'Outros';
+        porPagamento[f] = Number(((porPagamento[f] || 0) + Number(v.total || 0)).toFixed(2));
+        totalVendas = Number((totalVendas + Number(v.total || 0)).toFixed(2));
+      }
+      dados.resumoDiaAnterior = {
+        data: dataLocalYYYYMMDD(new Date(vendasAntigas[0].criadoEm)),
+        qtdPedidos: vendasAntigas.length,
+        totalVendas,
+        porPagamento
+      };
+    }
     dados.vendas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) >= hoje);
     dados.movimentacoesFinanceiras = (dados.movimentacoesFinanceiras || []).filter(
       m => dataLocalYYYYMMDD(new Date(m.criadoEm)) >= hoje

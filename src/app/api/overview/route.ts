@@ -15,6 +15,7 @@ export async function GET() {
     clientes: db.clientes,
     vendas: db.vendas,
     comandasFantasmas: db.comandasFantasmas || [],
+    resumoDiaAnterior: db.resumoDiaAnterior || null,
     movimentacoesFinanceiras: db.movimentacoesFinanceiras || [],
     bairrosLoja: db.bairrosLoja || {},
     kpis: {
