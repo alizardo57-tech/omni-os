@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omni-OS • Visão Geral Completa do Sistema</title>
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --card: #151519;
+      --border: #26262e;
+      --primary: #8b0029;
+      --primary-light: #e11d48;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --green: #10b981;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 32px 20px 64px; }
+    .container { max-width: 1150px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, #1a060d 0%, #0b0b0d 65%);
+      border: 1px solid var(--primary);
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(139, 0, 41, 0.25);
+      border: 1px solid var(--primary-light);
+      color: #fda4af;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; }
+    .sub { color: var(--muted); font-size: 15px; max-width: 680px; margin-top: 6px; }
+    .stats { display: flex; gap: 16px; flex-wrap: wrap; }
+    .stat-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 20px;
+      min-width: 130px;
+      text-align: center;
+    }
+    .stat-num { font-size: 24px; font-weight: 900; color: #fb7185; }
+    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+
+    h2 { font-size: 20px; font-weight: 800; margin: 32px 0 14px; display: flex; align-items: center; gap: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+    .card-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+    .tag-ok { font-size: 11px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .tag-next { font-size: 11px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    ul { list-style: none; space-y: 6px; margin-top: 10px; }
+    li { font-size: 13.5px; color: #d4d4d8; padding: 4px 0 4px 18px; position: relative; }
+    li::before { content: "•"; color: var(--primary-light); font-weight: 900; position: absolute; left: 0; }
+    .highlight-box {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .highlight-box h3 { color: #fbbf24; font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+    .highlight-box p { font-size: 14px; color: #e4e4e7; }
+    footer { text-align: center; margin-top: 48px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <span class="badge">Omni-OS • Plataforma de Gestão & PDV</span>
+        <h1>Tudo o que o Sistema Faz</h1>
+        <p class="sub">
+          Mapeamento completo das funcionalidades já ativas no projeto (<strong>Next.js 15 + TypeScript + Impressão Bematech 80mm</strong>)
+          e o que é necessário para escalar para <strong>múltiplos locais com Super Admin</strong>.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-num">186</div>
+          <div class="stat-label">Produtos / Itens</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3.858</div>
+          <div class="stat-label">Clientes (DDD 19)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2 Lojas</div>
+          <div class="stat-label">Roteamento Limeira</div>
+        </div>
+      </div>
+    </header>
+
+    <h2>✅ Módulos Já Funcionando no Sistema</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">🍕 PDV & Montagem de Pizzas <span class="tag-ok">Ativo</span></div>
+        <ul>
+          <li>Cardápio 100% em <strong>ordem alfabética</strong> (ignorando prefixos numéricos e "Broto").</li>
+          <li>Categorias: <strong>Pizzas Salgadas (74)</strong>, <strong>Pizzas Doces (9)</strong>, <strong>Broto (83)</strong>, <strong>Trufas (4)</strong>, <strong>Bebidas (10)</strong>, <strong>Bordas Recheadas (6)</strong>.</li>
+          <li>Montagem <strong>Inteira</strong> ou <strong>1/2 a 1/2</strong> com regra automática do maior valor.</li>
+          <li>Seleção de <strong>Borda</strong> (Grátis, Sem Borda, Borda Falsa ou Recheada).</li>
+          <li><strong>Observação</strong> individual por pizza e observação geral do pedido.</li>
+          <li><strong>Adicionais / Produtos Avulsos</strong> com nome e valor em R$ direto na pizza.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💵 Caixa, Taxas & Troco Automático <span class="tag-ok">Ativo</span></div>
+        <ul>
+          <li>Campos rápidos para <strong>Taxa de Entrega (R$)</strong> e <strong>Desconto (R$)</strong>.</li>
+          <li>Cálculo automático de <strong>Troco ao vivo</strong> antes mesmo de fechar a comanda.</li>
+          <li>Formas de pagamento: PIX, Dinheiro, Cartão Crédito e Débito.</li>
+          <li><strong>Fechamento de Caixa</strong> por turno com filtro (Todas, Loja 1, Loja 2).</li>
+          <li><strong>Envio pela Camila / WhatsApp</strong> direto para o número do dono.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🖨️ Impressão Térmica & Cozinha <span class="tag-ok">Ativo</span></div>
+        <ul>
+          <li>Impressão automática para impressoras térmicas <strong>Bematech / POS / EPSON 80mm</strong> (32 colunas).</li>
+          <li>Comanda completa com Loja, Bairro, Endereço, Sabores, Bordas, Avulsos, Observações, Taxa, Desconto, Valor Pago e Troco.</li>
+          <li><strong>Fila de Pedidos & Cozinha</strong> com tempo meta configurável, alerta de atraso, status (Preparando, Pronto, Entregue) e limpeza de fila.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📍 2 Lojas & Bairros de Limeira <span class="tag-ok">Ativo</span></div>
+        <ul>
+          <li>Mais de 44 bairros de <strong>Limeira-SP</strong> pré-cadastrados e mapeados entre <strong>Loja 1</strong> e <strong>Loja 2</strong>.</li>
+          <li>Detecção automática do bairro ao digitar ou puxar o endereço do cliente.</li>
+          <li>Painel para alternar qualquer bairro entre Loja 1 e Loja 2 ou cadastrar novos bairros.</li>
+          <li>Filtro separado na Cozinha e no Fechamento de Caixa por unidade.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">👥 Clientes, Estoque & Cardápio Tablet <span class="tag-ok">Ativo</span></div>
+        <ul>
+          <li>Base com <strong>3.858 clientes</strong> normalizados com DDD <strong>19</strong> e dígito <strong>9</strong>.</li>
+          <li>Busca automática pelo WhatsApp + cadastro rápido de cliente e endereço novo no PDV.</li>
+          <li>Gestão de Estoque (baixa automática a cada venda) e cadastro/edição de produtos.</li>
+          <li><strong>Cardápio Digital (/cardapio)</strong> para Tablet/Celular com envio direto ao Caixa e Cozinha.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔐 Login & Usuários <span class="tag-ok">Ativo</span></div>
+        <ul>
+          <li>Tela de login com senha criptografada (<code>scrypt</code>) e cookie de sessão seguro.</li>
+          <li>Criação de novos usuários com definição de <strong>Cargo</strong> e <strong>Loja Padrão</strong>.</li>
+          <li>Troca rápida de operador pelo menu superior direito.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <h3>🏢 E sobre instalar em Vários Locais + Painel Super Admin?</h3>
+      <p>
+        Hoje o sistema da <strong>Bella Pizza</strong> foi estruturado para rodar em <strong>1 instalação local</strong> (salvando os dados no arquivo <code>data/omni-os.json</code> do computador) com suporte a <strong>2 lojas internas (Loja 1 e Loja 2)</strong>.
+        Para você vender/instalar em <strong>vários locais e empresas diferentes</strong> controlados por um <strong>Super Admin</strong>, podemos evoluir facilmente 3 pontos:
+      </p>
+      <ul>
+        <li><strong>White-Label (Marca por Local):</strong> Permitir que o Super Admin altere o Nome da Empresa, Logo, Telefone e Cabeçalho da Comanda (tirando o "Bella Pizza" fixo).</li>
+        <li><strong>Painel Super Admin Central:</strong> Criar um nível <strong>Super Admin</strong> para gerenciar todas as unidades/lojas, ativar/bloquear usuários, resetar senhas, configurar webhooks da Camila e visualizar o faturamento consolidado de todas as unidades.</li>
+        <li><strong>Banco de Dados em Nuvem (Multi-Tenant):</strong> Caso queira acessar vários locais pela internet de um único painel (além de cada PC local), conectar a um banco como PostgreSQL/Supabase com separação por <code>empresaId</code>.</li>
+      </ul>
+    </div>
+
+    <footer>
+      Omni-OS • Documentação gerada automaticamente a partir dos módulos reais do projeto em C:\Users\lABORATORIO\Desktop\omni-os
+    </footer>
+  </div>
+</body>
+</html>

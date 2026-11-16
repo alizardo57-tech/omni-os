@@ -20,8 +20,10 @@ if errorlevel 1 (
   set "PATH=%PATH%;C:\Program Files\nodejs"
 )
 
-if exist "ATUALIZAR-OMNI-OS.bat" (
-  call "ATUALIZAR-OMNI-OS.bat" --auto
+if not exist ".no-auto-update" (
+  if exist "ATUALIZAR-OMNI-OS.bat" (
+    call "ATUALIZAR-OMNI-OS.bat" --auto
+  )
 )
 
 if not exist "node_modules" (
@@ -39,11 +41,11 @@ powershell -NoProfile -Command "Start-Process -FilePath 'cmd.exe' -ArgumentList 
 timeout /t 3 /nobreak >nul
 :abrir_tela_cheia
 if exist "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" (
-  start "" "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" --app=http://localhost:3005 --start-fullscreen
+  start "" "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" --app=http://localhost:3005 --start-maximized
   exit /b 0
 )
 if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" (
-  start "" "%ProgramFiles%\Google\Chrome\Application\chrome.exe" --app=http://localhost:3005 --start-fullscreen
+  start "" "%ProgramFiles%\Google\Chrome\Application\chrome.exe" --app=http://localhost:3005 --start-maximized
   exit /b 0
 )
 start "" "http://localhost:3005"

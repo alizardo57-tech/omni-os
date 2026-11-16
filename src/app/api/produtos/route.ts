@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { ProdutoCreateSchema } from '@/lib/schemas';
 import { lerOmniDb, salvarOmniDb } from '@/lib/store';
+import { ordenarProdutosAlfabeticamente } from '@/lib/ordenacao';
 import { logger } from '@/lib/logger';
 
 export async function GET() {
   const db = lerOmniDb();
-  return NextResponse.json({ ok: true, produtos: db.produtos });
+  return NextResponse.json({ ok: true, produtos: ordenarProdutosAlfabeticamente(db.produtos) });
 }
 
 export async function POST(req: Request) {

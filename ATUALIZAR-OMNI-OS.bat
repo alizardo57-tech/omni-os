@@ -3,6 +3,13 @@ chcp 65001 >nul
 title Omni-OS • Atualizar Sistema
 cd /d "%~dp0"
 
+if exist ".no-auto-update" (
+  echo [AVISO] Atualizacao via GitHub bloqueada localmente por .no-auto-update.
+  if "%~1"=="--auto" exit /b 0
+  pause
+  exit /b 0
+)
+
 set "PATH=%PATH%;C:\Program Files\nodejs"
 echo [INFO] Verificando atualizacoes do Omni-OS no GitHub...
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^

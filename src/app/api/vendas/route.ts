@@ -19,17 +19,27 @@ export async function POST(req: Request) {
     const prod = db.produtos.find(p => p.id === item.produtoId);
     if (prod) prod.estoque = Math.max(0, prod.estoque - item.qtd);
   }
-  const total = parsed.data.itens.reduce((s, i) => s + i.qtd * i.precoUnit, 0);
+  const subtotal = parsed.data.itens.reduce((s, i) => s + i.qtd * i.precoUnit, 0);
+  const taxaEntrega = parsed.data.taxaEntrega ?? 0;
+  const desconto = parsed.data.desconto ?? 0;
+  const total = Math.max(0, subtotal + taxaEntrega - desconto);
+  const valorPago = parsed.data.valorPago ?? 0;
+  const troco = valorPago > total ? Number((valorPago - total).toFixed(2)) : 0;
   const venda = {
     id: `OS-${10473 + db.vendas.length}`,
     criadoEm: new Date().toISOString(),
     ...parsed.data,
+    subtotal: Number(subtotal.toFixed(2)),
+    taxaEntrega: Number(taxaEntrega.toFixed(2)),
+    desconto: Number(desconto.toFixed(2)),
+    valorPago: Number(valorPago.toFixed(2)),
+    troco,
     total: Number(total.toFixed(2)),
     status: 'preparando' as const
   };
   db.vendas.unshift(venda);
   salvarOmniDb(db);
-  imprimirComandaOmni(venda);
+  imprimirComandaOmni(venda, false, db.empresa.nome);
   return NextResponse.json({ ok: true, venda }, { status: 201 });
 }
 
@@ -49,14 +59,29 @@ export async function PATCH(req: Request) {
     v.status = parsed.data.status;
     salvarOmniDb(db);
   }
-  if (parsed.data.reimprimir) imprimirComandaOmni(v, true);
+  if (parsed.data.reimprimir) imprimirComandaOmni(v, true, db.empresa.nome);
   return NextResponse.json({ ok: true, venda: v });
 }
 
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get('id');
+  const excluir = searchParams.get('excluir') === 'true';
   const db = lerOmniDb();
+
+  if (excluir && id) {
+    const idx = db.vendas.findIndex(x => x.id === id);
+    if (idx === -1) return NextResponse.json({ ok: false }, { status: 404 });
+    const removida = db.vendas[idx];
+    for (const item of removida.itens) {
+      const prod = db.produtos.find(p => p.id === item.produtoId);
+      if (prod) prod.estoque += item.qtd;
+    }
+    db.vendas.splice(idx, 1);
+    salvarOmniDb(db);
+    return NextResponse.json({ ok: true, excluida: true });
+  }
+
   if (id) {
     const v = db.vendas.find(x => x.id === id);
     if (v) v.ocultoCozinha = true;

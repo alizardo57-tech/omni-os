@@ -7,6 +7,7 @@ import {
   DollarSign,
   Users,
   BarChart3,
+  Globe,
   Settings,
   Headphones,
   Rocket,
@@ -20,6 +21,7 @@ export type AbaOmni =
   | 'financeiro'
   | 'clientes'
   | 'relatorios'
+  | 'lojaonline'
   | 'configuracoes'
   | 'suporte';
 
@@ -30,6 +32,7 @@ const ITENS_MENU: { id: AbaOmni; label: string; icon: React.ComponentType<{ clas
   { id: 'financeiro', label: 'Financeiro', icon: DollarSign, seta: true },
   { id: 'clientes', label: 'Clientes', icon: Users, seta: true },
   { id: 'relatorios', label: 'Relatórios', icon: BarChart3, seta: true },
+  { id: 'lojaonline', label: 'Loja Online', icon: Globe, seta: true },
   { id: 'configuracoes', label: 'Configurações', icon: Settings },
   { id: 'suporte', label: 'Suporte', icon: Headphones }
 ];

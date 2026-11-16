@@ -15,7 +15,7 @@
     "preco": 71.99,
     "estoque": 50,
     "descricao": "Molho, escarola, bacon, ervilha, aliche, palmito, cebola, parmesão, muçarela, azeitonas e orégano. (Broto: R$ 50,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296333917blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "preco": 73.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, carne seca, rodelas de tomate, azeitonas e orégano. (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736292996168blob"
+    "imagem": "/img/produtos/pizza-4.jpg"
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "preco": 92.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, camarão, cebola, tomate, bacon, azeitonas e orégano. (Broto: R$ 68,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736294747761blob"
+    "imagem": "/img/produtos/pizza-5.jpg"
   },
   {
     "id": 6,
@@ -51,7 +51,7 @@
     "preco": 100.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, catupiry, presunto, ervilha, palmito, champignon, camarão, tomate, cebola, azeitonas e orégano. (Broto: R$ 50,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296181745blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 7,
@@ -60,7 +60,7 @@
     "preco": 68.99,
     "estoque": 50,
     "descricao": "Molho, aliche, muçarela, rodelas de tomate, cebola, parmesão, azeitonas e orégano. (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295551829blob"
+    "imagem": "/img/produtos/pizza-7.jpg"
   },
   {
     "id": 8,
@@ -69,7 +69,7 @@
     "preco": 71.99,
     "estoque": 50,
     "descricao": "Molho, presunto, ovos, ervilha, palmito, milho, bacon, coberta com muçarela, azeitonas e orégano. (Broto: R$ 50,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295627768blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 9,
@@ -78,7 +78,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, atum, muçarela, cebola, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297042071blob"
+    "imagem": "/img/produtos/pizza-9.jpg"
   },
   {
     "id": 10,
@@ -96,7 +96,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, calabresa picada, ovos, catupiry, cebola, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://pedido.anota.ai/assets/item_no_image-DJEgmuUL.png"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 12,
@@ -105,7 +105,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, bacon, pimentão, alho frito, tomate, parmesão, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296144510blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 13,
@@ -114,7 +114,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, presunto moído, champignon, ovos, cebola, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295797825blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 14,
@@ -123,7 +123,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, brócolis, muçarela, bacon, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295844053blob"
+    "imagem": "/img/produtos/pizza-14.jpg"
   },
   {
     "id": 15,
@@ -132,7 +132,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, brócolis, alho frito, catupiry, muçarela, bacon, parmesão, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296996843blob"
+    "imagem": "/img/produtos/pizza-14.jpg"
   },
   {
     "id": 16,
@@ -141,7 +141,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, calabresa, catupiry azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295905187blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 17,
@@ -150,7 +150,7 @@
     "preco": 65.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, champignon e catupiry, azeitnas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296942918blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 18,
@@ -159,7 +159,7 @@
     "preco": 69.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, provolone, parmesão, catupiry, gorgonzola, azeitonas e orégano. (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736295964893blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 20,
@@ -168,7 +168,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, escarola refogada, bacon, catupiry, coberta com muçarela, azeitonas e orégano. (Broto: R$ 51,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296245100blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 21,
@@ -177,7 +177,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, bacon, ervilha, palmito, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296384260blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 22,
@@ -186,7 +186,7 @@
     "preco": 69.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, champignon, ervilha, palmito, azeitona e orégano. (Broto: R$ 49,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296434458blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 23,
@@ -195,7 +195,7 @@
     "preco": 65.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, frango desfiado, catupiry, azeitonas e orégano. (Broto: R$ 46,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296482366blob"
+    "imagem": "/img/produtos/hd-frango.jpg"
   },
   {
     "id": 24,
@@ -204,7 +204,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, frango desfiado, milho, muçarela, catupiry, cebola, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296531589blob"
+    "imagem": "/img/produtos/hd-frango.jpg"
   },
   {
     "id": 25,
@@ -213,7 +213,7 @@
     "preco": 69.99,
     "estoque": 50,
     "descricao": "Molho, frango desfiado, milho, bacon, palmito, coberta com muçarela, catupiry, azeitonas e orégano (Broto: R$ 49,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296577883blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 26,
@@ -222,7 +222,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, lombo, muçarela, cebola, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296628867blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 27,
@@ -231,7 +231,7 @@
     "preco": 65.99,
     "estoque": 50,
     "descricao": "Molho, milho, catupiry, bacon, muçarela, azeitonas e orégano. (Broto: R$ 46,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296681029blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 28,
@@ -240,7 +240,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, palmito, muçarela, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296735501blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 29,
@@ -249,7 +249,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, palmito, presunto, cebola, muçarela, tomate, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736296894086blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 30,
@@ -258,7 +258,7 @@
     "preco": 71.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, peperoni (salame especial), azeitonas e orégano. (Broto: R$ 50,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297092102blob"
+    "imagem": "/img/produtos/pizza-30.jpg"
   },
   {
     "id": 31,
@@ -267,7 +267,7 @@
     "preco": 78.99,
     "estoque": 50,
     "descricao": "Molho, peperoni (salame especial), lombo, muçarela, bacon, parmesão, azeitonas e orégano. (Broto: R$ 55,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297136365blob"
+    "imagem": "/img/produtos/pizza-30.jpg"
   },
   {
     "id": 32,
@@ -276,7 +276,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, presunto, ovos, palmito, ervilha, cebola, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297275069blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 33,
@@ -285,7 +285,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, presunto, tomate, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297316682blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 34,
@@ -294,7 +294,7 @@
     "preco": 69.99,
     "estoque": 50,
     "descricao": "Molho, provolone, muçarela, tomate, azeitonas e orégano. (Broto: R$ 49,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297371190blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 35,
@@ -303,7 +303,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, provolone, parmesão, catupiry, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297420556blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 36,
@@ -312,7 +312,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, presunto picado, ervilha, champignon, alho, azeitonas e orégano. (Broto: R$ 50,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297483758blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 37,
@@ -321,7 +321,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, tomate seco, rúcula, azeitonas e orégano. (Broto: R$ 46,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297534438blob"
+    "imagem": "/img/produtos/pizza-37.jpg"
   },
   {
     "id": 38,
@@ -330,7 +330,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, peperoni (salame especial), rúcula, azeitonas e orégano. (Broto: R$ 50,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297597561blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 39,
@@ -339,7 +339,7 @@
     "preco": 65.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, ervilha, milho, cebola, tomate, pimentão, azeitona e orégano. (Broto: R$ 46,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297652702blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 40,
@@ -348,7 +348,7 @@
     "preco": 69.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, calabresa, parmesão, bacon, pimentão, alho frito, tomate, azeitona e orégano. (Broto: R$ 49,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297705494blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 41,
@@ -357,7 +357,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, bacon, mostarda, catchup, salsicha, batata palha, catupiry, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297753556blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 42,
@@ -366,7 +366,7 @@
     "preco": 63.99,
     "estoque": 50,
     "descricao": "Milho, muçarela, abobrinha, bacon, parmesão, azeitonas e orégano. (Broto: R$ 45,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297920399blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 43,
@@ -375,7 +375,7 @@
     "preco": 69.99,
     "estoque": 50,
     "descricao": "Molho, frango, champignon, creme de leite, batata palha, milho, azeitonas e orégano. (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736297972038blob"
+    "imagem": "/img/produtos/pizza-43.jpg"
   },
   {
     "id": 44,
@@ -384,7 +384,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, berinjela, cebola, pimentão, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298024479blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 45,
@@ -393,7 +393,7 @@
     "preco": 68.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, peito de peru, bacom,catupiry, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298075369blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 46,
@@ -402,7 +402,7 @@
     "preco": 70.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, peito de peru, cheddar, bacom, parmesão, azeitonas e orégano. (Broto: R$ 49,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298114660blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 47,
@@ -411,7 +411,7 @@
     "preco": 81.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, costela desfiada , creem cheese , tomate , azeitonas e oregáno (Broto: R$ 57,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298214152blob"
+    "imagem": "/img/produtos/pizza-47.jpg"
   },
   {
     "id": 48,
@@ -420,7 +420,7 @@
     "preco": 66.99,
     "estoque": 50,
     "descricao": "Molho, calabresa, muçarela, cebola, milho, bacon, tomate, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298270381blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 49,
@@ -429,7 +429,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, mussarela, frango, champignon, molho rose, azeitonas e oregano. (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298327429blob"
+    "imagem": "/img/produtos/hd-frango.jpg"
   },
   {
     "id": 50,
@@ -438,7 +438,7 @@
     "preco": 67.99,
     "estoque": 50,
     "descricao": "Molho, muçarela, molho de pimenta, doritos, cheddar, azeitonas e orégano. (Broto: R$ 47,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298379415blob"
+    "imagem": "/img/produtos/hd-queijo.jpg"
   },
   {
     "id": 57,
@@ -654,7 +654,7 @@
     "preco": 68.99,
     "estoque": 50,
     "descricao": "molho, mussarela, calabresa, cream cheese, azeitonas e oregano. (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1755554307650blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 89,
@@ -663,7 +663,7 @@
     "preco": 68.99,
     "estoque": 50,
     "descricao": "Molho, frango desfiado, milho, bacon, coberta com muçarela, cheedar, azeitonas e orégano (Broto: R$ 48,99)",
-    "imagem": "https://client-assets.anota.ai/produtos/1736298418042blob"
+    "imagem": "/img/produtos/hd-calabresa.jpg"
   },
   {
     "id": 51,
@@ -879,7 +879,7 @@
     "preco": 7,
     "estoque": 100,
     "descricao": "Borda recheada adicional",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
+    "imagem": "/img/produtos/hd-borda.jpg"
   },
   {
     "id": 916,
@@ -888,7 +888,7 @@
     "preco": 7,
     "estoque": 100,
     "descricao": "Borda recheada adicional",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
+    "imagem": "/img/produtos/hd-borda.jpg"
   },
   {
     "id": 917,
@@ -897,7 +897,7 @@
     "preco": 7,
     "estoque": 100,
     "descricao": "Borda recheada adicional",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
+    "imagem": "/img/produtos/hd-borda.jpg"
   },
   {
     "id": 918,
@@ -906,7 +906,7 @@
     "preco": 7,
     "estoque": 100,
     "descricao": "Borda recheada adicional",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
+    "imagem": "/img/produtos/hd-borda.jpg"
   },
   {
     "id": 919,
@@ -915,7 +915,7 @@
     "preco": 7,
     "estoque": 100,
     "descricao": "Borda recheada adicional",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
+    "imagem": "/img/produtos/hd-borda.jpg"
   },
   {
     "id": 920,
@@ -924,6 +924,753 @@
     "preco": 7,
     "estoque": 100,
     "descricao": "Borda recheada adicional",
-    "imagem": "/img/produtos/pizza-calabresa.svg"
+    "imagem": "/img/produtos/hd-borda.jpg"
+  },
+  {
+    "id": 1001,
+    "nome": "Broto 1 - Moda Da Casa",
+    "categoria": "Broto",
+    "preco": 49.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, lombo canadense, brócolis, rodelas de tomate, palmito, cebola, parmesão, azeitonas e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736295477250blob"
+  },
+  {
+    "id": 1002,
+    "nome": "Broto 2 - Pizzaiolo",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, escarola, bacon, ervilha, aliche, palmito, cebola, parmesão, muçarela, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1003,
+    "nome": "Broto 3 - Bacalhau",
+    "categoria": "Broto",
+    "preco": 62.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, bacalhau desfiado e temperado, ovos, cebola, azeitonas e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736297220694blob"
+  },
+  {
+    "id": 1004,
+    "nome": "Broto 4 - Carne Seca",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, carne seca, rodelas de tomate, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-4.jpg"
+  },
+  {
+    "id": 1005,
+    "nome": "Broto 5 - Camarão",
+    "categoria": "Broto",
+    "preco": 68.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, camarão, cebola, tomate, bacon, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-5.jpg"
+  },
+  {
+    "id": 1006,
+    "nome": "Broto 6 - Estrela",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, catupiry, presunto, ervilha, palmito, champignon, camarão, tomate, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1007,
+    "nome": "Broto 7 - Aliche",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, aliche, muçarela, rodelas de tomate, cebola, parmesão, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-7.jpg"
+  },
+  {
+    "id": 1008,
+    "nome": "Broto 8 - Americana",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, presunto, ovos, ervilha, palmito, milho, bacon, coberta com muçarela, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1009,
+    "nome": "Broto 9 - Atum I",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, atum, muçarela, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-9.jpg"
+  },
+  {
+    "id": 1010,
+    "nome": "Broto 10 - Atum II",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, atum, muçarela, cebola, rodelas de tomate, parmesão, azeitonas e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767655097448blob"
+  },
+  {
+    "id": 1011,
+    "nome": "Broto 11 - Baiacatu",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, calabresa picada, ovos, catupiry, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1012,
+    "nome": "Broto 12 - Bella",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, bacon, pimentão, alho frito, tomate, parmesão, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1013,
+    "nome": "Broto 13 - Brasileira II",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, presunto moído, champignon, ovos, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1014,
+    "nome": "Broto 14 - Brócolis I",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, brócolis, muçarela, bacon, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-14.jpg"
+  },
+  {
+    "id": 1015,
+    "nome": "Broto 15 - Brócolis II",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, brócolis, alho frito, catupiry, muçarela, bacon, parmesão, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-14.jpg"
+  },
+  {
+    "id": 1016,
+    "nome": "Broto 16 - Calabresa com Catupiry",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, calabresa, catupiry azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1017,
+    "nome": "Broto 17 - Champignon",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, champignon e catupiry, azeitnas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1018,
+    "nome": "Broto 18 - Cinco Queijos",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, provolone, parmesão, catupiry, gorgonzola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1020,
+    "nome": "Broto 20 - Escarola II",
+    "categoria": "Broto",
+    "preco": 51.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, escarola refogada, bacon, catupiry, coberta com muçarela, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1021,
+    "nome": "Broto 21 - Européia",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, bacon, ervilha, palmito, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1022,
+    "nome": "Broto 22 - Francesa",
+    "categoria": "Broto",
+    "preco": 49.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, champignon, ervilha, palmito, azeitona e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1023,
+    "nome": "Broto 23 - Frango I",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, frango desfiado, catupiry, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-frango.jpg"
+  },
+  {
+    "id": 1024,
+    "nome": "Broto 24 - Frango II",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, frango desfiado, milho, muçarela, catupiry, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-frango.jpg"
+  },
+  {
+    "id": 1025,
+    "nome": "Broto 25 - Frango III",
+    "categoria": "Broto",
+    "preco": 49.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, frango desfiado, milho, bacon, palmito, coberta com muçarela, catupiry, azeitonas e orégano",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1026,
+    "nome": "Broto 26 - Lombo Canadense",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, lombo, muçarela, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1027,
+    "nome": "Broto 27 - Milho II",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, milho, catupiry, bacon, muçarela, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1028,
+    "nome": "Broto 28 - Palmito II",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, palmito, muçarela, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1029,
+    "nome": "Broto 29 - Palmito III",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, palmito, presunto, cebola, muçarela, tomate, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1030,
+    "nome": "Broto 30 - Pepperoni I",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, peperoni (salame especial), azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-30.jpg"
+  },
+  {
+    "id": 1031,
+    "nome": "Broto 31 - Pepperoni II",
+    "categoria": "Broto",
+    "preco": 55.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, peperoni (salame especial), lombo, muçarela, bacon, parmesão, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-30.jpg"
+  },
+  {
+    "id": 1032,
+    "nome": "Broto 32 - Portuguesa",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, presunto, ovos, palmito, ervilha, cebola, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1033,
+    "nome": "Broto 33 - Presunto E Queijo",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, presunto, tomate, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1034,
+    "nome": "Broto 34 - Provolone",
+    "categoria": "Broto",
+    "preco": 49.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, provolone, muçarela, tomate, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1035,
+    "nome": "Broto 35 - Quatro Queijos",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, provolone, parmesão, catupiry, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1036,
+    "nome": "Broto 36 - Romanesca",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, presunto picado, ervilha, champignon, alho, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1037,
+    "nome": "Broto 37 - Rúcula I",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, tomate seco, rúcula, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-37.jpg"
+  },
+  {
+    "id": 1038,
+    "nome": "Broto 38 - Rúcula II",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, peperoni (salame especial), rúcula, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1039,
+    "nome": "Broto 39 - Vegetariana",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, ervilha, milho, cebola, tomate, pimentão, azeitona e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1040,
+    "nome": "Broto 40 - Mexicana",
+    "categoria": "Broto",
+    "preco": 49.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, calabresa, parmesão, bacon, pimentão, alho frito, tomate, azeitona e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1041,
+    "nome": "Broto 41 - Hot Dog",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, bacon, mostarda, catchup, salsicha, batata palha, catupiry, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1042,
+    "nome": "Broto 42 - Abobrinha",
+    "categoria": "Broto",
+    "preco": 45.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Milho, muçarela, abobrinha, bacon, parmesão, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1043,
+    "nome": "Broto 43 - Strogonoff",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, frango, champignon, creme de leite, batata palha, milho, azeitonas e orégano.",
+    "imagem": "/img/produtos/pizza-43.jpg"
+  },
+  {
+    "id": 1044,
+    "nome": "Broto 44 - Berinjela",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, berinjela, cebola, pimentão, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1045,
+    "nome": "Broto 45 - Peito de Peru I",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, peito de peru, bacom,catupiry, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1046,
+    "nome": "Broto 46 - Peito de Peru II",
+    "categoria": "Broto",
+    "preco": 49.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, peito de peru, cheddar, bacom, parmesão, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1047,
+    "nome": "Broto 47 - Costela",
+    "categoria": "Broto",
+    "preco": 57.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, costela desfiada , creem cheese , tomate , azeitonas e oregáno",
+    "imagem": "/img/produtos/pizza-47.jpg"
+  },
+  {
+    "id": 1048,
+    "nome": "Broto 48 - Calabresa Especial",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, calabresa, muçarela, cebola, milho, bacon, tomate, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1049,
+    "nome": "Broto 49 - Rose",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, mussarela, frango, champignon, molho rose, azeitonas e oregano.",
+    "imagem": "/img/produtos/hd-frango.jpg"
+  },
+  {
+    "id": 1050,
+    "nome": "Broto 50 - Doritos",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, molho de pimenta, doritos, cheddar, azeitonas e orégano.",
+    "imagem": "/img/produtos/hd-queijo.jpg"
+  },
+  {
+    "id": 1057,
+    "nome": "Broto 57 - Brócolis com Cream Cheese",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, brócolis, bacon, cream cheese, azeitona e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736453285858blob"
+  },
+  {
+    "id": 1058,
+    "nome": "Broto 58 - Lombo com Cream Cheese",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, lombo canadense, cream cheese, azeitona e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296842931blob"
+  },
+  {
+    "id": 1059,
+    "nome": "Broto 59 - Milho com Cream Cheese",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, milho, bacon, cream cheese, azeitona e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554576691blob"
+  },
+  {
+    "id": 1060,
+    "nome": "Broto 60 - Peito de Peru com Cream Cheese",
+    "categoria": "Broto",
+    "preco": 51.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, peito de peru, cream cheese, azeitona e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554077298blob"
+  },
+  {
+    "id": 1061,
+    "nome": "Broto 61 - Frango Philadelphia",
+    "categoria": "Broto",
+    "preco": 52.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, frango desfiado, milho, bacon, cream cheese, azeitona e orégano.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755553722540blob"
+  },
+  {
+    "id": 1062,
+    "nome": "Broto 62 - Brócolis com Catupiry",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, catupiry, brócolis, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736298157826blob"
+  },
+  {
+    "id": 1063,
+    "nome": "Broto 63 - Lombo com Catupiry",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, catupiry, lombo, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552173942blob"
+  },
+  {
+    "id": 1064,
+    "nome": "Broto 64 - Palmito com Catupiry",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, catupiry, palmito, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552338133blob"
+  },
+  {
+    "id": 1065,
+    "nome": "Broto 65 - Presunto com Catupiry",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, catupiry, presunto, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552520060blob"
+  },
+  {
+    "id": 1066,
+    "nome": "Broto 66 - Catupiry",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, catupiry, manjericão, azeitonas e oregano.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552546348blob"
+  },
+  {
+    "id": 1067,
+    "nome": "Broto 67 - Milho com Catupiry",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, milho, catupiry, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554379960blob"
+  },
+  {
+    "id": 1068,
+    "nome": "Broto 68 - Calabresa I",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, calabresa, cebola, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291670191blob"
+  },
+  {
+    "id": 1069,
+    "nome": "Broto 69 - Alho",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, alho, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350987624blob"
+  },
+  {
+    "id": 1070,
+    "nome": "Broto 70 - Bacon",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, bacon, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736453891201blob"
+  },
+  {
+    "id": 1071,
+    "nome": "Broto 71 - Baiana",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, calabresa moída, muçarela, pimenta calabresa, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296782047blob"
+  },
+  {
+    "id": 1072,
+    "nome": "Broto 72 - Brasileira I",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, presunto, bacon, muçarela, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736292951476blob"
+  },
+  {
+    "id": 1073,
+    "nome": "Broto 73 - Calabresa II",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, calabresa, muçarela, cebola, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736296014116blob"
+  },
+  {
+    "id": 1074,
+    "nome": "Broto 74 - Marguerita",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, tomate, parmesão, manjericão, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346051213blob"
+  },
+  {
+    "id": 1075,
+    "nome": "Broto 75 - Milho",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, milho, muçarela, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554591506blob"
+  },
+  {
+    "id": 1076,
+    "nome": "Broto 76 - Mussarela",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, tomate, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/1736293202071blob"
+  },
+  {
+    "id": 1077,
+    "nome": "Broto 77 - Napolitana",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, tomate, parmesão, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552747568blob"
+  },
+  {
+    "id": 1078,
+    "nome": "Broto 78 - Toscana",
+    "categoria": "Broto",
+    "preco": 41.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, muçarela, calabresa moída, azeitonas e orégano. (Borda de catupiry grátis).",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755552804632blob"
+  },
+  {
+    "id": 1081,
+    "nome": "Broto 81 - HAMBUERGUER (SABOR NOVO)",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. molho, hambuerguer, presunto, mussarela, tomate, molho da casa especial, bacon, azeitonas e oregano",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794350667165blob"
+  },
+  {
+    "id": 1087,
+    "nome": "Broto 87 - calabresa c/ cream cheese",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. molho, mussarela, calabresa, cream cheese, azeitonas e oregano.",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1089,
+    "nome": "Broto 89 - Frango c/ cheedar",
+    "categoria": "Broto",
+    "preco": 48.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Molho, frango desfiado, milho, bacon, coberta com muçarela, cheedar, azeitonas e orégano",
+    "imagem": "/img/produtos/hd-calabresa.jpg"
+  },
+  {
+    "id": 1051,
+    "nome": "Broto 51 - Brigadeiro",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Chocolate ao leite e chocolate granulado.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736297181231blob"
+  },
+  {
+    "id": 1052,
+    "nome": "Broto 52 - Prestígio",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Chocolate ao leite e coco ralado.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1794346216583blob"
+  },
+  {
+    "id": 1053,
+    "nome": "Broto 53 - Sonho de Valsa",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Chocolate ao leite, chocolate branco e bombom sonho de valsa.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1767655229480blob"
+  },
+  {
+    "id": 1054,
+    "nome": "Broto 54 - Paçoca",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Doce de leite e paçoca.",
+    "imagem": "https://client-assets.anota.ai/produtos/5fa954fe8e3b7c0022e00f71/-1755554444406blob"
+  },
+  {
+    "id": 1055,
+    "nome": "Broto 55 - Confete",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Chocolate ao leite e confete.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736295514973blob"
+  },
+  {
+    "id": 1079,
+    "nome": "Broto 79 - Kit Kat",
+    "categoria": "Broto",
+    "preco": 50.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Pasta de kit kat.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736291619749blob"
+  },
+  {
+    "id": 1080,
+    "nome": "Broto 80 - Banana nevada",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. chocolate branco, banana e canela em po.",
+    "imagem": "https://client-assets.anota.ai/produtos/1736293726643blob"
+  },
+  {
+    "id": 1084,
+    "nome": "Broto 84 - Morango",
+    "categoria": "Broto",
+    "preco": 46.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. chocolate ao leite, mesclado com chocolate branco e morangos",
+    "imagem": "https://client-assets.anota.ai/produtos/1736297811201blob"
+  },
+  {
+    "id": 1086,
+    "nome": "Broto 86 - OURO BRANCO",
+    "categoria": "Broto",
+    "preco": 47.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. PASTA DE CHOCOLATE OURO BRANCO COM PEDAÇOS DE BOMBONS",
+    "imagem": "https://client-assets.anota.ai/produtos/1736454036262blob"
   }
 ]

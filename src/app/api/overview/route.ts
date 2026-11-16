@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { lerOmniDb, salvarOmniDb } from '@/lib/store';
+import { ordenarProdutosAlfabeticamente } from '@/lib/ordenacao';
 
 export async function GET() {
   const db = lerOmniDb();
@@ -9,9 +10,11 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     empresa: db.empresa,
-    produtos: db.produtos,
+    produtos: ordenarProdutosAlfabeticamente(db.produtos),
     clientes: db.clientes,
     vendas: db.vendas,
+    movimentacoesFinanceiras: db.movimentacoesFinanceiras || [],
+    bairrosLoja: db.bairrosLoja || {},
     kpis: {
       vendasMes: receitaVendas,
       produtosEstoque: totalEstoque,
@@ -21,15 +24,46 @@ export async function GET() {
   });
 }
 
-const ConfigTempoSchema = z.object({
-  tempoPreparoMin: z.number().int().min(5).max(180)
+const ConfigOverviewSchema = z.object({
+  tempoPreparoMin: z.number().int().min(5).max(180).optional(),
+  empresaNome: z.string().min(1).optional(),
+  operador: z.string().min(1).optional(),
+  cargo: z.string().min(1).optional(),
+  whatsappDono: z.string().optional(),
+  camilaWebhookUrl: z.string().optional(),
+  bairrosLoja: z.record(z.string(), z.enum(['Loja 1', 'Loja 2'])).optional()
 });
 
 export async function PATCH(req: Request) {
-  const parsed = ConfigTempoSchema.safeParse(await req.json());
+  const parsed = ConfigOverviewSchema.safeParse(await req.json());
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
   const db = lerOmniDb();
-  db.empresa.tempoPreparoMin = parsed.data.tempoPreparoMin;
+  if (parsed.data.tempoPreparoMin !== undefined) {
+    db.empresa.tempoPreparoMin = parsed.data.tempoPreparoMin;
+  }
+  if (parsed.data.empresaNome !== undefined) {
+    db.empresa.nome = parsed.data.empresaNome.trim();
+  }
+  if (parsed.data.operador !== undefined) {
+    db.empresa.operador = parsed.data.operador.trim();
+  }
+  if (parsed.data.cargo !== undefined) {
+    db.empresa.cargo = parsed.data.cargo.trim();
+  }
+  if (parsed.data.whatsappDono !== undefined) {
+    db.empresa.whatsappDono = parsed.data.whatsappDono.replace(/\D/g, '');
+  }
+  if (parsed.data.camilaWebhookUrl !== undefined) {
+    db.empresa.camilaWebhookUrl = parsed.data.camilaWebhookUrl.trim();
+  }
+  if (parsed.data.bairrosLoja !== undefined) {
+    db.bairrosLoja = parsed.data.bairrosLoja;
+  }
   salvarOmniDb(db);
-  return NextResponse.json({ ok: true, tempoPreparoMin: db.empresa.tempoPreparoMin });
+  return NextResponse.json({
+    ok: true,
+    tempoPreparoMin: db.empresa.tempoPreparoMin,
+    empresa: db.empresa,
+    bairrosLoja: db.bairrosLoja
+  });
 }

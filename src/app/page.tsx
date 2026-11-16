@@ -6,13 +6,28 @@ import { OmniSidebar, type AbaOmni } from '@/components/OmniSidebar';
 import { OmniDashboard } from '@/components/OmniDashboard';
 import { OmniVendasPdv } from '@/components/OmniVendasPdv';
 import { OmniClientes, OmniEstoque } from '@/components/OmniEstoqueClientes';
-import type { Cliente, Produto, Venda } from '@/lib/schemas';
+import { OmniFinanceiro } from '@/components/OmniFinanceiro';
+import { OmniRelatorios } from '@/components/OmniRelatorios';
+import { OmniLojaOnline } from '@/components/OmniLojaOnline';
+import { OmniConfiguracoes } from '@/components/OmniConfiguracoes';
+import { OmniSuporte } from '@/components/OmniSuporte';
+import type { LojaId } from '@/lib/bairrosLimeira';
+import type { Cliente, MovimentacaoFinanceira, Produto, Venda } from '@/lib/schemas';
 
 interface OverviewPayload {
-  empresa: { nome: string; operador: string; cargo: string; tempoPreparoMin: number };
+  empresa: {
+    nome: string;
+    operador: string;
+    cargo: string;
+    tempoPreparoMin: number;
+    whatsappDono?: string;
+    camilaWebhookUrl?: string;
+  };
   produtos: Produto[];
   clientes: Cliente[];
   vendas: Venda[];
+  movimentacoesFinanceiras?: MovimentacaoFinanceira[];
+  bairrosLoja?: Record<string, LojaId>;
   kpis: { vendasMes: number; produtosEstoque: number; receitaTotal: number; clientesAtivos: number };
 }
 
@@ -108,6 +123,10 @@ export default function OmniOsHomePage() {
               vendas={dados.vendas}
               clientes={dados.clientes}
               tempoPreparoMin={dados.empresa.tempoPreparoMin || 35}
+              nomeEmpresa={dados.empresa.nome}
+              bairrosLoja={dados.bairrosLoja}
+              whatsappDono={dados.empresa.whatsappDono}
+              camilaWebhookUrl={dados.empresa.camilaWebhookUrl}
               modalidadeInicial={modalidadePdv}
               onAtualizar={carregar}
             />
@@ -123,13 +142,22 @@ export default function OmniOsHomePage() {
             />
           ) : aba === 'clientes' ? (
             <OmniClientes clientes={dados.clientes} onAtualizar={carregar} />
+          ) : aba === 'financeiro' ? (
+            <OmniFinanceiro
+              vendas={dados.vendas}
+              movimentacoes={dados.movimentacoesFinanceiras || []}
+              whatsappDono={dados.empresa.whatsappDono}
+              camilaWebhookUrl={dados.empresa.camilaWebhookUrl}
+              onAtualizar={carregar}
+            />
+          ) : aba === 'relatorios' ? (
+            <OmniRelatorios vendas={dados.vendas} produtos={dados.produtos} />
+          ) : aba === 'lojaonline' ? (
+            <OmniLojaOnline nomeEmpresa={dados.empresa.nome} totalProdutos={dados.produtos.length} />
+          ) : aba === 'configuracoes' ? (
+            <OmniConfiguracoes empresa={dados.empresa} onAtualizar={carregar} />
           ) : (
-            <div className="bg-white rounded-2xl border border-zinc-200 p-6 shadow-xs space-y-2">
-              <h2 className="text-lg font-extrabold text-zinc-900 capitalize">{aba} • Omni-OS</h2>
-              <p className="text-sm text-zinc-500">
-                Módulo conectado ao núcleo <strong>Omni-OS v1.0.0</strong>. Tudo conectado. Tudo sob controle.
-              </p>
-            </div>
+            <OmniSuporte />
           )}
         </main>
       </div>

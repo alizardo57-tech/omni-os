@@ -47,7 +47,8 @@ export const ItemVendaSchema = z.object({
   produtoId: z.number().int().positive(),
   nome: z.string().min(1),
   qtd: z.number().int().positive(),
-  precoUnit: z.number().nonnegative()
+  precoUnit: z.number().nonnegative(),
+  observacao: z.string().optional().default('')
 });
 
 export const VendaCreateSchema = z.object({
@@ -56,8 +57,28 @@ export const VendaCreateSchema = z.object({
   modalidade: z.enum(['balcao', 'entrega', 'retirada']).default('balcao'),
   pagamento: z.string().min(1).default('PIX'),
   endereco: z.string().optional().default(''),
+  bairro: z.string().optional().default(''),
+  loja: z.enum(['Loja 1', 'Loja 2']).optional().default('Loja 1'),
+  observacao: z.string().optional().default(''),
+  taxaEntrega: z.number().nonnegative().optional().default(0),
+  desconto: z.number().nonnegative().optional().default(0),
+  valorPago: z.number().nonnegative().optional().default(0),
   itens: z.array(ItemVendaSchema).min(1)
 });
+
+export const MovimentacaoFinanceiraSchema = z.object({
+  tipo: z.enum(['entrada', 'saida']),
+  descricao: z.string().min(1),
+  categoria: z.string().min(1).default('Operacional'),
+  valor: z.number().positive(),
+  loja: z.enum(['Loja 1', 'Loja 2']).optional().default('Loja 1'),
+  pagamento: z.string().optional().default('Dinheiro')
+});
+
+export type MovimentacaoFinanceira = z.infer<typeof MovimentacaoFinanceiraSchema> & {
+  id: string;
+  criadoEm: string;
+};
 
 export type Produto = z.infer<typeof ProdutoSchema>;
 export type Cliente = z.infer<typeof ClienteSchema>;
@@ -69,7 +90,15 @@ export type Venda = {
   modalidade: 'balcao' | 'entrega' | 'retirada';
   pagamento: string;
   endereco: string;
-  itens: z.infer<typeof ItemVendaSchema>[];
+  bairro?: string;
+  loja?: 'Loja 1' | 'Loja 2';
+  observacao?: string;
+  itens: z.input<typeof ItemVendaSchema>[];
+  subtotal?: number;
+  taxaEntrega?: number;
+  desconto?: number;
+  valorPago?: number;
+  troco?: number;
   total: number;
   status: 'preparando' | 'pronto' | 'entregue';
   ocultoCozinha?: boolean;

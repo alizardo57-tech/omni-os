@@ -25,10 +25,16 @@ function quebrarLinha(texto: string, max = 32): string[] {
   return saida;
 }
 
-export function formatarVia(venda: Venda, tituloVia: string): string[] {
+function centralizar32(texto: string): string {
+  const limpo = texto.trim().toUpperCase().slice(0, 32);
+  const espacos = Math.max(0, Math.floor((32 - limpo.length) / 2));
+  return `${' '.repeat(espacos)}${limpo}`;
+}
+
+export function formatarVia(venda: Venda, tituloVia: string, nomeEmpresa = 'BELLA PIZZA'): string[] {
   const linhas: string[] = [
     '================================',
-    '          BELLA PIZZA           ',
+    centralizar32(nomeEmpresa || 'BELLA PIZZA'),
     `       ${tituloVia}       `,
     '================================',
     `PEDIDO: #${venda.id}`,
@@ -38,6 +44,8 @@ export function formatarVia(venda: Venda, tituloVia: string): string[] {
     `TIPO:    ${venda.modalidade.toUpperCase()}`,
     `PAGTO:   ${venda.pagamento}`
   ];
+  if (venda.loja) linhas.push(`LOJA:    ${venda.loja}`);
+  if (venda.bairro) linhas.push(...quebrarLinha(`BAIRRO:  ${venda.bairro}`));
   if (venda.endereco) linhas.push(...quebrarLinha(`END: ${venda.endereco}`));
   linhas.push('--------------------------------', 'ITENS:');
   for (const it of venda.itens) {
@@ -46,9 +54,32 @@ export function formatarVia(venda: Venda, tituloVia: string): string[] {
     for (let i = 1; i < partes.length; i++) {
       linhas.push(...quebrarLinha(`  + ${partes[i]}`));
     }
+    if (it.observacao?.trim()) {
+      linhas.push(...quebrarLinha(`  OBS: ${it.observacao.trim()}`));
+    }
     linhas.push(`   R$ ${(it.qtd * it.precoUnit).toFixed(2)}`);
   }
-  linhas.push('--------------------------------', `TOTAL: R$ ${venda.total.toFixed(2)}`, '================================', '', '');
+  if (venda.observacao?.trim()) {
+    linhas.push('--------------------------------', ...quebrarLinha(`OBS PEDIDO: ${venda.observacao.trim()}`));
+  }
+  const taxa = venda.taxaEntrega ?? 0;
+  const desconto = venda.desconto ?? 0;
+  const subtotal = venda.subtotal ?? Math.max(0, venda.total - taxa + desconto);
+  const valorPago = venda.valorPago ?? 0;
+  const troco = venda.troco ?? (valorPago > venda.total ? valorPago - venda.total : 0);
+
+  linhas.push('--------------------------------');
+  if (taxa > 0 || desconto > 0) {
+    linhas.push(`SUBTOTAL: R$ ${subtotal.toFixed(2)}`);
+    if (taxa > 0) linhas.push(`TAXA ENT: R$ ${taxa.toFixed(2)}`);
+    if (desconto > 0) linhas.push(`DESCONTO: -R$ ${desconto.toFixed(2)}`);
+  }
+  linhas.push(`TOTAL:    R$ ${venda.total.toFixed(2)}`);
+  if (valorPago > 0) {
+    linhas.push(`PAGO:     R$ ${valorPago.toFixed(2)}`);
+    linhas.push(`TROCO:    R$ ${troco.toFixed(2)}`);
+  }
+  linhas.push('================================', '', '');
   return linhas;
 }
 
@@ -75,22 +106,23 @@ function enviarTrabalhoWindows(linhas: string[], sufixo: string): void {
   });
 }
 
-export function imprimirComandaOmni(venda: Venda, forcar = false): boolean {
+export function imprimirComandaOmni(venda: Venda, forcar = false, nomeEmpresa = 'BELLA PIZZA'): boolean {
   if (!forcar && process.env.AUTO_PRINT !== 'true') return false;
   if (process.platform !== 'win32') return false;
-  enviarTrabalhoWindows(formatarVia(venda, 'COMANDA DE PEDIDO'), 'comanda');
+  enviarTrabalhoWindows(formatarVia(venda, 'COMANDA DE PEDIDO', nomeEmpresa), 'comanda');
   return true;
 }
 
 export function imprimirFechamentoOmni(
   porPagamento: Record<string, number>,
   totalGeral: number,
-  qtdPedidos: number
+  qtdPedidos: number,
+  nomeEmpresa = 'BELLA PIZZA'
 ): boolean {
   if (process.platform !== 'win32') return false;
   const linhas = [
     '================================',
-    '          BELLA PIZZA           ',
+    centralizar32(nomeEmpresa || 'BELLA PIZZA'),
     '      FECHAMENTO DE CAIXA       ',
     '================================',
     `DATA:    ${new Date().toLocaleString('pt-BR')}`,
