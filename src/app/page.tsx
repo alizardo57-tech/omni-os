@@ -200,6 +200,8 @@ export default function OmniOsHomePage() {
               bairrosLoja={dados.bairrosLoja}
               whatsappDono={dados.empresa.whatsappDono}
               camilaWebhookUrl={dados.empresa.camilaWebhookUrl}
+              lojaPadrao={usuario.lojaPadrao}
+              perfil={usuario.perfil}
               modalidadeInicial={modalidadePdv}
               onAtualizar={carregar}
             />

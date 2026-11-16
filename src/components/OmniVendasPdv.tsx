@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Minus, Trash2, Printer, CheckCircle2, Clock, MapPin, X } from 'lucide-react';
 import type { Cliente, Produto, Venda } from '@/lib/schemas';
 import { ordenarProdutosAlfabeticamente } from '@/lib/ordenacao';
@@ -17,6 +17,7 @@ interface Props {
   whatsappDono?: string;
   camilaWebhookUrl?: string;
   lojaPadrao?: LojaId;
+  perfil?: 'admin' | 'funcionario';
   modalidadeInicial?: 'balcao' | 'entrega' | 'retirada';
   onAtualizar: () => void;
 }
@@ -31,6 +32,7 @@ export function OmniVendasPdv({
   whatsappDono = '',
   camilaWebhookUrl = '',
   lojaPadrao = 'Loja 1',
+  perfil = 'funcionario',
   modalidadeInicial = 'balcao',
   onAtualizar
 }: Props) {
@@ -64,6 +66,13 @@ export function OmniVendasPdv({
   const [mostrarFantasmas, setMostrarFantasmas] = useState(false);
   const [pedidoParaExcluir, setPedidoParaExcluir] = useState<Venda | null>(null);
   const [passoExclusao, setPassoExclusao] = useState<1 | 2>(1);
+  const [segundosExclusao, setSegundosExclusao] = useState(5);
+
+  useEffect(() => {
+    if (!pedidoParaExcluir || passoExclusao !== 2 || segundosExclusao <= 0) return;
+    const t = setTimeout(() => setSegundosExclusao(s => Math.max(0, s - 1)), 1000);
+    return () => clearTimeout(t);
+  }, [pedidoParaExcluir, passoExclusao, segundosExclusao]);
   const [ultimoPedidoOk, setUltimoPedidoOk] = useState<string | null>(null);
   const [salvando, setSalvando] = useState(false);
   const [buscaPdv, setBuscaPdv] = useState('');
@@ -834,15 +843,17 @@ export function OmniVendasPdv({
                 </button>
               ))}
             </div>
-            <button
-              type="button"
-              onClick={() => setMostrarFantasmas(!mostrarFantasmas)}
-              className={`px-3 py-1.5 rounded-xl font-bold transition ${mostrarFantasmas ? 'bg-[#8B0029] text-white' : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-700'}`}
-            >
-              👻 {mostrarFantasmas ? 'Ocultar Fantasmas' : `Fantasmas (${qtdFantasmas})`}
-            </button>
+            {perfil === 'admin' && (
+              <button
+                type="button"
+                onClick={() => setMostrarFantasmas(!mostrarFantasmas)}
+                className={`px-3 py-1.5 rounded-xl font-bold transition ${mostrarFantasmas ? 'bg-[#8B0029] text-white' : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-700'}`}
+              >
+                {mostrarFantasmas ? 'Ocultar Arquivados' : `Arquivados (${qtdFantasmas})`}
+              </button>
+            )}
             <button onClick={() => limparCozinha()} className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-[#8B0029] text-white font-bold transition">
-              👻 Arquivar Prontos / Entregues
+              Limpar Prontos / Entregues
             </button>
             <div className="flex items-center gap-1.5 bg-zinc-100 px-3 py-1.5 rounded-xl font-bold">
               <span>Tempo Meta: {tempoPreparoMin} min</span>
@@ -866,7 +877,7 @@ export function OmniVendasPdv({
                   <div className="flex flex-wrap gap-1.5 text-[10px] font-bold">
                     <span className="px-2 py-0.5 rounded bg-zinc-900 text-white">{v.loja || 'Loja 1'}</span>
                     {v.bairro && <span className="px-2 py-0.5 rounded bg-white border border-zinc-300 text-zinc-700">{v.bairro}</span>}
-                    {v.ocultoCozinha && <span className="px-2 py-0.5 rounded bg-zinc-700 text-white">👻 Fantasma (no caixa)</span>}
+                    {v.ocultoCozinha && perfil === 'admin' && <span className="px-2 py-0.5 rounded bg-zinc-700 text-white">Arquivado (no caixa)</span>}
                   </div>
                   <div className="text-zinc-500">
                     {v.itens.map(i => `${i.qtd}x ${i.nome}${i.observacao ? ` (Obs: ${i.observacao})` : ''}`).join(', ')}
@@ -895,16 +906,17 @@ export function OmniVendasPdv({
                       Entregue
                     </button>
                     {!v.ocultoCozinha && (v.status === 'entregue' || v.status === 'pronto') && (
-                      <button onClick={() => limparCozinha(v.id)} title="Mover para Comanda Fantasma (mantém no caixa)" className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-900 text-white font-bold inline-flex items-center gap-1">
-                        👻 Arquivar
+                      <button onClick={() => limparCozinha(v.id)} title="Limpar pedido pronto da fila" className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-900 text-white font-bold inline-flex items-center gap-1">
+                        Limpar
                       </button>
                     )}
                     <button
                       onClick={() => {
                         setPedidoParaExcluir(v);
                         setPassoExclusao(1);
+                        setSegundosExclusao(5);
                       }}
-                      title="Apagar / Cancelar pedido do sistema (pede 2 confirmações)"
+                      title="Apagar / Cancelar pedido"
                       className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 font-bold inline-flex items-center gap-1 transition"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -938,11 +950,11 @@ export function OmniVendasPdv({
               </p>
               {passoExclusao === 1 ? (
                 <p>
-                  Tem certeza que deseja <strong>apagar/cancelar</strong> este pedido do sistema? Se você só quer tirar da tela da cozinha mantendo no caixa, use <strong>👻 Arquivar</strong>.
+                  Tem certeza que deseja <strong>apagar/cancelar</strong> este pedido do sistema?
                 </p>
               ) : (
                 <p className="text-rose-700 font-bold">
-                  CONFIRMAÇÃO FINAL: Ao confirmar agora, o pedido será REMOVIDO permanentemente do caixa, dos relatórios e o estoque será estornado.
+                  CONFIRMAÇÃO FINAL: Ao confirmar, o pedido será removido do caixa e da cozinha.
                 </p>
               )}
             </div>
@@ -957,7 +969,10 @@ export function OmniVendasPdv({
               {passoExclusao === 1 ? (
                 <button
                   type="button"
-                  onClick={() => setPassoExclusao(2)}
+                  onClick={() => {
+                    setPassoExclusao(2);
+                    setSegundosExclusao(5);
+                  }}
                   className="py-2.5 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-black"
                 >
                   Sim, Continuar (1/2)
@@ -965,10 +980,11 @@ export function OmniVendasPdv({
               ) : (
                 <button
                   type="button"
+                  disabled={segundosExclusao > 0}
                   onClick={confirmarExclusaoDefinitiva}
-                  className="py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black"
+                  className="py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white text-xs font-black"
                 >
-                  Apagar Definitivamente (2/2)
+                  {segundosExclusao > 0 ? `Aguarde ${segundosExclusao}s...` : 'Apagar Definitivamente (2/2)'}
                 </button>
               )}
             </div>
