@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import type { Cliente, MovimentacaoFinanceira, Produto, Usuario, Venda } from './schemas';
+import type { Cliente, ComandaFantasma, MovimentacaoFinanceira, Produto, Usuario, Venda } from './schemas';
 import { hashSenha } from './auth';
 import { BAIRROS_LIMEIRA_PADRAO, type LojaId } from './bairrosLimeira';
 import produtosSeed from './produtosSeed.json';
@@ -19,6 +19,7 @@ export interface OmniDb {
   produtos: Produto[];
   clientes: Cliente[];
   vendas: Venda[];
+  comandasFantasmas?: ComandaFantasma[];
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
   usuarios?: Usuario[];
   bairrosLoja?: Record<string, LojaId>;
@@ -66,6 +67,7 @@ const SEED_INICIAL: OmniDb = {
   produtos: produtosSeed as Produto[],
   clientes: clientesBellaSeed as Cliente[],
   vendas: [],
+  comandasFantasmas: [],
   movimentacoesFinanceiras: [],
   usuarios: criarUsuariosPadrao(),
   bairrosLoja: { ...BAIRROS_LIMEIRA_PADRAO }
@@ -116,6 +118,10 @@ export function lerOmniDb(): OmniDb {
   }
   if (!dados.movimentacoesFinanceiras) {
     dados.movimentacoesFinanceiras = [];
+    alterou = true;
+  }
+  if (!dados.comandasFantasmas) {
+    dados.comandasFantasmas = [];
     alterou = true;
   }
   if (!dados.usuarios || dados.usuarios.length === 0) {

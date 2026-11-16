@@ -73,6 +73,15 @@ export async function DELETE(req: Request) {
     const idx = db.vendas.findIndex(x => x.id === id);
     if (idx === -1) return NextResponse.json({ ok: false }, { status: 404 });
     const removida = db.vendas[idx];
+    db.comandasFantasmas = [
+      {
+        ...removida,
+        excluidoEm: new Date().toISOString(),
+        excluidoPor: db.empresa.operador || 'Operador',
+        statusAntesExclusao: removida.status
+      },
+      ...(db.comandasFantasmas || [])
+    ];
     for (const item of removida.itens) {
       const prod = db.produtos.find(p => p.id === item.produtoId);
       if (prod) prod.estoque += item.qtd;

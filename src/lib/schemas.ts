@@ -116,3 +116,9 @@ export type Venda = {
   status: 'preparando' | 'pronto' | 'entregue';
   ocultoCozinha?: boolean;
 };
+
+export type ComandaFantasma = Venda & {
+  excluidoEm: string;
+  excluidoPor: string;
+  statusAntesExclusao: string;
+};

@@ -20,7 +20,10 @@ function montarMensagemFechamento(
   qtdPedidos: number,
   porPagamento: Record<string, number>,
   totalGeral: number,
-  operador: string
+  operador: string,
+  entradasAvulsas: number,
+  saidasCaixa: number,
+  fantasmas: { id: string; total: number; statusAntesExclusao: string; excluidoPor: string; clienteNome: string }[]
 ): string {
   const linhas = [
     `*FECHAMENTO DE CAIXA - ${nomeEmpresa.toUpperCase()}*`,
@@ -33,7 +36,27 @@ function montarMensagemFechamento(
   for (const [forma, valor] of Object.entries(porPagamento)) {
     linhas.push(`${forma}: R$ ${valor.toFixed(2)}`);
   }
-  linhas.push(`--------------------------------`, `*TOTAL DO CAIXA: R$ ${totalGeral.toFixed(2)}*`);
+  if (entradasAvulsas > 0 || saidasCaixa > 0) {
+    linhas.push(`--------------------------------`);
+    if (entradasAvulsas > 0) linhas.push(`Reforco/Entradas: +R$ ${entradasAvulsas.toFixed(2)}`);
+    if (saidasCaixa > 0) linhas.push(`Despesas/Sangrias: -R$ ${saidasCaixa.toFixed(2)}`);
+  }
+  const saldoLiquido = totalGeral + entradasAvulsas - saidasCaixa;
+  linhas.push(
+    `--------------------------------`,
+    `*TOTAL VENDAS: R$ ${totalGeral.toFixed(2)}*`,
+    `*SALDO LIQUIDO: R$ ${saldoLiquido.toFixed(2)}*`
+  );
+  if (fantasmas.length > 0) {
+    const totalFantasmas = fantasmas.reduce((s, f) => s + Number(f.total || 0), 0);
+    linhas.push(
+      `--------------------------------`,
+      `*AUDITORIA INTERNA (EXCLUIDOS): ${fantasmas.length} (R$ ${totalFantasmas.toFixed(2)})*`
+    );
+    for (const f of fantasmas.slice(0, 15)) {
+      linhas.push(`- ${f.id} | ${f.clienteNome} | R$ ${f.total.toFixed(2)} | Status: ${f.statusAntesExclusao} | Por: ${f.excluidoPor}`);
+    }
+  }
   return linhas.join('\n');
 }
 
@@ -67,6 +90,15 @@ export async function POST(req: Request) {
     imprimirFechamentoOmni(porPagamento, totalGeral, vendasAlvo.length, db.empresa.nome);
   }
 
+  const movs = (db.movimentacoesFinanceiras || []).filter(
+    m => parsed.data.loja === 'Todas' || (m.loja || 'Loja 1') === parsed.data.loja
+  );
+  const entradasAvulsas = movs.filter(m => m.tipo === 'entrada').reduce((s, m) => s + m.valor, 0);
+  const saidasCaixa = movs.filter(m => m.tipo === 'saida').reduce((s, m) => s + m.valor, 0);
+  const fantasmasAlvo = (db.comandasFantasmas || []).filter(
+    f => parsed.data.loja === 'Todas' || (f.loja || 'Loja 1') === parsed.data.loja
+  );
+
   const whatsappDono = (db.empresa.whatsappDono || '').replace(/\D/g, '');
   const webhookUrl = (db.empresa.camilaWebhookUrl || process.env.CAMILA_WEBHOOK_URL || '').trim();
   const mensagemWhatsapp = montarMensagemFechamento(
@@ -75,7 +107,10 @@ export async function POST(req: Request) {
     vendasAlvo.length,
     porPagamento,
     totalGeral,
-    db.empresa.operador || 'Bella Pizza'
+    db.empresa.operador || 'Bella Pizza',
+    entradasAvulsas,
+    saidasCaixa,
+    fantasmasAlvo
   );
 
   let camilaEnviado = false;

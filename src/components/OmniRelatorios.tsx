@@ -1,9 +1,17 @@
 'use client';
 
-import { BarChart3, Download, MapPin, ShoppingBag, TrendingUp } from 'lucide-react';
-import type { Produto, Venda } from '@/lib/schemas';
+import { BarChart3, Download, EyeOff, MapPin, ShoppingBag, TrendingUp } from 'lucide-react';
+import type { ComandaFantasma, Produto, Venda } from '@/lib/schemas';
 
-export function OmniRelatorios({ vendas, produtos }: { vendas: Venda[]; produtos: Produto[] }) {
+export function OmniRelatorios({
+  vendas,
+  produtos,
+  comandasFantasmas = []
+}: {
+  vendas: Venda[];
+  produtos: Produto[];
+  comandasFantasmas?: ComandaFantasma[];
+}) {
   const totalVendas = vendas.reduce((s, v) => s + Number(v.total || 0), 0);
   const ticketMedio = vendas.length > 0 ? totalVendas / vendas.length : 0;
 
@@ -130,6 +138,43 @@ export function OmniRelatorios({ vendas, produtos }: { vendas: Venda[]; produtos
             </div>
           )}
         </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-rose-200 p-5 shadow-xs space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-black text-rose-800 flex items-center gap-1.5">
+              <EyeOff className="w-4 h-4" /> Comandas Fantasmas • Auditoria de Exclusões (Visível apenas para Admin)
+            </h3>
+            <p className="text-[11px] text-zinc-500">
+              Todo pedido apagado/cancelado no PDV continua salvo aqui para controle do dono e vai no relatório diário pela Camila.
+            </p>
+          </div>
+          <span className="px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-black">
+            {comandasFantasmas.length} excluídos • R$ {comandasFantasmas.reduce((s, f) => s + Number(f.total || 0), 0).toFixed(2)}
+          </span>
+        </div>
+        {comandasFantasmas.length === 0 ? (
+          <p className="text-xs text-zinc-400">Nenhuma comanda foi excluída até o momento.</p>
+        ) : (
+          <div className="max-h-72 overflow-y-auto divide-y divide-zinc-100 border border-zinc-200 rounded-xl text-xs">
+            {comandasFantasmas.map((f, idx) => (
+              <div key={`${f.id}_${idx}`} className="p-3 space-y-1 bg-rose-50/30">
+                <div className="flex justify-between font-black text-zinc-900">
+                  <span>
+                    {f.id} • {f.clienteNome} ({f.loja || 'Loja 1'})
+                  </span>
+                  <span className="text-rose-700">R$ {f.total.toFixed(2)}</span>
+                </div>
+                <div className="text-zinc-600">{f.itens.map(i => `${i.qtd}x ${i.nome}`).join(', ')}</div>
+                <div className="text-[11px] text-zinc-500">
+                  Excluído em {new Date(f.excluidoEm).toLocaleString('pt-BR')} por <strong>{f.excluidoPor}</strong> • Status antes da exclusão:{' '}
+                  <strong className="uppercase">{f.statusAntesExclusao}</strong>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ export async function GET() {
     produtos: ordenarProdutosAlfabeticamente(db.produtos),
     clientes: db.clientes,
     vendas: db.vendas,
+    comandasFantasmas: db.comandasFantasmas || [],
     movimentacoesFinanceiras: db.movimentacoesFinanceiras || [],
     bairrosLoja: db.bairrosLoja || {},
     kpis: {
