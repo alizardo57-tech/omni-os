@@ -14,6 +14,13 @@ export interface ResumoDiaAnterior {
   porPagamento: Record<string, number>;
 }
 
+export interface CaixaAbertura {
+  data: string;
+  fundoTroco: number;
+  abertoPor: string;
+  abertoEm: string;
+}
+
 export interface OmniDb {
   empresa: {
     nome: string;
@@ -31,8 +38,11 @@ export interface OmniDb {
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
   usuarios?: Usuario[];
   bairrosLoja?: Record<string, LojaId>;
+  motoboys?: string[];
+  caixaAbertura?: CaixaAbertura | null;
   ultimoDiaOperacao?: string;
   resumoDiaAnterior?: ResumoDiaAnterior | null;
+  historicoDiario?: ResumoDiaAnterior[];
 }
 
 function dataLocalYYYYMMDD(d: Date): string {
@@ -88,7 +98,10 @@ const SEED_INICIAL: OmniDb = {
   comandasFantasmas: [],
   movimentacoesFinanceiras: [],
   usuarios: criarUsuariosPadrao(),
-  bairrosLoja: { ...BAIRROS_LIMEIRA_PADRAO }
+  bairrosLoja: { ...BAIRROS_LIMEIRA_PADRAO },
+  motoboys: ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'],
+  caixaAbertura: null,
+  historicoDiario: []
 };
 
 export function lerOmniDb(): OmniDb {
@@ -142,6 +155,14 @@ export function lerOmniDb(): OmniDb {
     dados.comandasFantasmas = [];
     alterou = true;
   }
+  if (!dados.motoboys || dados.motoboys.length === 0) {
+    dados.motoboys = ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'];
+    alterou = true;
+  }
+  if (!dados.historicoDiario) {
+    dados.historicoDiario = [];
+    alterou = true;
+  }
   if (!dados.usuarios || dados.usuarios.length === 0) {
     dados.usuarios = criarUsuariosPadrao();
     alterou = true;
@@ -178,12 +199,20 @@ export function lerOmniDb(): OmniDb {
         porPagamento[f] = Number(((porPagamento[f] || 0) + Number(v.total || 0)).toFixed(2));
         totalVendas = Number((totalVendas + Number(v.total || 0)).toFixed(2));
       }
-      dados.resumoDiaAnterior = {
+      const resumo: ResumoDiaAnterior = {
         data: dataLocalYYYYMMDD(new Date(vendasAntigas[0].criadoEm)),
         qtdPedidos: vendasAntigas.length,
         totalVendas,
         porPagamento
       };
+      dados.resumoDiaAnterior = resumo;
+      const semDuplicado = (dados.historicoDiario || []).filter(h => h.data !== resumo.data);
+      dados.historicoDiario = [resumo, ...semDuplicado]
+        .sort((a, b) => b.data.localeCompare(a.data))
+        .slice(0, 90);
+    }
+    if (dados.caixaAbertura && dados.caixaAbertura.data !== hoje) {
+      dados.caixaAbertura = null;
     }
     dados.vendas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) >= hoje);
     dados.movimentacoesFinanceiras = (dados.movimentacoesFinanceiras || []).filter(

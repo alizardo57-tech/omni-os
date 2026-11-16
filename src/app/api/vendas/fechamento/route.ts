@@ -11,7 +11,8 @@ const FechamentoSchema = z.object({
   loja: z.enum(['Todas', 'Loja 1', 'Loja 2']).optional().default('Todas'),
   enviarWhatsapp: z.boolean().optional().default(false),
   whatsappDono: z.string().optional(),
-  camilaWebhookUrl: z.string().optional()
+  camilaWebhookUrl: z.string().optional(),
+  valorContadoGaveta: z.number().nonnegative().optional()
 });
 
 function montarMensagemFechamento(
@@ -23,7 +24,10 @@ function montarMensagemFechamento(
   operador: string,
   entradasAvulsas: number,
   saidasCaixa: number,
-  fantasmas: { id: string; total: number; statusAntesExclusao: string; excluidoPor: string; clienteNome: string }[]
+  fantasmas: { id: string; total: number; statusAntesExclusao: string; excluidoPor: string; clienteNome: string }[],
+  fundoTroco = 0,
+  dinheiroEsperado = 0,
+  valorContadoGaveta?: number
 ): string {
   const linhas = [
     `*FECHAMENTO DE CAIXA - ${nomeEmpresa.toUpperCase()}*`,
@@ -36,8 +40,9 @@ function montarMensagemFechamento(
   for (const [forma, valor] of Object.entries(porPagamento)) {
     linhas.push(`${forma}: R$ ${valor.toFixed(2)}`);
   }
-  if (entradasAvulsas > 0 || saidasCaixa > 0) {
+  if (entradasAvulsas > 0 || saidasCaixa > 0 || fundoTroco > 0) {
     linhas.push(`--------------------------------`);
+    if (fundoTroco > 0) linhas.push(`Fundo de Troco (Abertura): R$ ${fundoTroco.toFixed(2)}`);
     if (entradasAvulsas > 0) linhas.push(`Reforco/Entradas: +R$ ${entradasAvulsas.toFixed(2)}`);
     if (saidasCaixa > 0) linhas.push(`Despesas/Sangrias: -R$ ${saidasCaixa.toFixed(2)}`);
   }
@@ -47,6 +52,14 @@ function montarMensagemFechamento(
     `*TOTAL VENDAS: R$ ${totalGeral.toFixed(2)}*`,
     `*SALDO LIQUIDO: R$ ${saldoLiquido.toFixed(2)}*`
   );
+  if (valorContadoGaveta !== undefined) {
+    const dif = Number((valorContadoGaveta - dinheiroEsperado).toFixed(2));
+    linhas.push(
+      `Dinheiro Esperado Gaveta: R$ ${dinheiroEsperado.toFixed(2)}`,
+      `Dinheiro Contado Gaveta: R$ ${valorContadoGaveta.toFixed(2)}`,
+      `Diferenca Gaveta: ${dif >= 0 ? '+' : ''}R$ ${dif.toFixed(2)}`
+    );
+  }
   if (fantasmas.length > 0) {
     const totalFantasmas = fantasmas.reduce((s, f) => s + Number(f.total || 0), 0);
     linhas.push(
@@ -99,6 +112,16 @@ export async function POST(req: Request) {
     f => parsed.data.loja === 'Todas' || (f.loja || 'Loja 1') === parsed.data.loja
   );
 
+  const fundoTroco = Number(db.caixaAbertura?.fundoTroco || 0);
+  const vendasDinheiro = porPagamento['Dinheiro'] || 0;
+  const entradasDinheiro = movs
+    .filter(m => m.tipo === 'entrada' && (m.pagamento || 'Dinheiro') === 'Dinheiro')
+    .reduce((s, m) => s + m.valor, 0);
+  const saidasDinheiro = movs
+    .filter(m => m.tipo === 'saida' && (m.pagamento || 'Dinheiro') === 'Dinheiro')
+    .reduce((s, m) => s + m.valor, 0);
+  const dinheiroEsperado = Number((fundoTroco + vendasDinheiro + entradasDinheiro - saidasDinheiro).toFixed(2));
+
   const whatsappDono = (db.empresa.whatsappDono || '').replace(/\D/g, '');
   const webhookUrl = (db.empresa.camilaWebhookUrl || process.env.CAMILA_WEBHOOK_URL || '').trim();
   const mensagemWhatsapp = montarMensagemFechamento(
@@ -110,7 +133,10 @@ export async function POST(req: Request) {
     db.empresa.operador || 'Bella Pizza',
     entradasAvulsas,
     saidasCaixa,
-    fantasmasAlvo
+    fantasmasAlvo,
+    fundoTroco,
+    dinheiroEsperado,
+    parsed.data.valorContadoGaveta
   );
 
   let camilaEnviado = false;

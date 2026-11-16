@@ -6,6 +6,7 @@ import type { UsuarioPublico } from '@/lib/schemas';
 
 export function OmniConfiguracoes({
   empresa,
+  motoboys = ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'],
   onAtualizar
 }: {
   empresa: {
@@ -16,6 +17,7 @@ export function OmniConfiguracoes({
     whatsappDono?: string;
     camilaWebhookUrl?: string;
   };
+  motoboys?: string[];
   onAtualizar: () => void;
 }) {
   const [nome, setNome] = useState(empresa.nome);
@@ -24,6 +26,7 @@ export function OmniConfiguracoes({
   const [tempoPreparoMin, setTempoPreparoMin] = useState(String(empresa.tempoPreparoMin || 35));
   const [whatsappDono, setWhatsappDono] = useState(empresa.whatsappDono || '');
   const [camilaWebhookUrl, setCamilaWebhookUrl] = useState(empresa.camilaWebhookUrl || '');
+  const [motoboysTexto, setMotoboysTexto] = useState(motoboys.join(', '));
   const [salvando, setSalvando] = useState(false);
   const [salvoOk, setSalvoOk] = useState(false);
   const [pastaBackup, setPastaBackup] = useState('');
@@ -147,7 +150,11 @@ export function OmniConfiguracoes({
           cargo,
           tempoPreparoMin: Math.max(5, Math.min(180, Number(tempoPreparoMin) || 35)),
           whatsappDono,
-          camilaWebhookUrl
+          camilaWebhookUrl,
+          motoboys: motoboysTexto
+            .split(',')
+            .map(m => m.trim())
+            .filter(Boolean)
         })
       });
       if ((await res.json()).ok) {
@@ -198,6 +205,10 @@ export function OmniConfiguracoes({
           <label className="block">
             <span className="font-bold text-zinc-700 block mb-1">URL Webhook Camila (n8n / API WhatsApp)</span>
             <input value={camilaWebhookUrl} onChange={e => setCamilaWebhookUrl(e.target.value)} placeholder="https://..." className="w-full border border-zinc-300 rounded-xl px-3 py-2 outline-none focus:border-[#8B0029]" />
+          </label>
+          <label className="block sm:col-span-2">
+            <span className="font-bold text-zinc-700 block mb-1">Motoboys / Entregadores (separados por vírgula)</span>
+            <input value={motoboysTexto} onChange={e => setMotoboysTexto(e.target.value)} placeholder="Ex: João, Pedro, Carlos" className="w-full border border-zinc-300 rounded-xl px-3 py-2 outline-none focus:border-[#8B0029]" />
           </label>
         </div>
 

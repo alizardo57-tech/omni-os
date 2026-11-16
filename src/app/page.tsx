@@ -13,7 +13,7 @@ import { OmniConfiguracoes } from '@/components/OmniConfiguracoes';
 import { OmniSuporte } from '@/components/OmniSuporte';
 import { OmniCriarUsuarioModal, OmniLoginScreen } from '@/components/OmniAuthModal';
 import type { LojaId } from '@/lib/bairrosLimeira';
-import type { ResumoDiaAnterior } from '@/lib/store';
+import type { CaixaAbertura, ResumoDiaAnterior } from '@/lib/store';
 import type { Cliente, ComandaFantasma, MovimentacaoFinanceira, Produto, UsuarioPublico, Venda } from '@/lib/schemas';
 
 interface OverviewPayload {
@@ -30,6 +30,9 @@ interface OverviewPayload {
   vendas: Venda[];
   comandasFantasmas?: ComandaFantasma[];
   resumoDiaAnterior?: ResumoDiaAnterior | null;
+  historicoDiario?: ResumoDiaAnterior[];
+  motoboys?: string[];
+  caixaAbertura?: CaixaAbertura | null;
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
   bairrosLoja?: Record<string, LojaId>;
   kpis: { vendasMes: number; produtosEstoque: number; receitaTotal: number; clientesAtivos: number };
@@ -200,6 +203,8 @@ export default function OmniOsHomePage() {
               tempoPreparoMin={dados.empresa.tempoPreparoMin || 35}
               nomeEmpresa={dados.empresa.nome}
               bairrosLoja={dados.bairrosLoja}
+              motoboys={dados.motoboys}
+              caixaAbertura={dados.caixaAbertura}
               whatsappDono={dados.empresa.whatsappDono}
               camilaWebhookUrl={dados.empresa.camilaWebhookUrl}
               lojaPadrao={usuario.lojaPadrao}
@@ -233,11 +238,12 @@ export default function OmniOsHomePage() {
               produtos={dados.produtos}
               comandasFantasmas={dados.comandasFantasmas || []}
               resumoDiaAnterior={dados.resumoDiaAnterior || null}
+              historicoDiario={dados.historicoDiario || []}
             />
           ) : aba === 'lojaonline' ? (
             <OmniLojaOnline nomeEmpresa={dados.empresa.nome} totalProdutos={dados.produtos.length} />
           ) : aba === 'configuracoes' ? (
-            <OmniConfiguracoes empresa={dados.empresa} onAtualizar={carregar} />
+            <OmniConfiguracoes empresa={dados.empresa} motoboys={dados.motoboys} onAtualizar={carregar} />
           ) : (
             <OmniSuporte />
           )}

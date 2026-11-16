@@ -45,7 +45,8 @@ export async function POST(req: Request) {
 
 const PatchSchema = z.object({
   id: z.string().min(1),
-  status: z.enum(['preparando', 'pronto', 'entregue']).optional(),
+  status: z.enum(['preparando', 'forno', 'pronto', 'saiu_entrega', 'entregue']).optional(),
+  motoboy: z.string().optional(),
   reimprimir: z.boolean().optional()
 });
 
@@ -55,10 +56,16 @@ export async function PATCH(req: Request) {
   const db = lerOmniDb();
   const v = db.vendas.find(x => x.id === parsed.data.id);
   if (!v) return NextResponse.json({ ok: false }, { status: 404 });
+  let alterou = false;
   if (parsed.data.status) {
     v.status = parsed.data.status;
-    salvarOmniDb(db);
+    alterou = true;
   }
+  if (parsed.data.motoboy !== undefined) {
+    v.motoboy = parsed.data.motoboy.trim();
+    alterou = true;
+  }
+  if (alterou) salvarOmniDb(db);
   if (parsed.data.reimprimir) imprimirComandaOmni(v, true, db.empresa.nome);
   return NextResponse.json({ ok: true, venda: v });
 }

@@ -4,15 +4,19 @@ import { useEffect, useState } from 'react';
 import { Calculator, MessageCircle, Printer, RotateCcw, Settings2, X } from 'lucide-react';
 import type { Venda } from '@/lib/schemas';
 
+import type { CaixaAbertura } from '@/lib/store';
+
 export function OmniFechamentoCaixa({
   vendas,
   whatsappDonoInicial = '',
   camilaWebhookInicial = '',
+  caixaAbertura = null,
   onAtualizar
 }: {
   vendas: Venda[];
   whatsappDonoInicial?: string;
   camilaWebhookInicial?: string;
+  caixaAbertura?: CaixaAbertura | null;
   onAtualizar: () => void;
 }) {
   const [aberto, setAberto] = useState(false);
@@ -21,7 +25,13 @@ export function OmniFechamentoCaixa({
   const [whatsappDono, setWhatsappDono] = useState(whatsappDonoInicial);
   const [camilaWebhookUrl, setCamilaWebhookUrl] = useState(camilaWebhookInicial);
   const [configCamilaAberta, setConfigCamilaAberta] = useState(false);
+  const [fundoTrocoInput, setFundoTrocoInput] = useState(caixaAbertura ? String(caixaAbertura.fundoTroco) : '');
+  const [valorContadoInput, setValorContadoInput] = useState('');
   const [feedback, setFeedback] = useState<string | null>(null);
+
+  useEffect(() => {
+    setFundoTrocoInput(caixaAbertura ? String(caixaAbertura.fundoTroco) : '');
+  }, [caixaAbertura]);
 
   useEffect(() => {
     setWhatsappDono(whatsappDonoInicial);
@@ -42,6 +52,31 @@ export function OmniFechamentoCaixa({
     totalGeral = Number((totalGeral + v.total).toFixed(2));
   }
 
+  const fundoTrocoAtual = Number(caixaAbertura?.fundoTroco || 0);
+  const vendasDinheiro = porPagamento['Dinheiro'] || 0;
+  const dinheiroEsperado = Number((fundoTrocoAtual + vendasDinheiro).toFixed(2));
+  const valorContadoNum = valorContadoInput.trim() !== '' ? Number(valorContadoInput.replace(',', '.')) : undefined;
+  const diferencaGaveta =
+    valorContadoNum !== undefined && !Number.isNaN(valorContadoNum)
+      ? Number((valorContadoNum - dinheiroEsperado).toFixed(2))
+      : null;
+
+  const salvarFundoTroco = async () => {
+    const val = Math.max(0, Number(fundoTrocoInput.replace(',', '.') || 0));
+    setProcessando(true);
+    try {
+      await fetch('/api/overview', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fundoTroco: val })
+      });
+      setFeedback(`✅ Fundo de troco de R$ ${val.toFixed(2)} registrado para hoje!`);
+      onAtualizar();
+    } finally {
+      setProcessando(false);
+    }
+  };
+
   const executarFechamento = async (zerarTurno: boolean, enviarWhatsapp = false) => {
     setProcessando(true);
     setFeedback(null);
@@ -55,7 +90,10 @@ export function OmniFechamentoCaixa({
           loja: lojaFiltro,
           enviarWhatsapp,
           whatsappDono,
-          camilaWebhookUrl
+          camilaWebhookUrl,
+          ...(valorContadoNum !== undefined && !Number.isNaN(valorContadoNum)
+            ? { valorContadoGaveta: valorContadoNum }
+            : {})
         })
       });
       const data = await res.json();
@@ -143,6 +181,43 @@ export function OmniFechamentoCaixa({
                 <span>TOTAL DO CAIXA</span>
                 <span className="text-[#8B0029]">R$ {totalGeral.toFixed(2)}</span>
               </div>
+            </div>
+
+            <div className="bg-amber-50/70 border border-amber-200 rounded-xl p-3 space-y-2 text-xs">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-bold text-zinc-800">Fundo de Troco (Abertura):</span>
+                <div className="flex items-center gap-1.5">
+                  <input
+                    value={fundoTrocoInput}
+                    onChange={e => setFundoTrocoInput(e.target.value)}
+                    placeholder="Ex: 150.00"
+                    className="w-24 bg-white border border-zinc-300 rounded-lg px-2 py-1 text-xs font-bold outline-none"
+                  />
+                  <button
+                    type="button"
+                    disabled={processando}
+                    onClick={salvarFundoTroco}
+                    className="px-2.5 py-1 rounded-lg bg-zinc-900 text-white font-bold hover:bg-zinc-700"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-bold text-zinc-700">Dinheiro contado na gaveta:</span>
+                <input
+                  value={valorContadoInput}
+                  onChange={e => setValorContadoInput(e.target.value)}
+                  placeholder={`Esp: ${dinheiroEsperado.toFixed(2)}`}
+                  className="w-32 bg-white border border-zinc-300 rounded-lg px-2 py-1 text-xs font-bold outline-none"
+                />
+              </div>
+              {diferencaGaveta !== null && (
+                <div className={`flex justify-between font-black ${diferencaGaveta === 0 ? 'text-emerald-700' : diferencaGaveta > 0 ? 'text-blue-700' : 'text-rose-700'}`}>
+                  <span>Diferença de gaveta:</span>
+                  <span>{diferencaGaveta >= 0 ? '+' : ''}R$ {diferencaGaveta.toFixed(2)}</span>
+                </div>
+              )}
             </div>
 
             <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3 space-y-2 text-xs">

@@ -63,6 +63,7 @@ export const VendaCreateSchema = z.object({
   taxaEntrega: z.number().nonnegative().optional().default(0),
   desconto: z.number().nonnegative().optional().default(0),
   valorPago: z.number().nonnegative().optional().default(0),
+  motoboy: z.string().optional().default(''),
   itens: z.array(ItemVendaSchema).min(1)
 });
 
@@ -113,7 +114,8 @@ export type Venda = {
   valorPago?: number;
   troco?: number;
   total: number;
-  status: 'preparando' | 'pronto' | 'entregue';
+  motoboy?: string;
+  status: 'preparando' | 'forno' | 'pronto' | 'saiu_entrega' | 'entregue';
   ocultoCozinha?: boolean;
 };
 

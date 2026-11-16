@@ -45,6 +45,7 @@ export function formatarVia(venda: Venda, tituloVia: string, nomeEmpresa = 'BELL
     `PAGTO:   ${venda.pagamento}`
   ];
   if (venda.loja) linhas.push(`LOJA:    ${venda.loja}`);
+  if (venda.motoboy) linhas.push(...quebrarLinha(`MOTOBOY: ${venda.motoboy}`));
   if (venda.bairro) linhas.push(...quebrarLinha(`BAIRRO:  ${venda.bairro}`));
   if (venda.endereco) linhas.push(...quebrarLinha(`END: ${venda.endereco}`));
   linhas.push('--------------------------------', 'ITENS:');
@@ -106,10 +107,50 @@ function enviarTrabalhoWindows(linhas: string[], sufixo: string): void {
   });
 }
 
-export function imprimirComandaOmni(venda: Venda, forcar = false, nomeEmpresa = 'BELLA PIZZA'): boolean {
+export function formatarViaCozinha(venda: Venda, nomeEmpresa = 'BELLA PIZZA'): string[] {
+  const linhas: string[] = [
+    '================================',
+    centralizar32(nomeEmpresa || 'BELLA PIZZA'),
+    '          VIA COZINHA           ',
+    '================================',
+    `PEDIDO: #${venda.id}`,
+    `HORA:   ${new Date(venda.criadoEm).toLocaleTimeString('pt-BR')}`,
+    `TIPO:   ${venda.modalidade.toUpperCase()}${venda.loja ? ` (${venda.loja})` : ''}`,
+    ...quebrarLinha(`CLIENTE: ${venda.clienteNome}`),
+    '--------------------------------',
+    'PREPARAR:'
+  ];
+  for (const it of venda.itens) {
+    const partes = it.nome.split(/\s+\+\s+/);
+    linhas.push(...quebrarLinha(`${it.qtd}x ${partes[0]}`));
+    for (let i = 1; i < partes.length; i++) {
+      linhas.push(...quebrarLinha(`  + ${partes[i]}`));
+    }
+    if (it.observacao?.trim()) {
+      linhas.push(...quebrarLinha(`  *** OBS: ${it.observacao.trim()}`));
+    }
+  }
+  if (venda.observacao?.trim()) {
+    linhas.push('--------------------------------', ...quebrarLinha(`OBS GERAL: ${venda.observacao.trim()}`));
+  }
+  linhas.push('================================', '', '');
+  return linhas;
+}
+
+export function imprimirComandaOmni(
+  venda: Venda,
+  forcar = false,
+  nomeEmpresa = 'BELLA PIZZA',
+  duasVias = true
+): boolean {
   if (!forcar && process.env.AUTO_PRINT !== 'true') return false;
   if (process.platform !== 'win32') return false;
-  enviarTrabalhoWindows(formatarVia(venda, 'COMANDA DE PEDIDO', nomeEmpresa), 'comanda');
+  if (duasVias) {
+    enviarTrabalhoWindows(formatarViaCozinha(venda, nomeEmpresa), 'cozinha');
+    enviarTrabalhoWindows(formatarVia(venda, 'VIA ENTREGA / CLIENTE', nomeEmpresa), 'entrega');
+  } else {
+    enviarTrabalhoWindows(formatarVia(venda, 'COMANDA DE PEDIDO', nomeEmpresa), 'comanda');
+  }
   return true;
 }
 

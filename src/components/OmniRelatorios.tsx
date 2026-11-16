@@ -8,12 +8,14 @@ export function OmniRelatorios({
   vendas,
   produtos,
   comandasFantasmas = [],
-  resumoDiaAnterior = null
+  resumoDiaAnterior = null,
+  historicoDiario = []
 }: {
   vendas: Venda[];
   produtos: Produto[];
   comandasFantasmas?: ComandaFantasma[];
   resumoDiaAnterior?: ResumoDiaAnterior | null;
+  historicoDiario?: ResumoDiaAnterior[];
 }) {
   const totalVendas = vendas.reduce((s, v) => s + Number(v.total || 0), 0);
   const ticketMedio = vendas.length > 0 ? totalVendas / vendas.length : 0;
@@ -21,9 +23,20 @@ export function OmniRelatorios({
   const porProduto: Record<string, { qtd: number; valor: number }> = {};
   const porModalidade: Record<string, number> = { balcao: 0, entrega: 0, retirada: 0 };
   const porBairro: Record<string, { qtd: number; valor: number }> = {};
+  const porMotoboy: Record<string, { qtd: number; taxas: number; dinheiro: number; total: number }> = {};
 
   for (const v of vendas) {
     porModalidade[v.modalidade] = (porModalidade[v.modalidade] || 0) + 1;
+    if (v.modalidade === 'entrega') {
+      const moto = v.motoboy?.trim() || 'Sem motoboy';
+      if (!porMotoboy[moto]) porMotoboy[moto] = { qtd: 0, taxas: 0, dinheiro: 0, total: 0 };
+      porMotoboy[moto].qtd += 1;
+      porMotoboy[moto].taxas += Number(v.taxaEntrega || 0);
+      porMotoboy[moto].total += Number(v.total || 0);
+      if ((v.pagamento || '').toLowerCase() === 'dinheiro') {
+        porMotoboy[moto].dinheiro += Number(v.total || 0);
+      }
+    }
     if (v.bairro) {
       if (!porBairro[v.bairro]) porBairro[v.bairro] = { qtd: 0, valor: 0 };
       porBairro[v.bairro].qtd += 1;
@@ -162,6 +175,59 @@ export function OmniRelatorios({
           )}
         </div>
       </div>
+
+      {historicoDiario.length > 0 && (
+        <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-black text-zinc-900">
+              📆 Histórico de Faturamento (Últimos {historicoDiario.length} dias)
+            </h3>
+            <span className="text-xs font-black text-[#8B0029]">
+              Total acumulado: R$ {historicoDiario.reduce((s, d) => s + d.totalVendas, 0).toFixed(2)}
+            </span>
+          </div>
+          <div className="max-h-56 overflow-y-auto divide-y divide-zinc-100 border border-zinc-200 rounded-xl text-xs">
+            {historicoDiario.map(dia => (
+              <div key={dia.data} className="px-3 py-2 flex flex-wrap items-center justify-between gap-2">
+                <span className="font-black text-zinc-900">{dia.data}</span>
+                <span className="text-zinc-500 font-semibold">
+                  {dia.qtdPedidos} pedidos • Ticket R${' '}
+                  {(dia.qtdPedidos > 0 ? dia.totalVendas / dia.qtdPedidos : 0).toFixed(2)}
+                </span>
+                <span className="font-black text-[#8B0029]">R$ {dia.totalVendas.toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {Object.keys(porMotoboy).length > 0 && (
+        <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-3">
+          <h3 className="text-sm font-black text-zinc-900">🛵 Acerto de Motoboys / Entregadores (Turno Atual)</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+            {Object.entries(porMotoboy).map(([moto, info]) => (
+              <div key={moto} className="bg-zinc-50 border border-zinc-200 rounded-xl p-3 space-y-1">
+                <div className="font-black text-zinc-900 flex justify-between">
+                  <span>{moto}</span>
+                  <span className="text-[#8B0029]">{info.qtd} entregas</span>
+                </div>
+                <div className="text-zinc-600 flex justify-between">
+                  <span>Taxas de entrega:</span>
+                  <strong className="text-zinc-900">R$ {info.taxas.toFixed(2)}</strong>
+                </div>
+                <div className="text-zinc-600 flex justify-between">
+                  <span>Em Dinheiro a prestar:</span>
+                  <strong className="text-emerald-700">R$ {info.dinheiro.toFixed(2)}</strong>
+                </div>
+                <div className="text-zinc-500 flex justify-between border-t border-zinc-200 pt-1">
+                  <span>Total pedidos:</span>
+                  <span>R$ {info.total.toFixed(2)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="bg-white rounded-2xl border border-rose-200 p-5 shadow-xs space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">

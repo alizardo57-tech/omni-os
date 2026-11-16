@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Plus, Minus, Trash2, Printer, CheckCircle2, Clock, MapPin, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Plus, Minus, Trash2, Printer, CheckCircle2, Clock, MapPin, MessageCircle, Flame, Bike, X } from 'lucide-react';
 import type { Cliente, Produto, Venda } from '@/lib/schemas';
+import type { CaixaAbertura } from '@/lib/store';
 import { ordenarProdutosAlfabeticamente } from '@/lib/ordenacao';
 import { detectarBairroNoEndereco, type LojaId } from '@/lib/bairrosLimeira';
 import { OmniFechamentoCaixa } from './OmniFechamentoCaixa';
@@ -14,6 +15,8 @@ interface Props {
   tempoPreparoMin: number;
   nomeEmpresa?: string;
   bairrosLoja?: Record<string, LojaId>;
+  motoboys?: string[];
+  caixaAbertura?: CaixaAbertura | null;
   whatsappDono?: string;
   camilaWebhookUrl?: string;
   lojaPadrao?: LojaId;
@@ -29,6 +32,8 @@ export function OmniVendasPdv({
   tempoPreparoMin,
   nomeEmpresa = 'Bella Pizza',
   bairrosLoja = {},
+  motoboys = ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'],
+  caixaAbertura = null,
   whatsappDono = '',
   camilaWebhookUrl = '',
   lojaPadrao = 'Loja 1',
@@ -44,6 +49,9 @@ export function OmniVendasPdv({
   const [endereco, setEndereco] = useState('');
   const [bairro, setBairro] = useState('');
   const [loja, setLoja] = useState<LojaId>(lojaPadrao);
+  const [motoboy, setMotoboy] = useState('');
+  const clienteInputRef = useRef<HTMLInputElement | null>(null);
+  const qtdVendasAnteriorRef = useRef<number>(vendas.length);
   const [filtroLojaCozinha, setFiltroLojaCozinha] = useState<'Todas' | LojaId>('Todas');
   const [modalBairrosAberto, setModalBairrosAberto] = useState(false);
   const [buscaBairro, setBuscaBairro] = useState('');
@@ -73,8 +81,51 @@ export function OmniVendasPdv({
     const t = setTimeout(() => setSegundosExclusao(s => Math.max(0, s - 1)), 1000);
     return () => clearTimeout(t);
   }, [pedidoParaExcluir, passoExclusao, segundosExclusao]);
+
+  useEffect(() => {
+    if (vendas.length > qtdVendasAnteriorRef.current) {
+      try {
+        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (AudioCtx) {
+          const ctx = new AudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, ctx.currentTime);
+          osc.frequency.setValueAtTime(1174.66, ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.08, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.36);
+        }
+      } catch {
+        // Ignora bloqueio de autoplay do navegador
+      }
+    }
+    qtdVendasAnteriorRef.current = vendas.length;
+  }, [vendas.length]);
+
   const [ultimoPedidoOk, setUltimoPedidoOk] = useState<string | null>(null);
   const [salvando, setSalvando] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'F2') {
+        e.preventDefault();
+        clienteInputRef.current?.focus();
+        clienteInputRef.current?.select();
+      } else if (e.key === 'F9') {
+        e.preventDefault();
+        if (carrinho.length > 0 && !salvando) {
+          setPreviaComandaAberta(true);
+        }
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [carrinho.length, salvando]);
   const [buscaPdv, setBuscaPdv] = useState('');
   const [catPdv, setCatPdv] = useState('Todas');
 
@@ -231,6 +282,7 @@ export function OmniVendasPdv({
           endereco,
           bairro,
           loja,
+          motoboy: modalidade === 'entrega' ? motoboy : '',
           observacao: observacaoPedido.trim(),
           taxaEntrega: taxaEntregaNum,
           desconto: descontoNum,
@@ -258,6 +310,7 @@ export function OmniVendasPdv({
         setTaxaEntrega('');
         setDesconto('');
         setValorPago('');
+        setMotoboy('');
         setModalidade('balcao');
         setPagamento('PIX');
         setTimeout(() => setUltimoPedidoOk(null), 4000);
@@ -275,6 +328,33 @@ export function OmniVendasPdv({
       body: JSON.stringify({ id, status })
     });
     onAtualizar();
+  };
+
+  const atribuirMotoboy = async (id: string, novoMotoboy: string) => {
+    await fetch('/api/vendas', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, motoboy: novoMotoboy })
+    });
+    onAtualizar();
+  };
+
+  const abrirWhatsappCliente = (v: Venda) => {
+    const digits = (v.clienteTelefone || '').replace(/\D/g, '');
+    if (!digits) return;
+    const tel = digits.startsWith('55') ? digits : `55${digits}`;
+    const statusTexto =
+      v.status === 'forno'
+        ? 'está no forno 🍕'
+        : v.status === 'pronto'
+          ? 'está pronto!'
+          : v.status === 'saiu_entrega'
+            ? `saiu para entrega${v.motoboy ? ` com ${v.motoboy}` : ''} 🛵`
+            : v.status === 'entregue'
+              ? 'foi entregue!'
+              : 'foi recebido e está em preparo!';
+    const msg = `Olá ${v.clienteNome}! Seu pedido #${v.id} da ${nomeEmpresa} ${statusTexto} Total: R$ ${v.total.toFixed(2)}.`;
+    window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   const reimprimirBematech = async (id: string) => {
@@ -413,6 +493,7 @@ export function OmniVendasPdv({
                 vendas={vendas}
                 whatsappDonoInicial={whatsappDono}
                 camilaWebhookInicial={camilaWebhookUrl}
+                caixaAbertura={caixaAbertura}
                 onAtualizar={onAtualizar}
               />
               <button
@@ -566,11 +647,17 @@ export function OmniVendasPdv({
 
         <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs flex flex-col justify-between gap-3">
           <div>
-            <h2 className="text-base font-extrabold text-zinc-900 mb-3">Resumo da Venda</h2>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <h2 className="text-base font-extrabold text-zinc-900">Resumo da Venda</h2>
+              <span className="text-[10px] font-bold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded-md">
+                F2 Cliente • F9 Finalizar
+              </span>
+            </div>
             <div className="space-y-2 text-xs mb-3">
               <div className="relative">
                 <div className="flex gap-1.5">
                   <input
+                    ref={clienteInputRef}
                     value={clienteNome}
                     onChange={e => {
                       setClienteNome(e.target.value);
@@ -616,9 +703,23 @@ export function OmniVendasPdv({
                   <option>PIX</option><option>Dinheiro</option><option>Cartão Crédito</option><option>Cartão Débito</option>
                 </select>
               </div>
-              <select value={modalidade} onChange={e => setModalidade(e.target.value as 'balcao' | 'entrega' | 'retirada')} className="w-full border border-zinc-300 rounded-lg px-3 py-2">
-                <option value="balcao">Balcão</option><option value="entrega">Delivery / Entrega</option><option value="retirada">Retirada</option>
-              </select>
+              <div className="grid grid-cols-2 gap-2">
+                <select value={modalidade} onChange={e => setModalidade(e.target.value as 'balcao' | 'entrega' | 'retirada')} className="border border-zinc-300 rounded-lg px-3 py-2">
+                  <option value="balcao">Balcão</option><option value="entrega">Delivery / Entrega</option><option value="retirada">Retirada</option>
+                </select>
+                {modalidade === 'entrega' ? (
+                  <select value={motoboy} onChange={e => setMotoboy(e.target.value)} className="border border-zinc-300 rounded-lg px-2 py-2 font-semibold">
+                    <option value="">Motoboy (opcional)</option>
+                    {motoboys.map(m => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <div className="border border-zinc-200 bg-zinc-50 rounded-lg px-3 py-2 text-zinc-400 flex items-center">
+                    Sem entrega
+                  </div>
+                )}
+              </div>
               <input value={endereco} onChange={e => aoAlterarEndereco(e.target.value)} placeholder="Endereço completo (novo ou cadastrado)" className="w-full border border-zinc-300 rounded-lg px-3 py-2" />
               <div className="grid grid-cols-2 gap-2">
                 <select value={bairro} onChange={e => aoSelecionarBairro(e.target.value)} className="border border-zinc-300 rounded-lg px-2 py-2">
@@ -867,7 +968,7 @@ export function OmniVendasPdv({
             .filter(v => (mostrarFantasmas ? v.ocultoCozinha : !v.ocultoCozinha) && (filtroLojaCozinha === 'Todas' || (v.loja || 'Loja 1') === filtroLojaCozinha))
             .map(v => {
               const minDecorridos = Math.max(0, Math.floor((Date.now() - new Date(v.criadoEm).getTime()) / 60000));
-              const atrasado = v.status === 'preparando' && minDecorridos > tempoPreparoMin;
+              const atrasado = (v.status === 'preparando' || v.status === 'forno') && minDecorridos > tempoPreparoMin;
               return (
                 <div key={v.id} className={`p-3.5 rounded-xl border space-y-2 text-xs ${v.ocultoCozinha ? 'border-dashed border-zinc-400 bg-zinc-100/80 opacity-85' : atrasado ? 'border-rose-500 bg-rose-50' : 'border-zinc-200 bg-zinc-50'}`}>
                   <div className="flex justify-between font-black text-zinc-900 gap-2">
@@ -877,6 +978,7 @@ export function OmniVendasPdv({
                   <div className="flex flex-wrap gap-1.5 text-[10px] font-bold">
                     <span className="px-2 py-0.5 rounded bg-zinc-900 text-white">{v.loja || 'Loja 1'}</span>
                     {v.bairro && <span className="px-2 py-0.5 rounded bg-white border border-zinc-300 text-zinc-700">{v.bairro}</span>}
+                    {v.motoboy && <span className="px-2 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900">🛵 {v.motoboy}</span>}
                     {v.ocultoCozinha && perfil === 'admin' && <span className="px-2 py-0.5 rounded bg-zinc-700 text-white">Arquivado (no caixa)</span>}
                   </div>
                   <div className="text-zinc-500">
@@ -890,23 +992,58 @@ export function OmniVendasPdv({
                       {(v.troco ?? 0) > 0 && <span className="font-bold text-emerald-700">Troco: R$ {v.troco!.toFixed(2)}</span>}
                     </div>
                   )}
-                  <div className="flex items-center justify-between text-[11px] font-bold">
+                  <div className="flex items-center justify-between text-[11px] font-bold gap-2">
                     <span className={atrasado ? 'text-rose-600' : 'text-zinc-500'}>
                       ⏱ {minDecorridos} min {atrasado ? '• ATRASADO' : ''}
                     </span>
-                    <button onClick={() => reimprimirBematech(v.id)} className="text-zinc-700 hover:text-[#8B0029] inline-flex items-center gap-1">
-                      <Printer className="w-3 h-3" /> 2 Vias
-                    </button>
+                    <div className="flex items-center gap-2">
+                      {v.clienteTelefone && (
+                        <button
+                          type="button"
+                          onClick={() => abrirWhatsappCliente(v)}
+                          title="Enviar status no WhatsApp do cliente"
+                          className="text-emerald-700 hover:text-emerald-900 inline-flex items-center gap-1"
+                        >
+                          <MessageCircle className="w-3 h-3" /> WhatsApp
+                        </button>
+                      )}
+                      <button onClick={() => reimprimirBematech(v.id)} className="text-zinc-700 hover:text-[#8B0029] inline-flex items-center gap-1">
+                        <Printer className="w-3 h-3" /> 2 Vias
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex gap-1.5 pt-1">
-                    <button onClick={() => mudarStatus(v.id, 'pronto')} className={`flex-1 py-1 rounded-lg font-bold ${v.status === 'pronto' ? 'bg-emerald-600 text-white' : 'bg-white border border-zinc-300'}`}>
-                      <CheckCircle2 className="w-3 h-3 inline mr-1" />Pronto
+                  {v.modalidade === 'entrega' && (
+                    <div className="flex items-center gap-1.5 text-[11px]">
+                      <Bike className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                      <select
+                        value={v.motoboy || ''}
+                        onChange={e => atribuirMotoboy(v.id, e.target.value)}
+                        className="flex-1 bg-white border border-zinc-300 rounded-lg px-2 py-1 text-[11px] font-semibold"
+                      >
+                        <option value="">Selecionar motoboy...</option>
+                        {motoboys.map(m => (
+                          <option key={m} value={m}>{m}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    <button onClick={() => mudarStatus(v.id, 'forno')} className={`flex-1 py-1 px-1.5 rounded-lg font-bold ${v.status === 'forno' ? 'bg-amber-500 text-white' : 'bg-white border border-zinc-300'}`}>
+                      <Flame className="w-3 h-3 inline mr-0.5" />Forno
                     </button>
-                    <button onClick={() => mudarStatus(v.id, 'entregue')} className={`flex-1 py-1 rounded-lg font-bold ${v.status === 'entregue' ? 'bg-[#0B0B0B] text-white' : 'bg-white border border-zinc-300'}`}>
+                    <button onClick={() => mudarStatus(v.id, 'pronto')} className={`flex-1 py-1 px-1.5 rounded-lg font-bold ${v.status === 'pronto' ? 'bg-emerald-600 text-white' : 'bg-white border border-zinc-300'}`}>
+                      <CheckCircle2 className="w-3 h-3 inline mr-0.5" />Pronto
+                    </button>
+                    {v.modalidade === 'entrega' && (
+                      <button onClick={() => mudarStatus(v.id, 'saiu_entrega')} className={`flex-1 py-1 px-1.5 rounded-lg font-bold ${v.status === 'saiu_entrega' ? 'bg-blue-600 text-white' : 'bg-white border border-zinc-300'}`}>
+                        <Bike className="w-3 h-3 inline mr-0.5" />Saiu
+                      </button>
+                    )}
+                    <button onClick={() => mudarStatus(v.id, 'entregue')} className={`flex-1 py-1 px-1.5 rounded-lg font-bold ${v.status === 'entregue' ? 'bg-[#0B0B0B] text-white' : 'bg-white border border-zinc-300'}`}>
                       Entregue
                     </button>
                     {!v.ocultoCozinha && (v.status === 'entregue' || v.status === 'pronto') && (
-                      <button onClick={() => limparCozinha(v.id)} title="Limpar pedido pronto da fila" className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-900 text-white font-bold inline-flex items-center gap-1">
+                      <button onClick={() => limparCozinha(v.id)} title="Limpar pedido pronto da fila" className="px-2 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-900 text-white font-bold inline-flex items-center gap-1">
                         Limpar
                       </button>
                     )}

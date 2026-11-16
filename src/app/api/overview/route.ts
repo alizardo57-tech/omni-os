@@ -16,6 +16,9 @@ export async function GET() {
     vendas: db.vendas,
     comandasFantasmas: db.comandasFantasmas || [],
     resumoDiaAnterior: db.resumoDiaAnterior || null,
+    historicoDiario: db.historicoDiario || [],
+    motoboys: db.motoboys || ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'],
+    caixaAbertura: db.caixaAbertura || null,
     movimentacoesFinanceiras: db.movimentacoesFinanceiras || [],
     bairrosLoja: db.bairrosLoja || {},
     kpis: {
@@ -35,6 +38,8 @@ const ConfigOverviewSchema = z.object({
   whatsappDono: z.string().optional(),
   camilaWebhookUrl: z.string().optional(),
   bairrosLoja: z.record(z.string(), z.enum(['Loja 1', 'Loja 2'])).optional(),
+  motoboys: z.array(z.string().min(1)).optional(),
+  fundoTroco: z.number().nonnegative().optional(),
   zerarValoresTeste: z.boolean().optional()
 });
 
@@ -47,6 +52,24 @@ export async function PATCH(req: Request) {
     db.vendas = [];
     db.comandasFantasmas = [];
     db.movimentacoesFinanceiras = [];
+    db.caixaAbertura = null;
+  }
+  if (parsed.data.motoboys !== undefined) {
+    db.motoboys = parsed.data.motoboys.map(m => m.trim()).filter(Boolean);
+  }
+  if (parsed.data.fundoTroco !== undefined) {
+    const agora = new Date();
+    const hoje = [
+      agora.getFullYear(),
+      String(agora.getMonth() + 1).padStart(2, '0'),
+      String(agora.getDate()).padStart(2, '0')
+    ].join('-');
+    db.caixaAbertura = {
+      data: hoje,
+      fundoTroco: Number(parsed.data.fundoTroco.toFixed(2)),
+      abertoPor: db.empresa.operador || 'Operador',
+      abertoEm: agora.toISOString()
+    };
   }
   if (parsed.data.tempoPreparoMin !== undefined) {
     db.empresa.tempoPreparoMin = parsed.data.tempoPreparoMin;
