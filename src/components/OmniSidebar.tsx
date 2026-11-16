@@ -39,11 +39,17 @@ const ITENS_MENU: { id: AbaOmni; label: string; icon: React.ComponentType<{ clas
 
 export function OmniSidebar({
   abaAtiva,
+  perfil = 'admin',
   onSelecionar
 }: {
   abaAtiva: AbaOmni;
+  perfil?: 'admin' | 'funcionario';
   onSelecionar: (aba: AbaOmni) => void;
 }) {
+  const itensVisiveis =
+    perfil === 'admin'
+      ? ITENS_MENU
+      : ITENS_MENU.filter(i => i.id !== 'financeiro' && i.id !== 'relatorios' && i.id !== 'configuracoes');
   return (
     <aside className="no-print w-64 shrink-0 bg-[#0B0B0B] text-white flex flex-col justify-between min-h-screen relative overflow-hidden border-r border-zinc-800">
       <div className="pointer-events-none absolute -top-10 -right-10 w-44 h-44 rounded-full bg-[#8B0029]/30 blur-3xl" />
@@ -59,7 +65,7 @@ export function OmniSidebar({
         </div>
 
         <nav className="px-3 py-4 space-y-1">
-          {ITENS_MENU.map(item => {
+          {itensVisiveis.map(item => {
             const Icon = item.icon;
             const ativo = abaAtiva === item.id;
             return (

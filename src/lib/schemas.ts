@@ -80,6 +80,19 @@ export type MovimentacaoFinanceira = z.infer<typeof MovimentacaoFinanceiraSchema
   criadoEm: string;
 };
 
+export type Usuario = {
+  id: string;
+  nome: string;
+  login: string;
+  senhaHash: string;
+  cargo: string;
+  perfil: 'admin' | 'funcionario';
+  lojaPadrao: 'Loja 1' | 'Loja 2';
+  criadoEm: string;
+};
+
+export type UsuarioPublico = Omit<Usuario, 'senhaHash'>;
+
 export type Produto = z.infer<typeof ProdutoSchema>;
 export type Cliente = z.infer<typeof ClienteSchema>;
 export type Venda = {

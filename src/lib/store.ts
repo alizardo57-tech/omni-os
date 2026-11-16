@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import type { Cliente, MovimentacaoFinanceira, Produto, Venda } from './schemas';
+import type { Cliente, MovimentacaoFinanceira, Produto, Usuario, Venda } from './schemas';
+import { hashSenha } from './auth';
 import { BAIRROS_LIMEIRA_PADRAO, type LojaId } from './bairrosLimeira';
 import produtosSeed from './produtosSeed.json';
 import clientesBellaSeed from './clientesBellaSeed.json';
@@ -19,11 +20,38 @@ export interface OmniDb {
   clientes: Cliente[];
   vendas: Venda[];
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
+  usuarios?: Usuario[];
   bairrosLoja?: Record<string, LojaId>;
 }
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DB_PATH = path.join(DATA_DIR, 'omni-os.json');
+
+function criarUsuariosPadrao(): Usuario[] {
+  const agora = new Date().toISOString();
+  return [
+    {
+      id: 'usr-admin',
+      nome: 'Dono (Admin)',
+      login: 'admin',
+      senhaHash: hashSenha('1234'),
+      cargo: 'Dono / Administrador',
+      perfil: 'admin',
+      lojaPadrao: 'Loja 1',
+      criadoEm: agora
+    },
+    {
+      id: 'usr-caixa',
+      nome: 'Funcionário Caixa',
+      login: 'caixa',
+      senhaHash: hashSenha('1234'),
+      cargo: 'Caixa & Atendimento',
+      perfil: 'funcionario',
+      lojaPadrao: 'Loja 1',
+      criadoEm: agora
+    }
+  ];
+}
 
 const SEED_INICIAL: OmniDb = {
   empresa: {
@@ -39,6 +67,7 @@ const SEED_INICIAL: OmniDb = {
   clientes: clientesBellaSeed as Cliente[],
   vendas: [],
   movimentacoesFinanceiras: [],
+  usuarios: criarUsuariosPadrao(),
   bairrosLoja: { ...BAIRROS_LIMEIRA_PADRAO }
 };
 
@@ -87,6 +116,10 @@ export function lerOmniDb(): OmniDb {
   }
   if (!dados.movimentacoesFinanceiras) {
     dados.movimentacoesFinanceiras = [];
+    alterou = true;
+  }
+  if (!dados.usuarios || dados.usuarios.length === 0) {
+    dados.usuarios = criarUsuariosPadrao();
     alterou = true;
   }
   if (dados.empresa.whatsappDono === undefined) {

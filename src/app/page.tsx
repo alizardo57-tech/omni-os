@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { Bell, ChevronDown, Maximize2, Menu, Minimize2, Search, User } from 'lucide-react';
+import { Bell, ChevronDown, LogOut, Maximize2, Menu, Minimize2, Search, User, UserPlus } from 'lucide-react';
 import { OmniSidebar, type AbaOmni } from '@/components/OmniSidebar';
 import { OmniDashboard } from '@/components/OmniDashboard';
 import { OmniVendasPdv } from '@/components/OmniVendasPdv';
@@ -11,8 +11,9 @@ import { OmniRelatorios } from '@/components/OmniRelatorios';
 import { OmniLojaOnline } from '@/components/OmniLojaOnline';
 import { OmniConfiguracoes } from '@/components/OmniConfiguracoes';
 import { OmniSuporte } from '@/components/OmniSuporte';
+import { OmniCriarUsuarioModal, OmniLoginScreen } from '@/components/OmniAuthModal';
 import type { LojaId } from '@/lib/bairrosLimeira';
-import type { Cliente, MovimentacaoFinanceira, Produto, Venda } from '@/lib/schemas';
+import type { Cliente, MovimentacaoFinanceira, Produto, UsuarioPublico, Venda } from '@/lib/schemas';
 
 interface OverviewPayload {
   empresa: {
@@ -37,6 +38,27 @@ export default function OmniOsHomePage() {
   const [buscaGlobal, setBuscaGlobal] = useState('');
   const [dados, setDados] = useState<OverviewPayload | null>(null);
   const [telaCheia, setTelaCheia] = useState(false);
+  const [usuario, setUsuario] = useState<UsuarioPublico | null>(null);
+  const [verificandoAuth, setVerificandoAuth] = useState(true);
+  const [menuUsuarioAberto, setMenuUsuarioAberto] = useState(false);
+  const [modalNovoUsuario, setModalNovoUsuario] = useState(false);
+
+  const verificarSessao = useCallback(async () => {
+    try {
+      const res = await fetch('/api/auth');
+      const json = await res.json();
+      if (json.ok) setUsuario(json.usuario || null);
+    } finally {
+      setVerificandoAuth(false);
+    }
+  }, []);
+
+  const sair = async () => {
+    await fetch('/api/auth', { method: 'DELETE' });
+    setMenuUsuarioAberto(false);
+    setAba('inicio');
+    setUsuario(null);
+  };
 
   const alternarTelaCheia = () => {
     if (!document.fullscreenElement) {
@@ -53,10 +75,27 @@ export default function OmniOsHomePage() {
   }, []);
 
   useEffect(() => {
+    verificarSessao();
+  }, [verificarSessao]);
+
+  useEffect(() => {
+    if (!usuario) return;
     carregar();
     const timer = setInterval(carregar, 6000);
     return () => clearInterval(timer);
-  }, [carregar]);
+  }, [carregar, usuario]);
+
+  if (verificandoAuth) {
+    return (
+      <div className="min-h-screen bg-[#0B0B0B] text-white flex items-center justify-center text-sm font-bold">
+        Carregando Omni-OS...
+      </div>
+    );
+  }
+
+  if (!usuario) {
+    return <OmniLoginScreen onAutenticado={u => setUsuario(u)} />;
+  }
 
   const produtosFiltrados = (dados?.produtos || []).filter(p =>
     p.nome.toLowerCase().includes(buscaGlobal.toLowerCase())
@@ -64,7 +103,7 @@ export default function OmniOsHomePage() {
 
   return (
     <div className="h-screen overflow-hidden flex bg-[#F4F5F7]">
-      <OmniSidebar abaAtiva={aba} onSelecionar={setAba} />
+      <OmniSidebar abaAtiva={aba} perfil={usuario.perfil} onSelecionar={setAba} />
 
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <header className="no-print h-16 bg-white border-b border-zinc-200 px-6 flex items-center justify-between gap-4">
@@ -99,15 +138,48 @@ export default function OmniOsHomePage() {
               </span>
             </button>
 
-            <div className="flex items-center gap-2.5 pl-4 border-l border-zinc-200">
-              <div className="w-9 h-9 rounded-full bg-zinc-900 text-white flex items-center justify-center">
-                <User className="w-4 h-4" />
-              </div>
-              <div className="text-xs leading-tight hidden sm:block">
-                <div className="font-bold text-zinc-900">{dados?.empresa.operador || 'Alexandre Lizardo'}</div>
-                <div className="text-zinc-500">{dados?.empresa.cargo || 'Administrador'}</div>
-              </div>
-              <ChevronDown className="w-4 h-4 text-zinc-400" />
+            <div className="relative pl-4 border-l border-zinc-200">
+              <button
+                type="button"
+                onClick={() => setMenuUsuarioAberto(!menuUsuarioAberto)}
+                className="flex items-center gap-2.5 hover:bg-zinc-50 rounded-xl px-2 py-1 transition"
+              >
+                <div className="w-9 h-9 rounded-full bg-zinc-900 text-white flex items-center justify-center">
+                  <User className="w-4 h-4" />
+                </div>
+                <div className="text-xs leading-tight hidden sm:block text-left">
+                  <div className="font-bold text-zinc-900">{usuario.nome}</div>
+                  <div className="text-zinc-500">{usuario.cargo} • {usuario.lojaPadrao}</div>
+                </div>
+                <ChevronDown className="w-4 h-4 text-zinc-400" />
+              </button>
+              {menuUsuarioAberto && (
+                <div className="absolute right-0 mt-2 w-56 bg-white border border-zinc-200 rounded-2xl shadow-xl p-2 z-40 text-xs space-y-1">
+                  <div className="px-3 py-2 border-b border-zinc-100">
+                    <div className="font-black text-zinc-900">{usuario.nome}</div>
+                    <div className="text-zinc-500">@{usuario.login} • {usuario.perfil === 'admin' ? 'Admin' : 'Funcionário'}</div>
+                  </div>
+                  {usuario.perfil === 'admin' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMenuUsuarioAberto(false);
+                        setModalNovoUsuario(true);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 font-bold text-zinc-800 flex items-center gap-2"
+                    >
+                      <UserPlus className="w-3.5 h-3.5 text-[#8B0029]" /> Criar Novo Usuário
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={sair}
+                    className="w-full text-left px-3 py-2 rounded-xl hover:bg-rose-50 font-bold text-rose-700 flex items-center gap-2"
+                  >
+                    <LogOut className="w-3.5 h-3.5" /> Sair / Trocar Usuário
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </header>
@@ -161,6 +233,11 @@ export default function OmniOsHomePage() {
           )}
         </main>
       </div>
+      <OmniCriarUsuarioModal
+        aberto={modalNovoUsuario}
+        onFechar={() => setModalNovoUsuario(false)}
+        onCriado={carregar}
+      />
     </div>
   );
 }
