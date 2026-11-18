@@ -1672,5 +1672,50 @@
     "estoque": 50,
     "descricao": "Tamanho Broto. PASTA DE CHOCOLATE OURO BRANCO COM PEDAÇOS DE BOMBONS",
     "imagem": "https://client-assets.anota.ai/produtos/1736454036262blob"
+  },
+  {
+    "id": 1096,
+    "nome": "56 - Nutela com Castanha",
+    "categoria": "Pizzas Doces",
+    "preco": 72.99,
+    "estoque": 50,
+    "descricao": "Creme de Nutella com castanha de caju triturada.",
+    "imagem": "/img/produtos/pizza-56-nutella-castanha.jpg"
+  },
+  {
+    "id": 1097,
+    "nome": "Broto 56 - Nutela com Castanha",
+    "categoria": "Broto",
+    "preco": 51.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Creme de Nutella com castanha de caju triturada.",
+    "imagem": "/img/produtos/pizza-56-nutella-castanha.jpg"
+  },
+  {
+    "id": 1098,
+    "nome": "83 - Morango com Nutela",
+    "categoria": "Pizzas Doces",
+    "preco": 74.99,
+    "estoque": 50,
+    "descricao": "Creme de Nutella com morangos frescos fatiados.",
+    "imagem": "/img/produtos/pizza-83-morango-nutella.jpg"
+  },
+  {
+    "id": 1099,
+    "nome": "Broto 83 - Morango com Nutela",
+    "categoria": "Broto",
+    "preco": 53.99,
+    "estoque": 50,
+    "descricao": "Tamanho Broto. Creme de Nutella com morangos frescos fatiados.",
+    "imagem": "/img/produtos/pizza-83-morango-nutella.jpg"
+  },
+  {
+    "id": 1100,
+    "nome": "82 - Kuat 2L",
+    "categoria": "Bebidas",
+    "preco": 10.99,
+    "estoque": 50,
+    "descricao": "Refrigerante Kuat Guaraná 2 Litros.",
+    "imagem": "/img/produtos/bebida-82-kuat.jpg"
   }
 ]
