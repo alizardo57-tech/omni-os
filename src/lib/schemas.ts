@@ -55,7 +55,7 @@ export const VendaCreateSchema = z.object({
   clienteNome: z.string().min(1).default('Consumidor Balcão'),
   clienteTelefone: z.string().optional().default(''),
   modalidade: z.enum(['balcao', 'entrega', 'retirada']).default('balcao'),
-  pagamento: z.string().min(1).default('PIX'),
+  pagamento: z.string().trim().min(1).default('PIX'),
   endereco: z.string().optional().default(''),
   bairro: z.string().optional().default(''),
   loja: z.enum(['Loja 1', 'Loja 2']).optional().default('Loja 1'),

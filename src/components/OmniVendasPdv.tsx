@@ -45,7 +45,7 @@ export function OmniVendasPdv({
   const [clienteNome, setClienteNome] = useState('Consumidor Balcão');
   const [clienteTel, setClienteTel] = useState('');
   const [modalidade, setModalidade] = useState<'balcao' | 'entrega' | 'retirada'>(modalidadeInicial);
-  const [pagamento, setPagamento] = useState('PIX');
+  const [pagamento, setPagamento] = useState('');
   const [endereco, setEndereco] = useState('');
   const [bairro, setBairro] = useState('');
   const [loja, setLoja] = useState<LojaId>(lojaPadrao);
@@ -119,14 +119,14 @@ export function OmniVendasPdv({
         clienteInputRef.current?.select();
       } else if (e.key === 'F9') {
         e.preventDefault();
-        if (carrinho.length > 0 && !salvando) {
+        if (carrinho.length > 0 && !salvando && pagamento.trim()) {
           setPreviaComandaAberta(true);
         }
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [carrinho.length, salvando]);
+  }, [carrinho.length, salvando, pagamento]);
   const [buscaPdv, setBuscaPdv] = useState('');
   const [catPdv, setCatPdv] = useState('Todas');
 
@@ -269,7 +269,7 @@ export function OmniVendasPdv({
   const troco = valorPagoNum > total ? valorPagoNum - total : 0;
 
   const finalizarVenda = async () => {
-    if (carrinho.length === 0) return;
+    if (carrinho.length === 0 || !pagamento.trim()) return;
     setSalvando(true);
     try {
       const res = await fetch('/api/vendas', {
@@ -313,7 +313,7 @@ export function OmniVendasPdv({
         setValorPago('');
         setMotoboy('');
         setModalidade('balcao');
-        setPagamento('PIX');
+        setPagamento('');
         setTimeout(() => setUltimoPedidoOk(null), 4000);
         onAtualizar();
       }
@@ -700,8 +700,19 @@ export function OmniVendasPdv({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <input value={clienteTel} onChange={e => aoDigitarTel(e.target.value)} placeholder="WhatsApp (auto-busca)" className="border border-zinc-300 rounded-lg px-3 py-2" />
-                <select value={pagamento} onChange={e => setPagamento(e.target.value)} className="border border-zinc-300 rounded-lg px-2 py-2">
-                  <option>PIX</option><option>Dinheiro</option><option>Cartão Crédito</option><option>Cartão Débito</option>
+                <select
+                  value={pagamento}
+                  onChange={e => setPagamento(e.target.value)}
+                  className={`border rounded-lg px-2 py-2 font-semibold ${
+                    !pagamento.trim() ? 'border-rose-400 bg-rose-50/60 text-rose-800' : 'border-zinc-300'
+                  }`}
+                >
+                  <option value="">Pagamento (obrigatório)...</option>
+                  <option value="PIX">PIX</option>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Cartão Crédito">Cartão Crédito</option>
+                  <option value="Cartão Débito">Cartão Débito</option>
+                  <option value="Pago Online (Anota AI)">Pago Online (Anota AI)</option>
                 </select>
               </div>
               <div className="grid grid-cols-2 gap-2">
@@ -949,8 +960,13 @@ export function OmniVendasPdv({
               <span>{valorPagoNum > 0 && valorPagoNum < total ? 'FALTA RECEBER' : 'TROCO (antes de fechar)'}</span>
               <span>R$ {(valorPagoNum > 0 && valorPagoNum < total ? total - valorPagoNum : troco).toFixed(2)}</span>
             </div>
+            {carrinho.length > 0 && !pagamento.trim() && (
+              <div className="text-[11px] font-bold text-rose-700 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">
+                ⚠️ Selecione a forma de pagamento acima para liberar a emissão da comanda.
+              </div>
+            )}
             <button
-              disabled={salvando || carrinho.length === 0}
+              disabled={salvando || carrinho.length === 0 || !pagamento.trim()}
               onClick={() => setPreviaComandaAberta(true)}
               className="w-full py-2.5 rounded-xl bg-[#8B0029] hover:bg-[#A50034] disabled:opacity-50 text-white font-bold text-sm transition"
             >
