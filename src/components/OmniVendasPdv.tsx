@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Plus, Minus, Trash2, Printer, CheckCircle2, Clock, MapPin, MessageCircle, Flame, Bike, X } from 'lucide-react';
+import { Plus, Minus, Trash2, Printer, CheckCircle2, Clock, MapPin, MessageCircle, Flame, Bike, Search, X } from 'lucide-react';
 import type { Cliente, Produto, Venda } from '@/lib/schemas';
 import type { CaixaAbertura } from '@/lib/store';
 import { ordenarProdutosAlfabeticamente } from '@/lib/ordenacao';
@@ -70,6 +70,7 @@ export function OmniVendasPdv({
   const [avulsoBuilderValor, setAvulsoBuilderValor] = useState('');
   const [clienteSalvoMsg, setClienteSalvoMsg] = useState<string | null>(null);
   const [mostrarSugestoesCliente, setMostrarSugestoesCliente] = useState(false);
+  const [mostrarSugestoesBairro, setMostrarSugestoesBairro] = useState(false);
   const [previaComandaAberta, setPreviaComandaAberta] = useState(false);
   const [mostrarFantasmas, setMostrarFantasmas] = useState(false);
   const [pedidoParaExcluir, setPedidoParaExcluir] = useState<Venda | null>(null);
@@ -722,14 +723,54 @@ export function OmniVendasPdv({
               </div>
               <input value={endereco} onChange={e => aoAlterarEndereco(e.target.value)} placeholder="Endereço completo (novo ou cadastrado)" className="w-full border border-zinc-300 rounded-lg px-3 py-2" />
               <div className="grid grid-cols-2 gap-2">
-                <select value={bairro} onChange={e => aoSelecionarBairro(e.target.value)} className="border border-zinc-300 rounded-lg px-2 py-2">
-                  <option value="">Bairro de Limeira...</option>
-                  {bairrosOrdenados.map(b => (
-                    <option key={b} value={b}>
-                      {b} ({bairrosLoja[b]})
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    value={bairro}
+                    onChange={e => {
+                      aoSelecionarBairro(e.target.value);
+                      setMostrarSugestoesBairro(true);
+                    }}
+                    onFocus={() => setMostrarSugestoesBairro(true)}
+                    onBlur={() => setTimeout(() => setMostrarSugestoesBairro(false), 180)}
+                    placeholder="🔍 Buscar ou digitar bairro..."
+                    className="w-full border border-zinc-300 rounded-lg pl-8 pr-2 py-2 outline-none focus:border-[#8B0029]"
+                  />
+                  {mostrarSugestoesBairro && (
+                    <div className="absolute left-0 right-0 mt-1 bg-white border border-zinc-300 rounded-xl shadow-lg z-30 max-h-44 overflow-y-auto divide-y divide-zinc-100">
+                      {bairrosOrdenados
+                        .filter(b =>
+                          b
+                            .toLowerCase()
+                            .normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '')
+                            .includes(
+                              bairro
+                                .trim()
+                                .toLowerCase()
+                                .normalize('NFD')
+                                .replace(/[\u0300-\u036f]/g, '')
+                            )
+                        )
+                        .slice(0, 30)
+                        .map(b => (
+                          <button
+                            key={b}
+                            type="button"
+                            onMouseDown={e => {
+                              e.preventDefault();
+                              aoSelecionarBairro(b);
+                              setMostrarSugestoesBairro(false);
+                            }}
+                            className="w-full text-left px-3 py-2 hover:bg-rose-50 text-xs flex items-center justify-between gap-2"
+                          >
+                            <span className="font-semibold text-zinc-900 truncate">{b}</span>
+                            <span className="text-[10px] font-bold text-[#8B0029] shrink-0">{bairrosLoja[b]}</span>
+                          </button>
+                        ))}
+                    </div>
+                  )}
+                </div>
                 <select value={loja} onChange={e => setLoja(e.target.value as LojaId)} className="border border-zinc-300 rounded-lg px-2 py-2 font-bold text-[#8B0029]">
                   <option value="Loja 1">Direcionar: Loja 1</option>
                   <option value="Loja 2">Direcionar: Loja 2</option>
