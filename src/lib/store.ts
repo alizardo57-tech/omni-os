@@ -44,6 +44,7 @@ export interface OmniDb {
   ultimoDiaOperacao?: string;
   resumoDiaAnterior?: ResumoDiaAnterior | null;
   historicoDiario?: ResumoDiaAnterior[];
+  historicoDiarioSeed16?: boolean;
 }
 
 export function dataLocalYYYYMMDD(d: Date): string {
@@ -118,6 +119,18 @@ function criarUsuariosPadrao(): Usuario[] {
   ];
 }
 
+const RESUMO_FECHAMENTO_16_11: ResumoDiaAnterior = {
+  data: '2026-11-16',
+  qtdPedidos: 42,
+  totalVendas: 3171.05,
+  porPagamento: {
+    PIX: 2635.14,
+    Dinheiro: 278.96,
+    'Cartão Crédito': 183.97,
+    'Cartão Débito': 72.98
+  }
+};
+
 const SEED_INICIAL: OmniDb = {
   empresa: {
     nome: 'Bella Pizza',
@@ -138,7 +151,8 @@ const SEED_INICIAL: OmniDb = {
   bairrosLoja: { ...BAIRROS_LIMEIRA_PADRAO },
   motoboys: ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'],
   caixaAbertura: null,
-  historicoDiario: []
+  historicoDiario: [RESUMO_FECHAMENTO_16_11],
+  historicoDiarioSeed16: true
 };
 
 export function lerOmniDb(): OmniDb {
@@ -202,6 +216,16 @@ export function lerOmniDb(): OmniDb {
   }
   if (!dados.historicoDiario) {
     dados.historicoDiario = [];
+    alterou = true;
+  }
+  if (!dados.historicoDiarioSeed16) {
+    if (!dados.historicoDiario.some(h => h.data === RESUMO_FECHAMENTO_16_11.data)) {
+      acumularResumoHistorico(dados, RESUMO_FECHAMENTO_16_11);
+    }
+    if (!dados.resumoDiaAnterior) {
+      dados.resumoDiaAnterior = RESUMO_FECHAMENTO_16_11;
+    }
+    dados.historicoDiarioSeed16 = true;
     alterou = true;
   }
   if (!dados.usuarios || dados.usuarios.length === 0) {
