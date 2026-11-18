@@ -25,8 +25,14 @@ export async function POST(req: Request) {
   const total = Math.max(0, subtotal + taxaEntrega - desconto);
   const valorPago = parsed.data.valorPago ?? 0;
   const troco = valorPago > total ? Number((valorPago - total).toFixed(2)) : 0;
+  const todosIds = [
+    ...db.vendas,
+    ...(db.historicoVendas || []),
+    ...(db.comandasFantasmas || [])
+  ].map(v => Number(String(v.id || '').replace(/\D/g, '')) || 0);
+  const proximoNum = Math.max(10472, ...todosIds) + 1;
   const venda = {
-    id: `OS-${10473 + db.vendas.length}`,
+    id: `OS-${proximoNum}`,
     criadoEm: new Date().toISOString(),
     ...parsed.data,
     subtotal: Number(subtotal.toFixed(2)),

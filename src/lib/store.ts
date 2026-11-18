@@ -34,6 +34,7 @@ export interface OmniDb {
   produtos: Produto[];
   clientes: Cliente[];
   vendas: Venda[];
+  historicoVendas?: Venda[];
   comandasFantasmas?: ComandaFantasma[];
   movimentacoesFinanceiras?: MovimentacaoFinanceira[];
   usuarios?: Usuario[];
@@ -75,6 +76,17 @@ export function acumularResumoHistorico(db: OmniDb, resumo: ResumoDiaAnterior): 
   db.historicoDiario = [consolidado, ...outros]
     .sort((a, b) => b.data.localeCompare(a.data))
     .slice(0, 365);
+}
+
+export function arquivarVendasNoHistorico(db: OmniDb, vendasParaArquivar: Venda[]): void {
+  if (!vendasParaArquivar || vendasParaArquivar.length === 0) return;
+  const existentes = db.historicoVendas || [];
+  const mapa = new Map<string, Venda>();
+  for (const v of existentes) mapa.set(v.id, v);
+  for (const v of vendasParaArquivar) mapa.set(v.id, v);
+  db.historicoVendas = Array.from(mapa.values()).sort((a, b) =>
+    String(b.criadoEm).localeCompare(String(a.criadoEm))
+  );
 }
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -119,6 +131,7 @@ const SEED_INICIAL: OmniDb = {
   produtos: produtosSeed as Produto[],
   clientes: clientesBellaSeed as Cliente[],
   vendas: [],
+  historicoVendas: [],
   comandasFantasmas: [],
   movimentacoesFinanceiras: [],
   usuarios: criarUsuariosPadrao(),
@@ -179,6 +192,10 @@ export function lerOmniDb(): OmniDb {
     dados.comandasFantasmas = [];
     alterou = true;
   }
+  if (!dados.historicoVendas) {
+    dados.historicoVendas = [];
+    alterou = true;
+  }
   if (!dados.motoboys || dados.motoboys.length === 0) {
     dados.motoboys = ['Motoboy 1', 'Motoboy 2', 'Motoboy 3'];
     alterou = true;
@@ -210,12 +227,12 @@ export function lerOmniDb(): OmniDb {
   const hoje = dataLocalYYYYMMDD(new Date());
   const temVendasAntigas = (dados.vendas || []).some(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) < hoje);
   const temMovsAntigas = (dados.movimentacoesFinanceiras || []).some(m => dataLocalYYYYMMDD(new Date(m.criadoEm)) < hoje);
-  const temFantasmasAntigas = (dados.comandasFantasmas || []).some(f => dataLocalYYYYMMDD(new Date(f.criadoEm)) < hoje);
 
-  if (temVendasAntigas || temMovsAntigas || temFantasmasAntigas) {
+  if (temVendasAntigas || temMovsAntigas) {
     gerarBackupExterno('virada-dia');
     const vendasAntigas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) < hoje);
     if (vendasAntigas.length > 0) {
+      arquivarVendasNoHistorico(dados, vendasAntigas);
       const porDia: Record<string, Venda[]> = {};
       for (const v of vendasAntigas) {
         const dia = dataLocalYYYYMMDD(new Date(v.criadoEm));
@@ -249,9 +266,6 @@ export function lerOmniDb(): OmniDb {
     dados.vendas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) >= hoje);
     dados.movimentacoesFinanceiras = (dados.movimentacoesFinanceiras || []).filter(
       m => dataLocalYYYYMMDD(new Date(m.criadoEm)) >= hoje
-    );
-    dados.comandasFantasmas = (dados.comandasFantasmas || []).filter(
-      f => dataLocalYYYYMMDD(new Date(f.criadoEm)) >= hoje
     );
     dados.ultimoDiaOperacao = hoje;
     alterou = true;

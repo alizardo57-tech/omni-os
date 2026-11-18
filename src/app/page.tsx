@@ -28,6 +28,7 @@ interface OverviewPayload {
   produtos: Produto[];
   clientes: Cliente[];
   vendas: Venda[];
+  historicoVendas?: Venda[];
   comandasFantasmas?: ComandaFantasma[];
   resumoDiaAnterior?: ResumoDiaAnterior | null;
   historicoDiario?: ResumoDiaAnterior[];
@@ -254,6 +255,7 @@ export default function OmniOsHomePage() {
           ) : aba === 'relatorios' ? (
             <OmniRelatorios
               vendas={dados.vendas}
+              historicoVendas={dados.historicoVendas || []}
               produtos={dados.produtos}
               comandasFantasmas={dados.comandasFantasmas || []}
               resumoDiaAnterior={dados.resumoDiaAnterior || null}

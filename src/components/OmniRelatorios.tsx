@@ -1,23 +1,49 @@
 'use client';
 
 import { useState } from 'react';
-import { BarChart3, Calendar, Download, EyeOff, MapPin, ShoppingBag, TrendingUp } from 'lucide-react';
+import { BarChart3, Calendar, Download, EyeOff, MapPin, Search, ShoppingBag, TrendingUp } from 'lucide-react';
 import type { ComandaFantasma, Produto, Venda } from '@/lib/schemas';
 import type { ResumoDiaAnterior } from '@/lib/store';
 
 export function OmniRelatorios({
   vendas,
+  historicoVendas = [],
   produtos,
   comandasFantasmas = [],
   resumoDiaAnterior = null,
   historicoDiario = []
 }: {
   vendas: Venda[];
+  historicoVendas?: Venda[];
   produtos: Produto[];
   comandasFantasmas?: ComandaFantasma[];
   resumoDiaAnterior?: ResumoDiaAnterior | null;
   historicoDiario?: ResumoDiaAnterior[];
 }) {
+  const [buscaOrdem, setBuscaOrdem] = useState('');
+  const todasOrdens = (() => {
+    const mapa = new Map<string, Venda>();
+    for (const v of historicoVendas) mapa.set(v.id, v);
+    for (const v of vendas) mapa.set(v.id, v);
+    return Array.from(mapa.values()).sort((a, b) => String(b.criadoEm).localeCompare(String(a.criadoEm)));
+  })();
+  const ordensFiltradas = todasOrdens
+    .filter(v => {
+      const q = buscaOrdem.trim().toLowerCase();
+      if (!q) return true;
+      const dataBr = new Date(v.criadoEm).toLocaleDateString('pt-BR');
+      const dataIso = String(v.criadoEm).slice(0, 10);
+      const itensStr = v.itens.map(i => i.nome).join(' ').toLowerCase();
+      return (
+        v.id.toLowerCase().includes(q) ||
+        v.clienteNome.toLowerCase().includes(q) ||
+        (v.clienteTelefone || '').toLowerCase().includes(q) ||
+        dataBr.includes(q) ||
+        dataIso.includes(q) ||
+        itensStr.includes(q)
+      );
+    })
+    .slice(0, 50);
   const totalVendas = vendas.reduce((s, v) => s + Number(v.total || 0), 0);
   const ticketMedio = vendas.length > 0 ? totalVendas / vendas.length : 0;
 
@@ -350,6 +376,47 @@ export function OmniRelatorios({
           </div>
         </div>
       )}
+
+      <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-black text-zinc-900 flex items-center gap-1.5">
+              <Search className="w-4 h-4 text-[#8B0029]" /> Arquivo Permanente de Ordens / Pedidos ({todasOrdens.length})
+            </h3>
+            <p className="text-[11px] text-zinc-500">
+              Pesquise qualquer pedido antigo ou de hoje por OS (ex: OS-10473), nome, telefone, sabor ou data (ex: 10/11 ou 2026-11-10)
+            </p>
+          </div>
+          <input
+            value={buscaOrdem}
+            onChange={e => setBuscaOrdem(e.target.value)}
+            placeholder="Buscar OS, cliente, telefone ou data (10/11)..."
+            className="w-full sm:w-80 border border-zinc-300 rounded-xl px-3 py-1.5 text-xs outline-none focus:border-[#8B0029]"
+          />
+        </div>
+        {ordensFiltradas.length === 0 ? (
+          <p className="text-xs text-zinc-400">Nenhuma ordem encontrada para essa busca.</p>
+        ) : (
+          <div className="max-h-72 overflow-y-auto divide-y divide-zinc-100 border border-zinc-200 rounded-xl text-xs">
+            {ordensFiltradas.map(v => (
+              <div key={v.id} className="p-3 space-y-1">
+                <div className="flex flex-wrap justify-between gap-2 font-black text-zinc-900">
+                  <span>
+                    {v.id} • {v.clienteNome} {v.clienteTelefone ? `(${v.clienteTelefone})` : ''} • {v.loja || 'Loja 1'}
+                  </span>
+                  <span className="text-[#8B0029]">R$ {v.total.toFixed(2)} • {v.pagamento}</span>
+                </div>
+                <div className="text-zinc-600">{v.itens.map(i => `${i.qtd}x ${i.nome}`).join(', ')}</div>
+                <div className="text-[11px] text-zinc-500">
+                  {new Date(v.criadoEm).toLocaleString('pt-BR')} • {v.modalidade.toUpperCase()}
+                  {v.bairro ? ` • ${v.bairro}` : ''}
+                  {v.motoboy ? ` • Motoboy: ${v.motoboy}` : ''}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="bg-white rounded-2xl border border-rose-200 p-5 shadow-xs space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">

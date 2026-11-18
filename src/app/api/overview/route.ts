@@ -14,6 +14,7 @@ export async function GET() {
     produtos: ordenarProdutosAlfabeticamente(db.produtos),
     clientes: db.clientes,
     vendas: db.vendas,
+    historicoVendas: db.historicoVendas || [],
     comandasFantasmas: db.comandasFantasmas || [],
     resumoDiaAnterior: db.resumoDiaAnterior || null,
     historicoDiario: db.historicoDiario || [],

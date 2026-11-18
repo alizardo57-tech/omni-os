@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { acumularResumoHistorico, dataLocalYYYYMMDD, lerOmniDb, salvarOmniDb } from '@/lib/store';
+import { acumularResumoHistorico, arquivarVendasNoHistorico, dataLocalYYYYMMDD, lerOmniDb, salvarOmniDb } from '@/lib/store';
 import { imprimirFechamentoOmni } from '@/lib/impressao';
 import { gerarBackupExterno } from '@/lib/backup';
 import { logger } from '@/lib/logger';
@@ -173,6 +173,7 @@ export async function POST(req: Request) {
 
   if (parsed.data.zerarTurno) {
     if (vendasAlvo.length > 0) {
+      arquivarVendasNoHistorico(db, vendasAlvo);
       const porDia: Record<string, typeof vendasAlvo> = {};
       for (const v of vendasAlvo) {
         const dia = dataLocalYYYYMMDD(new Date(v.criadoEm));
