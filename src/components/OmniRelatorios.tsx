@@ -21,6 +21,13 @@ export function OmniRelatorios({
   historicoDiario?: ResumoDiaAnterior[];
 }) {
   const [buscaOrdem, setBuscaOrdem] = useState('');
+  const [dataCalendario, setDataCalendario] = useState('');
+
+  const dataLocalIso = (iso: string) => {
+    const d = new Date(iso);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+
   const todasOrdens = (() => {
     const mapa = new Map<string, Venda>();
     for (const v of historicoVendas) mapa.set(v.id, v);
@@ -29,10 +36,11 @@ export function OmniRelatorios({
   })();
   const ordensFiltradas = todasOrdens
     .filter(v => {
+      if (dataCalendario && dataLocalIso(v.criadoEm) !== dataCalendario) return false;
       const q = buscaOrdem.trim().toLowerCase();
       if (!q) return true;
       const dataBr = new Date(v.criadoEm).toLocaleDateString('pt-BR');
-      const dataIso = String(v.criadoEm).slice(0, 10);
+      const dataIso = dataLocalIso(v.criadoEm);
       const itensStr = v.itens.map(i => i.nome).join(' ').toLowerCase();
       return (
         v.id.toLowerCase().includes(q) ||
@@ -43,7 +51,7 @@ export function OmniRelatorios({
         itensStr.includes(q)
       );
     })
-    .slice(0, 50);
+    .slice(0, dataCalendario ? 500 : 50);
   const totalVendas = vendas.reduce((s, v) => s + Number(v.total || 0), 0);
   const ticketMedio = vendas.length > 0 ? totalVendas / vendas.length : 0;
 
@@ -78,6 +86,24 @@ export function OmniRelatorios({
   );
   const [mesSelecionado, setMesSelecionado] = useState(mesAtual);
   const diasDoMes = diasComHoje.filter(d => d.data.startsWith(mesSelecionado));
+  const mapaDiasDoMes: Record<string, ResumoDiaAnterior> = {};
+  for (const d of diasDoMes) mapaDiasDoMes[d.data] = d;
+
+  const celulasCalendario = (() => {
+    const [anoStr, mesStr] = mesSelecionado.split('-');
+    const ano = Number(anoStr);
+    const mesIdx = Number(mesStr) - 1;
+    const primeiroDiaSemana = new Date(ano, mesIdx, 1).getDay();
+    const totalDias = new Date(ano, mesIdx + 1, 0).getDate();
+    const celulas: (null | { dia: number; dataIso: string; resumo?: ResumoDiaAnterior })[] = [];
+    for (let i = 0; i < primeiroDiaSemana; i++) celulas.push(null);
+    for (let d = 1; d <= totalDias; d++) {
+      const dataIso = `${anoStr}-${mesStr}-${String(d).padStart(2, '0')}`;
+      celulas.push({ dia: d, dataIso, resumo: mapaDiasDoMes[dataIso] });
+    }
+    return celulas;
+  })();
+
   const totalMensal = diasDoMes.reduce((s, d) => s + d.totalVendas, 0);
   const pedidosMensal = diasDoMes.reduce((s, d) => s + d.qtdPedidos, 0);
   const pagMensal: Record<string, number> = {};
@@ -260,6 +286,69 @@ export function OmniRelatorios({
             Nenhum fechamento registrado neste mês ainda. Backups anteriores continuam salvos em Documents\OmniOS-Backups.
           </p>
         )}
+
+        <div className="border-t border-zinc-200 pt-3 space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="font-black text-zinc-800">
+              🗓️ Calendário de Vendas ({mesSelecionado}) — Clique em um dia para puxar todas as vendas
+            </span>
+            <div className="flex items-center gap-2">
+              <input
+                type="date"
+                value={dataCalendario}
+                onChange={e => {
+                  const val = e.target.value;
+                  setDataCalendario(val);
+                  if (val) setMesSelecionado(val.slice(0, 7));
+                }}
+                className="border border-zinc-300 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-[#8B0029]"
+              />
+              {dataCalendario && (
+                <button
+                  type="button"
+                  onClick={() => setDataCalendario('')}
+                  className="px-2.5 py-1 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-bold"
+                >
+                  Ver Todos os Dias
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-zinc-500">
+            <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+          </div>
+          <div className="grid grid-cols-7 gap-1">
+            {celulasCalendario.map((c, idx) =>
+              !c ? (
+                <div key={`vazio_${idx}`} className="h-14 rounded-lg bg-zinc-50/50" />
+              ) : (
+                <button
+                  key={c.dataIso}
+                  type="button"
+                  onClick={() => setDataCalendario(dataCalendario === c.dataIso ? '' : c.dataIso)}
+                  className={`h-14 rounded-lg border p-1 flex flex-col items-center justify-between transition ${
+                    dataCalendario === c.dataIso
+                      ? 'bg-[#8B0029] text-white border-[#8B0029]'
+                      : c.resumo
+                        ? 'bg-emerald-50 border-emerald-300 hover:border-[#8B0029] text-zinc-900'
+                        : 'bg-white border-zinc-200 hover:border-zinc-400 text-zinc-600'
+                  }`}
+                >
+                  <span className="font-black text-[11px]">{c.dia}</span>
+                  {c.resumo ? (
+                    <span className={`text-[9px] font-black leading-tight ${dataCalendario === c.dataIso ? 'text-white' : 'text-emerald-700'}`}>
+                      R$ {c.resumo.totalVendas.toFixed(0)}
+                      <br />
+                      {c.resumo.qtdPedidos}p
+                    </span>
+                  ) : (
+                    <span className="text-[9px] opacity-40">—</span>
+                  )}
+                </button>
+              )
+            )}
+          </div>
+        </div>
       </div>
 
       {resumoDiaAnterior && (
@@ -381,7 +470,12 @@ export function OmniRelatorios({
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 className="text-sm font-black text-zinc-900 flex items-center gap-1.5">
-              <Search className="w-4 h-4 text-[#8B0029]" /> Arquivo Permanente de Ordens / Pedidos ({todasOrdens.length})
+              <Search className="w-4 h-4 text-[#8B0029]" /> Arquivo Permanente de Ordens / Pedidos ({ordensFiltradas.length} de {todasOrdens.length})
+              {dataCalendario && (
+                <span className="ml-1 px-2 py-0.5 rounded-full bg-[#8B0029] text-white text-[11px]">
+                  Dia {dataCalendario.split('-').reverse().join('/')}
+                </span>
+              )}
             </h3>
             <p className="text-[11px] text-zinc-500">
               Pesquise qualquer pedido antigo ou de hoje por OS (ex: OS-10473), nome, telefone, sabor ou data (ex: 10/11 ou 2026-11-10)
