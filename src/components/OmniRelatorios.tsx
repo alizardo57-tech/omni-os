@@ -1,6 +1,7 @@
 'use client';
 
-import { BarChart3, Download, EyeOff, MapPin, ShoppingBag, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
+import { BarChart3, Calendar, Download, EyeOff, MapPin, ShoppingBag, TrendingUp } from 'lucide-react';
 import type { ComandaFantasma, Produto, Venda } from '@/lib/schemas';
 import type { ResumoDiaAnterior } from '@/lib/store';
 
@@ -19,6 +20,65 @@ export function OmniRelatorios({
 }) {
   const totalVendas = vendas.reduce((s, v) => s + Number(v.total || 0), 0);
   const ticketMedio = vendas.length > 0 ? totalVendas / vendas.length : 0;
+
+  const hojeStr = (() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  })();
+  const mesAtual = hojeStr.slice(0, 7);
+
+  const diasComHoje: ResumoDiaAnterior[] = (() => {
+    const mapa: Record<string, ResumoDiaAnterior> = {};
+    for (const h of historicoDiario) {
+      mapa[h.data] = { ...h, porPagamento: { ...h.porPagamento } };
+    }
+    if (vendas.length > 0) {
+      const pagHoje: Record<string, number> = { ...(mapa[hojeStr]?.porPagamento || {}) };
+      let somaHoje = mapa[hojeStr]?.totalVendas || 0;
+      let qtdHoje = mapa[hojeStr]?.qtdPedidos || 0;
+      for (const v of vendas) {
+        const f = v.pagamento || 'Outros';
+        pagHoje[f] = Number(((pagHoje[f] || 0) + Number(v.total || 0)).toFixed(2));
+        somaHoje = Number((somaHoje + Number(v.total || 0)).toFixed(2));
+        qtdHoje += 1;
+      }
+      mapa[hojeStr] = { data: hojeStr, qtdPedidos: qtdHoje, totalVendas: somaHoje, porPagamento: pagHoje };
+    }
+    return Object.values(mapa).sort((a, b) => b.data.localeCompare(a.data));
+  })();
+
+  const mesesDisponiveis = Array.from(new Set([mesAtual, ...diasComHoje.map(d => d.data.slice(0, 7))])).sort((a, b) =>
+    b.localeCompare(a)
+  );
+  const [mesSelecionado, setMesSelecionado] = useState(mesAtual);
+  const diasDoMes = diasComHoje.filter(d => d.data.startsWith(mesSelecionado));
+  const totalMensal = diasDoMes.reduce((s, d) => s + d.totalVendas, 0);
+  const pedidosMensal = diasDoMes.reduce((s, d) => s + d.qtdPedidos, 0);
+  const pagMensal: Record<string, number> = {};
+  for (const d of diasDoMes) {
+    for (const [f, val] of Object.entries(d.porPagamento || {})) {
+      pagMensal[f] = Number(((pagMensal[f] || 0) + Number(val || 0)).toFixed(2));
+    }
+  }
+
+  const exportarMensalCsv = () => {
+    const cabecalho = 'Data;Pedidos;Total;Pagamentos\n';
+    const linhas = diasDoMes
+      .map(d => {
+        const pags = Object.entries(d.porPagamento || {})
+          .map(([f, v]) => `${f}: R$ ${v.toFixed(2)}`)
+          .join(' | ');
+        return `${d.data};${d.qtdPedidos};${d.totalVendas.toFixed(2)};${pags}`;
+      })
+      .join('\n');
+    const blob = new Blob([cabecalho + linhas], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fechamento-mensal-${mesSelecionado}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const porProduto: Record<string, { qtd: number; valor: number }> = {};
   const porModalidade: Record<string, number> = { balcao: 0, entrega: 0, retirada: 0 };
@@ -112,6 +172,68 @@ export function OmniRelatorios({
           </div>
           <div className="text-2xl font-black text-zinc-900 mt-1">{produtos.length} itens</div>
         </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-xs space-y-3 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-black text-zinc-900 flex items-center gap-1.5">
+              <Calendar className="w-4 h-4 text-[#8B0029]" /> Fechamento Mensal Consolidado
+            </h3>
+            <p className="text-[11px] text-zinc-500">
+              Soma automática de todos os fechamentos diários salvos + vendas abertas de hoje
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <select
+              value={mesSelecionado}
+              onChange={e => setMesSelecionado(e.target.value)}
+              className="border border-zinc-300 rounded-xl px-2.5 py-1.5 font-bold bg-zinc-50 outline-none"
+            >
+              {mesesDisponiveis.map(m => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={exportarMensalCsv}
+              disabled={diasDoMes.length === 0}
+              className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-[#8B0029] disabled:opacity-40 text-white font-bold inline-flex items-center gap-1 transition"
+            >
+              <Download className="w-3.5 h-3.5" /> CSV Mensal
+            </button>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3">
+            <div className="text-zinc-500 font-bold">Total no Mês ({mesSelecionado})</div>
+            <div className="text-xl font-black text-[#8B0029]">R$ {totalMensal.toFixed(2)}</div>
+          </div>
+          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3">
+            <div className="text-zinc-500 font-bold">Pedidos no Mês</div>
+            <div className="text-xl font-black text-zinc-900">{pedidosMensal} pedidos</div>
+          </div>
+          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3">
+            <div className="text-zinc-500 font-bold">Ticket Médio Mensal</div>
+            <div className="text-xl font-black text-zinc-900">
+              R$ {(pedidosMensal > 0 ? totalMensal / pedidosMensal : 0).toFixed(2)}
+            </div>
+          </div>
+        </div>
+        {Object.keys(pagMensal).length > 0 && (
+          <div className="flex flex-wrap gap-2 font-bold text-zinc-700">
+            {Object.entries(pagMensal).map(([f, val]) => (
+              <span key={f} className="bg-zinc-50 border border-zinc-200 rounded-lg px-2.5 py-1">
+                {f}: R$ {val.toFixed(2)}
+              </span>
+            ))}
+          </div>
+        )}
+        {diasDoMes.length === 0 && (
+          <p className="text-zinc-400">
+            Nenhum fechamento registrado neste mês ainda. Backups anteriores continuam salvos em Documents\OmniOS-Backups.
+          </p>
+        )}
       </div>
 
       {resumoDiaAnterior && (

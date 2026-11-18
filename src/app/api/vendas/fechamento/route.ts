@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { lerOmniDb, salvarOmniDb } from '@/lib/store';
+import { acumularResumoHistorico, dataLocalYYYYMMDD, lerOmniDb, salvarOmniDb } from '@/lib/store';
 import { imprimirFechamentoOmni } from '@/lib/impressao';
 import { gerarBackupExterno } from '@/lib/backup';
 import { logger } from '@/lib/logger';
@@ -172,6 +172,31 @@ export async function POST(req: Request) {
   const backup = gerarBackupExterno('fechamento');
 
   if (parsed.data.zerarTurno) {
+    if (vendasAlvo.length > 0) {
+      const porDia: Record<string, typeof vendasAlvo> = {};
+      for (const v of vendasAlvo) {
+        const dia = dataLocalYYYYMMDD(new Date(v.criadoEm));
+        if (!porDia[dia]) porDia[dia] = [];
+        porDia[dia].push(v);
+      }
+      for (const [dia, lista] of Object.entries(porDia)) {
+        const pagDia: Record<string, number> = {};
+        let totalDia = 0;
+        for (const v of lista) {
+          const f = v.pagamento || 'Outros';
+          pagDia[f] = Number(((pagDia[f] || 0) + Number(v.total || 0)).toFixed(2));
+          totalDia = Number((totalDia + Number(v.total || 0)).toFixed(2));
+        }
+        const resumo = {
+          data: dia,
+          qtdPedidos: lista.length,
+          totalVendas: totalDia,
+          porPagamento: pagDia
+        };
+        acumularResumoHistorico(db, resumo);
+        db.resumoDiaAnterior = resumo;
+      }
+    }
     if (parsed.data.loja === 'Todas') {
       db.vendas = [];
     } else {

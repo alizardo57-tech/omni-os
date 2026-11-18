@@ -45,12 +45,36 @@ export interface OmniDb {
   historicoDiario?: ResumoDiaAnterior[];
 }
 
-function dataLocalYYYYMMDD(d: Date): string {
+export function dataLocalYYYYMMDD(d: Date): string {
   return [
     d.getFullYear(),
     String(d.getMonth() + 1).padStart(2, '0'),
     String(d.getDate()).padStart(2, '0')
   ].join('-');
+}
+
+export function acumularResumoHistorico(db: OmniDb, resumo: ResumoDiaAnterior): void {
+  const atual = db.historicoDiario || [];
+  const existente = atual.find(h => h.data === resumo.data);
+  let consolidado: ResumoDiaAnterior;
+  if (existente) {
+    const porPagamento: Record<string, number> = { ...existente.porPagamento };
+    for (const [forma, val] of Object.entries(resumo.porPagamento)) {
+      porPagamento[forma] = Number(((porPagamento[forma] || 0) + Number(val || 0)).toFixed(2));
+    }
+    consolidado = {
+      data: resumo.data,
+      qtdPedidos: existente.qtdPedidos + resumo.qtdPedidos,
+      totalVendas: Number((existente.totalVendas + resumo.totalVendas).toFixed(2)),
+      porPagamento
+    };
+  } else {
+    consolidado = resumo;
+  }
+  const outros = atual.filter(h => h.data !== resumo.data);
+  db.historicoDiario = [consolidado, ...outros]
+    .sort((a, b) => b.data.localeCompare(a.data))
+    .slice(0, 365);
 }
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -192,24 +216,32 @@ export function lerOmniDb(): OmniDb {
     gerarBackupExterno('virada-dia');
     const vendasAntigas = (dados.vendas || []).filter(v => dataLocalYYYYMMDD(new Date(v.criadoEm)) < hoje);
     if (vendasAntigas.length > 0) {
-      const porPagamento: Record<string, number> = {};
-      let totalVendas = 0;
+      const porDia: Record<string, Venda[]> = {};
       for (const v of vendasAntigas) {
-        const f = v.pagamento || 'Outros';
-        porPagamento[f] = Number(((porPagamento[f] || 0) + Number(v.total || 0)).toFixed(2));
-        totalVendas = Number((totalVendas + Number(v.total || 0)).toFixed(2));
+        const dia = dataLocalYYYYMMDD(new Date(v.criadoEm));
+        if (!porDia[dia]) porDia[dia] = [];
+        porDia[dia].push(v);
       }
-      const resumo: ResumoDiaAnterior = {
-        data: dataLocalYYYYMMDD(new Date(vendasAntigas[0].criadoEm)),
-        qtdPedidos: vendasAntigas.length,
-        totalVendas,
-        porPagamento
-      };
-      dados.resumoDiaAnterior = resumo;
-      const semDuplicado = (dados.historicoDiario || []).filter(h => h.data !== resumo.data);
-      dados.historicoDiario = [resumo, ...semDuplicado]
-        .sort((a, b) => b.data.localeCompare(a.data))
-        .slice(0, 90);
+      const diasOrdenados = Object.keys(porDia).sort();
+      let ultimoResumo: ResumoDiaAnterior | null = null;
+      for (const dia of diasOrdenados) {
+        const porPagamento: Record<string, number> = {};
+        let totalVendas = 0;
+        for (const v of porDia[dia]) {
+          const f = v.pagamento || 'Outros';
+          porPagamento[f] = Number(((porPagamento[f] || 0) + Number(v.total || 0)).toFixed(2));
+          totalVendas = Number((totalVendas + Number(v.total || 0)).toFixed(2));
+        }
+        const resumo: ResumoDiaAnterior = {
+          data: dia,
+          qtdPedidos: porDia[dia].length,
+          totalVendas,
+          porPagamento
+        };
+        acumularResumoHistorico(dados, resumo);
+        ultimoResumo = resumo;
+      }
+      if (ultimoResumo) dados.resumoDiaAnterior = ultimoResumo;
     }
     if (dados.caixaAbertura && dados.caixaAbertura.data !== hoje) {
       dados.caixaAbertura = null;
